@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import BackgroundImage from "public/assets/img/test3.jpg";
+import BackgroundImage from "public/assets/img/test8.jpg";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const BackgroundPicture: React.FC = () => {
@@ -32,7 +32,7 @@ const BackgroundPicture: React.FC = () => {
     return (
         <div className="w-full h-full absolute top-0 left-0 z-10 overflow-hidden">
             <motion.div
-                className="w-full h-full absolute"
+                className="w-[50%] h-full right-0 absolute"
                 style={{
                     x: transformedMouseX,
                     y: transformedMouseY,

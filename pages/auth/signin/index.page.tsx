@@ -1,16 +1,16 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { getCsrfToken, signIn } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import FormContainer from "../components/form-container";
 import FormInput from "../components/form-input";
-import { ISigninProps, ISigninFormValues, TSigninOnSubmit } from "./signin.types";
-import EmailIcon from "public/assets/icon/envelope.svg";
+import { ISigninFormValues, TSigninOnSubmit } from "./signin.types";
+import LockIcon from "public/assets/icon/lock.svg";
 import UserIcon from "public/assets/icon/user.svg";
 import useImageColors from "hooks/useImageColors";
 import { TFormState } from "../components/form-container/form-container.types";
 
-const SigninPage: React.FC<ISigninProps> = ({}) => {
+const SigninPage: NextPage = () => {
     const imageColors = useImageColors("#form-background-image");
     const [formState, setFormState] = useState<TFormState>("idle");
 
@@ -32,22 +32,28 @@ const SigninPage: React.FC<ISigninProps> = ({}) => {
             .required("Password is required"),
     });
 
-    const onSubmit: TSigninOnSubmit = async (values, { setSubmitting }) => {
+    const onSubmit: TSigninOnSubmit = async (values, { setSubmitting, setStatus }) => {
         setFormState("loading");
+        setStatus(null);
 
         const result = await signIn("credentials", {
+            redirect: false,
             username: values.username,
             password: values.password,
         });
 
         if (result?.error) {
             setFormState("error");
+            if (result.status === 401) {
+                setStatus("Your credential is incorrect.");
+                setTimeout(() => setStatus(null), 2500);
+            }
+            setTimeout(() => setFormState("idle"), 2500);
         } else {
             setFormState("success");
         }
 
         setSubmitting(false);
-        setFormState("idle");
     };
 
     const initialValue: ISigninFormValues = { username: "", password: "" };
@@ -73,7 +79,7 @@ const SigninPage: React.FC<ISigninProps> = ({}) => {
                 placeholder="Password"
                 type="password"
                 autoComplete="false"
-                rightElement={EmailIcon}
+                rightElement={LockIcon}
             />
         </FormContainer>
     );

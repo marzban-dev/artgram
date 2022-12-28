@@ -1,7 +1,5 @@
 import { FormikHelpers } from "formik";
 
-export interface ISigninProps {}
-
 export interface ISigninFormValues {
     username: string;
     password: string;

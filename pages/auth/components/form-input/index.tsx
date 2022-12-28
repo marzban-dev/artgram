@@ -3,7 +3,7 @@ import { ErrorMessage, useField } from "formik";
 import React, { useRef } from "react";
 import { TFormInputProps } from "./form-input.types";
 
-const FormInput: React.FC<TFormInputProps> = (props) => {
+const FormInput: React.FC<TFormInputProps> = ({ rightElement: RightElement, ...props }) => {
     const [field, meta] = useField(props);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,15 +24,17 @@ const FormInput: React.FC<TFormInputProps> = (props) => {
             onClick={focusOnInput}
         >
             <div className={inputContainerClasses}>
+                {/* @ts-ignore */}
                 <input
                     {...field}
+                    {...props}
                     ref={inputRef}
                     className={inputClasses}
                     autoComplete="off"
                     placeholder={props.placeholder}
                 />
-                {props.rightElement && (
-                    <props.rightElement className="fill-[rgb(85,85,85)] group-focus-within:fill-[rgb(180,180,180)] w-[20px]" />
+                {RightElement && (
+                    <RightElement className="fill-[rgb(85,85,85)] group-focus-within:fill-[rgb(180,180,180)] w-[20px]" />
                 )}
             </div>
             <ErrorMessage component="div" name={props.name}>

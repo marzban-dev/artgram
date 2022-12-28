@@ -16,7 +16,7 @@ const FormContainer: React.FC<IFormContainerProps> = ({
         <main className="bg-[#272936] w-full h-screen flex justify-start items-center relative px-[10%]">
             <BackgroundPicture />
             <Formik initialValues={initial} validationSchema={schema} onSubmit={onSubmit}>
-                {({ errors, isSubmitting }) => (
+                {({ status, isSubmitting }) => (
                     <Form className="w-[350px] z-20" autoComplete="off">
                         <div className=" flex justify-center items-start gap-4 flex-col ">
                             <h1 className="text-[#f6fafb] text-[50px] font-semibold whitespace-nowrap mb-[35px]">
@@ -24,7 +24,12 @@ const FormContainer: React.FC<IFormContainerProps> = ({
                                 <span className="text-form-background-primary">.</span>
                             </h1>
                             {children}
-                            <FormButton formState={formState} disabled={false}>
+                            {status && (
+                                <div className="text-red-400 text-[16px] font-medium flex justify-start items-center gap-2 px-3 sm:px-4 mt-2">
+                                    {status}
+                                </div>
+                            )}
+                            <FormButton formState={formState} disabled={isSubmitting}>
                                 Signin
                             </FormButton>
                         </div>
