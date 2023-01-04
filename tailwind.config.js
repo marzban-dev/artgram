@@ -6,7 +6,7 @@ module.exports = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
-        "./layout/**/*.{js,ts,jsx,tsx}",
+        "./layouts/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         fontFamily: {
@@ -20,7 +20,7 @@ module.exports = {
             backgroundImage: {
                 "form-background-gradient":
                     // "linear-gradient(90deg, rgba(0,0,0,1) 45%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.1) 100%);",
-                    "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);",
+                    "linear-gradient(90deg, rgba(0,0,0,1) 10%,rgba(0,0,0,0.5) 100%, rgba(0,0,0,0.5) 100%);",
             },
         },
     },

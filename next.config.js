@@ -1,27 +1,56 @@
 /** @type {import('next').NextConfig} */
 
 const withPWA = require("next-pwa")({
-  dest: "public",
-  register: true,
-  skipWaiting: true,
+    dest: "public",
+    register: true,
+    skipWaiting: true,
 });
 
 const nextConfig = {
-  pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
-  reactStrictMode: true,
-  swcMinify: true,
-  images: {
-      domains: ["www.google.com"],
-  },
-  output: "standalone",
-  webpack(config) {
-      config.module.rules.push({
-          test: /\.svg$/i,
-          issuer: /\.[jt]sx?$/,
-          use: ["@svgr/webpack"],
-      });
-      return config;
-  },
+    pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
+    reactStrictMode: true,
+    swcMinify: true,
+    images: {
+        domains: ["via.placeholder.com", "cdn.wallpaperhub.app"],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "upload.wikimedia.org",
+                port: "",
+            },
+            {
+                protocol: "https",
+                hostname: "wallpaperaccess.com",
+                port: "",
+                pathname: "/thumb/**",
+            },
+            {
+                protocol: "https",
+                hostname: "via.placeholder.com",
+                port: "",
+                pathname: "/150/**",
+            },
+            {
+                protocol: "https",
+                hostname: "picsum.photos",
+                port: "",
+            },
+            {
+                protocol: "https",
+                hostname: "www.wga.hu",
+                port: "",
+            },
+        ],
+    },
+    output: "standalone",
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            use: ["@svgr/webpack"],
+        });
+        return config;
+    },
 };
 
 module.exports = withPWA({ ...nextConfig });
