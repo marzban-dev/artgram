@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @layer components {
-
     .hide-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -12,5 +11,9 @@
     .hide-scrollbar::-webkit-scrollbar {
         display: none;
     }
-    
+
+    .grid-item,
+    .grid-sizer {
+        width: 25%;
+    }
 }
