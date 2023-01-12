@@ -15,24 +15,12 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
+                hostname: "encrypted-tbn0.gstatic.com",
+                port: "",
+            },
+            {
+                protocol: "https",
                 hostname: "upload.wikimedia.org",
-                port: "",
-            },
-            {
-                protocol: "https",
-                hostname: "wallpaperaccess.com",
-                port: "",
-                pathname: "/thumb/**",
-            },
-            {
-                protocol: "https",
-                hostname: "via.placeholder.com",
-                port: "",
-                pathname: "/150/**",
-            },
-            {
-                protocol: "https",
-                hostname: "picsum.photos",
                 port: "",
             },
             {
