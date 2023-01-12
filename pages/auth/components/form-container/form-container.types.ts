@@ -5,13 +5,12 @@ import { FormikHelpers } from "formik";
 
 export type TFormState = "loading" | "success" | "error" | "idle";
 
+export type TOnFormSubmit<T> = (values: T, formikHelpers: FormikHelpers<T>) => void;
+
 export interface IFormContainerProps {
     initial: ISigninFormValues | ISignupFormValues;
     schema: Yup.AnyObjectSchema;
-    onSubmit: (
-        values: ISigninFormValues | ISignupFormValues,
-        formikHelpers: FormikHelpers<ISigninFormValues | ISignupFormValues>
-    ) => void;
+    onSubmit: (values: any, formikHelpers: FormikHelpers<any>) => void;
     title: string;
     children: any;
     formState: TFormState;

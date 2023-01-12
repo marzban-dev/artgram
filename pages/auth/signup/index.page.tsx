@@ -1,8 +1,9 @@
+import { signup } from "api/auth.api";
+import { AxiosError } from "axios";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
-import { getCsrfToken, signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import EmailIcon from "public/assets/icon/envelope.svg";
 import LockIcon from "public/assets/icon/lock.svg";
 import UserIcon from "public/assets/icon/user.svg";
 import { useState } from "react";
@@ -11,10 +12,9 @@ import * as Yup from "yup";
 import FormContainer from "../components/form-container";
 import { TFormState } from "../components/form-container/form-container.types";
 import FormInput from "../components/form-input";
-import { ISigninFormValues, TSigninOnSubmit } from "./signin.types";
+import { ISignupFormValues, TSignupOnSubmit } from "./signup.types";
 
-const SigninPage: NextPage = () => {
-    const { push } = useRouter();
+const SignupPage: NextPage = () => {
     const [formState, setFormState] = useState<TFormState>("idle");
 
     const schema = Yup.object().shape({
@@ -22,37 +22,41 @@ const SigninPage: NextPage = () => {
             .min(2, "Username is too short")
             .max(20, "Username must lower than 20 char")
             .required("Username is required"),
+        email: Yup.string().email("Email is not valid").required("Email is required"),
         password: Yup.string()
             .min(8, "Password must bigger than 7 char")
             .required("Password is required"),
     });
 
-    const onSubmit: TSigninOnSubmit = async (values, { setSubmitting, setStatus }) => {
-        setFormState("loading");
-        setStatus(null);
+    const onSubmit: TSignupOnSubmit = async (values, { setSubmitting, setStatus }) => {
+        try {
+            setFormState("loading");
+            setStatus(null);
 
-        const result = await signIn("credentials", {
-            redirect: false,
-            username: values.username,
-            password: values.password,
-        });
+            const result = await signup({
+                username: values.username,
+                password: values.password,
+                email: values.email,
+            });
 
-        if (result?.error) {
+            setFormState("success");
+        } catch (e) {
+            const error = e as AxiosError;
+
             setFormState("error");
-            if (result.status === 401) {
+
+            if (error.status === 401) {
                 setStatus("Your credential is incorrect.");
                 setTimeout(() => setStatus(null), 2500);
             }
+
             setTimeout(() => setFormState("idle"), 2500);
-        } else {
-            setFormState("success");
-            setTimeout(async () => await push("/"), 2500);
         }
 
         setSubmitting(false);
     };
 
-    const initialValue: ISigninFormValues = { username: "", password: "" };
+    const initialValue: ISignupFormValues = { username: "", password: "", email: "" };
 
     return (
         <PageTransition>
@@ -60,7 +64,7 @@ const SigninPage: NextPage = () => {
                 schema={schema}
                 onSubmit={onSubmit}
                 initial={initialValue}
-                title="Signin"
+                title="Signup"
                 formState={formState}
             >
                 <Link href="/" className="border-2 border-yellow-400 p-4 text-white">
@@ -72,6 +76,14 @@ const SigninPage: NextPage = () => {
                     placeholder="Name"
                     autoComplete="false"
                     rightElement={UserIcon}
+                />
+                <FormInput
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    type="text"
+                    autoComplete="false"
+                    rightElement={EmailIcon}
                 />
                 <FormInput
                     id="password"
@@ -89,10 +101,8 @@ const SigninPage: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     await sleep(500);
     return {
-        props: {
-            csrfToken: await getCsrfToken(context),
-        },
+        props: {},
     };
 };
 
-export default SigninPage;
+export default SignupPage;

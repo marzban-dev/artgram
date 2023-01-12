@@ -1,9 +1,10 @@
 import { FormikHelpers } from "formik";
 import { TOnFormSubmit } from "../components/form-container/form-container.types";
 
-export interface ISigninFormValues {
+export interface ISignupFormValues {
     username: string;
+    email: string;
     password: string;
 }
 
-export type TSigninOnSubmit = TOnFormSubmit<ISigninFormValues>;
+export type TSignupOnSubmit = TOnFormSubmit<ISignupFormValues>;

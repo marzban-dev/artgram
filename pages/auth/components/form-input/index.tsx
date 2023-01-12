@@ -31,10 +31,9 @@ const FormInput: React.FC<TFormInputProps> = ({ rightElement: RightElement, ...p
                     ref={inputRef}
                     className={inputClasses}
                     autoComplete="off"
-                    placeholder={props.placeholder}
                 />
                 {RightElement && (
-                    <RightElement className="fill-[rgb(85,85,85)] group-focus-within:fill-[rgb(180,180,180)] w-[20px]" />
+                    <RightElement className="fill-[rgb(180,180,180)] w-[20px]" />
                 )}
             </div>
             <ErrorMessage component="div" name={props.name}>

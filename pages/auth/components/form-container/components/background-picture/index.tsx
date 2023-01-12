@@ -32,7 +32,7 @@ const BackgroundPicture: React.FC = () => {
     return (
         <div className="w-full h-full absolute top-0 left-0 z-10 overflow-hidden">
             <motion.div
-                className="w-[50%] h-full right-0 absolute"
+                className="w-[60%] h-full right-0 absolute"
                 style={{
                     x: transformedMouseX,
                     y: transformedMouseY,
@@ -47,8 +47,8 @@ const BackgroundPicture: React.FC = () => {
                     fill
                 />
             </motion.div>
-            <div className="bg-form-background-gradient w-1/2 h-full absolute top-0 right-0" />
-            <div className="bg-black w-1/2 h-full absolute top-0 left-0" />
+            <div className="bg-form-background-gradient w-[60%] h-full absolute top-0 right-0" />
+            <div className="bg-black w-[40%] h-full absolute top-0 left-0" />
         </div>
     );
 };
