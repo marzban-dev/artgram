@@ -13,9 +13,11 @@ module.exports = {
             quicksand: ["Quicksand", "sans-serif"],
         },
         extend: {
-            colors : {
-                "form-background-primary" : "var(--form-background-primary-color)",
-                "form-background-lighter" : "var(--form-background-lighter-color)",
+            colors: {
+                "form-background-primary": "var(--form-background-primary-color)",
+                "form-background-lighter": "var(--form-background-lighter-color)",
+                "art-primary": "var(--art-primary-color)",
+                "art-lighter": "var(--art-lighter-color)",
             },
             backgroundImage: {
                 "form-background-gradient":
