@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import useImageColors from "hooks/useImageColors";
+import useImageColors from "hooks/use-image-colors";
 import React, { useEffect } from "react";
 import FormButton from "../form-button";
 import BackgroundPicture from "./components/background-picture";
