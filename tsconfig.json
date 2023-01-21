@@ -16,6 +16,6 @@
         "jsx": "preserve",
         "incremental": true
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/auth/[...nextauth].page.js", "pages/api/artist-picture/index.page.js"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/auth/[...nextauth].page.js", "pages/api/artist-picture/index.page.js", "config/jest-setup-modules.js", "config/jest-setup-tests.js"],
     "exclude": ["node_modules"]
 }
