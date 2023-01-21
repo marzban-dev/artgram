@@ -4,8 +4,9 @@ import { ISpinnerProps } from "./spinner.types";
 
 const Spinner: React.FC<ISpinnerProps> = ({ size = 30, style }) => {
     return (
-        <div className="flex justify-center items-center overflow-hidden p-[2px]" style={style}>
+        <motion.div className="flex justify-center items-center overflow-hidden p-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={style}>
             <motion.div
+                data-testid="loading-icon"
                 animate={{ rotateZ: [0, 360] }}
                 transition={{
                     ease: "linear",
@@ -16,7 +17,7 @@ const Spinner: React.FC<ISpinnerProps> = ({ size = 30, style }) => {
             >
                 <SpinnerIcon className="fill-white" style={{ width: size }} />
             </motion.div>
-        </div>
+        </motion.div>
     );
 };
 
