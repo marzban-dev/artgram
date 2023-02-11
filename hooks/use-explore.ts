@@ -1,12 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getArts } from "api/arts.api";
 
-export const useExplore = () => {
-    return useInfiniteQuery(["explore"], () => getArts({ limit: 18 }), {
+export const useExploreQuery = () => {
+    const pageParamDefaults = { limit: 18 };
+
+    return useInfiniteQuery(["explore"], ({ pageParam = pageParamDefaults }) => getArts({ pageParam }), {
         cacheTime: Infinity,
         staleTime: Infinity,
-        getNextPageParam: (_lastPage, pages) => {
-            return { page: pages.length + 1 };
+        getNextPageParam: () => {
+            return pageParamDefaults;
         },
     });
 };
