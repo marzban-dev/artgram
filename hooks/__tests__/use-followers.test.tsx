@@ -1,10 +1,10 @@
-import { useArtsQuery } from "hooks/use-arts";
+import { useFollowersQuery } from "hooks/use-followers";
 import { renderHook, waitFor } from "test-utils";
 import TestWrapper from "utils/test-wrapper";
 
-describe("useArts", () => {
-    test("correctly return arts", async () => {
-        const { result } = renderHook(() => useArtsQuery(1), {
+describe("useFollowers", () => {
+    test("correctly fetch pages for user", async () => {
+        const { result } = renderHook(() => useFollowersQuery(1, "user"), {
             wrapper: TestWrapper,
         });
 

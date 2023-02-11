@@ -1,10 +1,10 @@
-import { useExplore } from "hooks/use-explore";
+import { useExploreQuery } from "hooks/use-explore";
 import { renderHook, waitFor } from "test-utils";
 import TestWrapper from "utils/test-wrapper";
 
 describe("useExplore", () => {
     test("correctly fetch pages", async () => {
-        const { result } = renderHook(() => useExplore(), {
+        const { result } = renderHook(() => useExploreQuery(), {
             wrapper: TestWrapper,
         });
 
@@ -14,7 +14,7 @@ describe("useExplore", () => {
 
         expect(result.current.data!.pages).toHaveLength(1);
 
-        result.current.fetchNextPage();
+        await result.current.fetchNextPage();
 
         await waitFor(() => {
             expect(result.current.data!.pages).toHaveLength(2);

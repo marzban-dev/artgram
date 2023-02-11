@@ -1,10 +1,11 @@
-import { useArtsQuery } from "hooks/use-arts";
+import { useExploreQuery } from "hooks/use-explore";
+import { useSavedArtsQuery } from "hooks/use-saved-arts";
 import { renderHook, waitFor } from "test-utils";
 import TestWrapper from "utils/test-wrapper";
 
-describe("useArts", () => {
-    test("correctly return arts", async () => {
-        const { result } = renderHook(() => useArtsQuery(1), {
+describe("useSavedArts", () => {
+    test("correctly fetch pages", async () => {
+        const { result } = renderHook(() => useSavedArtsQuery(1), {
             wrapper: TestWrapper,
         });
 

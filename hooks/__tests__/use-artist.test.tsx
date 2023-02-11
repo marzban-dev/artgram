@@ -1,10 +1,10 @@
-import { useArtLikesQuery } from "hooks/use-art-likes";
+import { useArtistQuery } from "hooks/use-artist";
 import { renderHook, waitFor } from "test-utils";
 import TestWrapper from "utils/test-wrapper";
 
-describe("useArtLikes", () => {
-    test("correctly return state", async () => {
-        const { result } = renderHook(useArtLikesQuery, {
+describe("useUser", () => {
+    test("should correctly fetch user", async () => {
+        const { result } = renderHook(() => useArtistQuery("1"), {
             wrapper: TestWrapper,
         });
 
@@ -12,6 +12,6 @@ describe("useArtLikes", () => {
             expect(result.current.isSuccess).toBe(true);
         });
 
-        expect(result.current.data).toBeDefined();
+        expect(result.current.data?.id).toBe(1);
     });
 });
