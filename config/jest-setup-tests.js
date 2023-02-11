@@ -1,5 +1,4 @@
 import { server } from "mocks/server";
-import { useSession } from "next-auth/react";
 
 beforeAll(() => server.listen());
 afterAll(() => server.resetHandlers());
