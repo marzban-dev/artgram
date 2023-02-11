@@ -25,7 +25,7 @@ const useImageColors: TUseImageColorsParams = (query, options) => {
         const fac = new FastAverageColor();
         const imageContainer = document.querySelector(query) as HTMLImageElement;
 
-        fac.getColorAsync(imageContainer)
+        fac.getColorAsync(imageContainer, { algorithm: "sqrt" })
             .then((color) => {
                 let colorsObject: IColorsResult = {
                     primary: "",
