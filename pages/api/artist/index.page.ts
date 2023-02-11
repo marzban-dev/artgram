@@ -21,36 +21,29 @@ const ArtistPictureApi = async (req: NextApiRequest, res: NextApiResponse) => {
         ) as HTMLLinkElement;
 
         if (artistLink) {
-            const artistResponse = await axios.get(
-                "https://artsandculture.google.com" + artistLink.href
-            );
+            const artistResponse = await axios.get("https://artsandculture.google.com" + artistLink.href);
 
             // Get artist page and scrap information
             const artistResponseDom = new JSDOM(artistResponse.data);
 
-            const artistAge = artistResponseDom.window.document.querySelector(
-                ".CazOhd"
-            ) as HTMLHeadElement;
+            const artistAge = artistResponseDom.window.document.querySelector(".CazOhd") as HTMLHeadElement;
 
             const artistDescription = artistResponseDom.window.document.querySelector(
                 ".zzySAd.gI3F8b"
             ) as HTMLDivElement;
 
-            const artistQuote = artistResponseDom.window.document.querySelector(
-                ".fO9Uwd"
-            ) as HTMLHeadingElement;
+            const artistQuote = artistResponseDom.window.document.querySelector(".fO9Uwd") as HTMLHeadingElement;
 
-            const artistBackground = artistResponseDom.window.document.querySelector(
-                ".ldhC4e"
-            ) as HTMLDivElement;
+            const artistBackground = artistResponseDom.window.document.querySelector(".ldhC4e") as HTMLDivElement;
 
             const artistBackgroundUrl = "https:" + artistBackground.getAttribute("data-bgsrc");
 
             res.status(201).json({
                 background: artistBackgroundUrl,
                 age: artistAge.innerHTML,
-                quote: artistQuote.innerHTML,
+                quote: artistQuote?.innerHTML,
                 description: artistDescription.innerHTML,
+                googlearts: "https://artsandculture.google.com" + artistLink.href,
             });
         }
 
