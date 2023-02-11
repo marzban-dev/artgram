@@ -1,21 +1,21 @@
 import classNames from "classnames";
 import { AnimatePresence, motion, useAnimation, Variants } from "framer-motion";
-import { useLikeArt } from "hooks/use-like-art";
-import { useUnlikeArt } from "hooks/use-unlike-art";
+import { useLikeArtMutation } from "hooks/use-like-art";
+import { useUnlikeArtMutation } from "hooks/use-unlike-art";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import LikeFillIcon from "public/assets/icon/heart-fill.svg";
 import LikeStrokeIcon from "public/assets/icon/heart-stroke.svg";
 import { MouseEvent, useEffect, useState } from "react";
-import { ILikeProps } from "./like.types";
 import toast from "react-hot-toast";
-import Link from "next/link";
+import { ILikeProps } from "./like.types";
 
-const Like: React.FC<ILikeProps> = ({ id }) => {
+const Like: React.FC<ILikeProps> = ({ id, initial, onLikeCallback, onDislikeCallback }) => {
     const { data, status } = useSession();
     const animationControl = useAnimation();
-    const [isLiked, setIsLiked] = useState(false);
-    const { isLoading: isLikeLoading, isError: isLikeError, mutateAsync: likeArt } = useLikeArt(id);
-    const { isLoading: isUnlikeLoading, isError: isUnlikeError, mutateAsync: unlikeArt } = useUnlikeArt(id);
+    const [isLiked, setIsLiked] = useState(initial);
+    const { isLoading: isLikeLoading, isError: isLikeError, mutateAsync: likeArt } = useLikeArtMutation(id);
+    const { isLoading: isUnlikeLoading, isError: isUnlikeError, mutateAsync: unlikeArt } = useUnlikeArtMutation(id);
 
     useEffect(() => {
         if (isLikeError) {
@@ -51,8 +51,13 @@ const Like: React.FC<ILikeProps> = ({ id }) => {
             setIsLiked(!isLiked);
             animationControl.start("bobble");
 
-            if (isLikeLoading) await unlikeArt({ id, token: data!.accessToken });
-            else await likeArt({ id, token: data!.accessToken });
+            if (isLiked) {
+                if (onDislikeCallback) onDislikeCallback();
+                await unlikeArt({ id, token: data!.accessToken });
+            } else {
+                if (onLikeCallback) onLikeCallback();
+                await likeArt({ id, token: data!.accessToken });
+            }
         } else alertUserToLogin();
     };
 
@@ -138,7 +143,12 @@ const Like: React.FC<ILikeProps> = ({ id }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <motion.div variants={borderVariants} className={borderClasses} animate={animationControl} />
+            <motion.div
+                variants={borderVariants}
+                className={borderClasses}
+                animate={animationControl}
+                onAnimationComplete={() => animationControl.set({ scale: 0 })}
+            />
         </button>
     );
 };

@@ -1,3 +1,6 @@
 export interface ILikeProps {
-    id : number;
+    id: number;
+    initial: boolean;
+    onLikeCallback?: () => void;
+    onDislikeCallback?: () => void;
 }
