@@ -14,7 +14,7 @@ describe("Masonry Grid Component", () => {
     Array.from({ length: 5 }).forEach(() => gridItems.push(generateItem()));
 
     test("renders masonry grid component", () => {
-        render(<MasonryGrid children={gridItems} />);
+        render(<MasonryGrid>{gridItems}</MasonryGrid>);
         const itemElements = screen.getAllByRole("listitem");
         expect(itemElements).toHaveLength(gridItems.length);
     });
