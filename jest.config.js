@@ -5,6 +5,17 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
+    collectCoverage: true,
+    collectCoverageFrom: ["<rootDir>/**/*.{ts,tsx}"],
+    coveragePathIgnorePatterns: ["node_modules", "config", "api", "mocks", "public", "store", "styles", "types"],
+    coverageThreshold: {
+        global: {
+            branches: 70,
+            functions: 70,
+            lines: 70,
+            statements: 70,
+        },
+    },
     moduleDirectories: ["node_modules", "<rootDir>"],
     testEnvironment: "jest-environment-jsdom",
     setupFiles: ["<rootDir>/config/jest-setup-modules.js"],
@@ -12,6 +23,7 @@ const customJestConfig = {
     moduleNameMapper: {
         "^.+\\.(svg)$": "<rootDir>/mocks/svgr-mock.js",
     },
+    testMatch: ["<rootDir>/**/*.test.{ts,tsx}"],
 };
 
 module.exports = createJestConfig(customJestConfig);
