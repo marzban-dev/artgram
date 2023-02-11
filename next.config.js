@@ -15,7 +15,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "picsum.photos",
+                hostname: "lh3.googleusercontent.com",
                 port: "",
             },
             {
