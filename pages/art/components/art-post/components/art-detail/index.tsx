@@ -35,7 +35,7 @@ const ArtDetail: React.FC<IArtDetailProps> = ({ id, icon: Icon, text, iconSize }
             <AnimatePresence>
                 {show && (
                     <motion.div
-                        className="rounded-full bg-[rgba(20,20,20,1)] absolute whitespace-nowrap top-0 h-full text-[rgba(185,185,185,1)] font-semibold pl-[40px] pr-4 flex justify-center items-center"
+                        className="rounded-full bg-[rgba(20,20,20,1)] absolute whitespace-nowrap top-0 h-full text-[rgba(185,185,185,1)] pl-[40px] pr-4 flex justify-center items-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

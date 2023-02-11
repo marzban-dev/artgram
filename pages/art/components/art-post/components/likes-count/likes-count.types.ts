@@ -1,3 +1,4 @@
 export interface ILikesCountProps {
-    count: number;
+    id: number;
+    initial: number;
 }

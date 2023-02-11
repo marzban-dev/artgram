@@ -8,11 +8,23 @@ import { IArtPostProps } from "./art-post.types";
 import ArtDetail from "./components/art-detail";
 import ArtPicture from "./components/art-picture";
 import Avatar from "./components/avatar";
+import Bookmark from "./components/bookmark";
 import FollowButton from "./components/follow-button";
 import Header from "./components/header";
 import LikesCount from "./components/likes-count";
 
-const ArtPost: React.FC<IArtPostProps> = ({ id, title, picture, artist, location, type, year, priority }) => {
+const ArtPost: React.FC<IArtPostProps> = ({
+    id,
+    title,
+    picture,
+    artist,
+    location,
+    type,
+    year,
+    priority,
+    likes_count,
+    user_like,
+}) => {
     const artContainer = useRef(null);
     const isInView = useInView(artContainer, { once: true });
 
@@ -32,34 +44,41 @@ const ArtPost: React.FC<IArtPostProps> = ({ id, title, picture, artist, location
     }, [imageColors]);
 
     return (
-        <motion.section
-            className="max-w-[550px] w-full py-4 bg-[rgba(20,20,20,1)] rounded-2xl"
-            id={`art-container-${id}`}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            ref={artContainer}
-        >
-            <div className="w-full flex justify-between items-center px-4">
-                <div className="flex justify-start items-center gap-4 w-[calc(100%_-_100px)]">
-                    <Avatar title={artist.name + " artist"} />
-                    <Header title={title} artist={artist.name} year={year} />
+        <section className="w-full flex justify-center items-center mt-[30px] snap-center last:mb-[30px]">
+            <motion.div
+                className="max-w-[550px] w-full overflow-hidden py-4 bg-[rgb(20,20,20)] rounded-2xl"
+                id={`art-container-${id}`}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                ref={artContainer}
+            >
+                <div className="w-full flex justify-between items-center px-5">
+                    <div className="flex justify-start items-center gap-4 w-[calc(100%_-_100px)]">
+                        <Avatar title={artist.name + " artist"} />
+                        <Header id={artist.id} title={title} artist={artist.name} year={year} />
+                    </div>
+                    <FollowButton />
                 </div>
-                <FollowButton />
-            </div>
-            <div className="w-full mt-4 relative">
-                <ArtPicture id={id} title={title} picture={picture} priority={priority} />
-                <div className="flex justify-center items-start flex-col absolute z-20 bottom-[16px] left-[16px] gap-2">
-                    <ArtDetail id={id} icon={BrushIcon} text={type} iconSize={14} />
-                    <ArtDetail id={id} icon={LocationIcon} text={location} iconSize={10} />
+                <div className="w-full mt-4 relative">
+                    <ArtPicture id={id} title={title} picture={picture} priority={priority} />
+                    <div className="flex justify-center items-start flex-col absolute z-20 bottom-[16px] left-[18px] gap-2">
+                        <ArtDetail id={id} icon={BrushIcon} text={type} iconSize={14} />
+                        <ArtDetail id={id} icon={LocationIcon} text={location} iconSize={10} />
+                    </div>
                 </div>
-            </div>
-            <div className="flex justify-between items-center px-4 pt-4">
-                <LikesCount count={23452} />
-                <div>
-                    <Like id={id} />
+                <div className="flex justify-between items-center px-5 pt-4">
+                    <div className="flex justify-start items-center gap-3">
+                        <div className="flex justify-center items-center">
+                            <Like id={id} initial={user_like} />
+                        </div>
+                        <LikesCount id={id} initial={likes_count} />
+                    </div>
+                    <div className="flex justify-center items-center">
+                        <Bookmark id={id} />
+                    </div>
                 </div>
-            </div>
-        </motion.section>
+            </motion.div>
+        </section>
     );
 };
 
