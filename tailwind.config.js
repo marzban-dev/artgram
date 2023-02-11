@@ -3,14 +3,10 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-    content: [
-        "./pages/**/*.{js,ts,jsx,tsx}",
-        "./components/**/*.{js,ts,jsx,tsx}",
-        "./layouts/**/*.{js,ts,jsx,tsx}",
-    ],
+    content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./layouts/**/*.{js,ts,jsx,tsx}"],
     theme: {
         fontFamily: {
-            quicksand: ["Quicksand", "sans-serif"],
+            lato: ["Lato", "sans-serif"],
         },
         extend: {
             colors: {
@@ -21,8 +17,10 @@ module.exports = {
             },
             backgroundImage: {
                 "form-background-gradient":
-                    // "linear-gradient(90deg, rgba(0,0,0,1) 45%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.1) 100%);",
                     "linear-gradient(90deg, rgba(0,0,0,1) 10%,rgba(0,0,0,0.5) 100%, rgba(0,0,0,0.5) 100%);",
+                "profile-background-gradient": "linear-gradient(90deg, rgba(0,0,0,0.7) 15%, rgba(0,0,0,0) 100%);",
+                "art-post-background-gradient": "linear-gradient(0deg, rgba(0,0,0,1) 15%, rgba(0,0,0,0.8) 100%);",
+                "art-like-button-gradient": "linear-gradient(-30deg, rgba(0,0,0,0.85) 2%, rgba(0,0,0,0) 50%);",
             },
         },
     },
