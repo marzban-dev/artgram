@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { followUser } from "api/user.api";
 
-export const useFollowUser = (id: number | string) => {
+export const useFollowUserMutation = (id: number | string) => {
     const queryClient = useQueryClient();
     const key = ["user-followers", id];
 
