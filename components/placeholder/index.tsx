@@ -1,13 +1,23 @@
 import { motion } from "framer-motion";
+import Skeleton from "react-loading-skeleton";
+import { IPlaceholderProps } from "./placeholder.types";
 
-const Placeholder: React.FC = () => {
+const Placeholder: React.FC<IPlaceholderProps> = ({ wrapperClassName, width, height, ...props }) => {
+    const wrapperStyle: React.CSSProperties = {
+        width,
+        height,
+    };
+
     return (
         <motion.div
-            className="absolute w-full backdrop-brightness-125 bg-[rgba(50,50,50,0.5)] border-2 border-[rgba(150,150,150,0.1)] rounded-[25px] z-50 h-full"
+            style={wrapperStyle}
+            className={wrapperClassName + " placeholder-container"}
             initial={false}
             exit={{ opacity: 0 }}
             data-testid="loading-overlay"
-        />
+        >
+            <Skeleton width={width} height={height} {...props} />
+        </motion.div>
     );
 };
 
