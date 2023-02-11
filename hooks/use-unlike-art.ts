@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { unlikeArt } from "api/arts.api";
 
-export const useUnlikeArt = (id: number) => {
+export const useUnlikeArtMutation = (id: number) => {
     const queryClient = useQueryClient();
     const key = ["art-likes", id];
 
@@ -11,8 +11,13 @@ export const useUnlikeArt = (id: number) => {
             await queryClient.cancelQueries();
             const prevQueryData = queryClient.getQueryData(key);
 
-            queryClient.setQueryData<number>(key, (prevQueryData) => {
-                if (prevQueryData) return prevQueryData - 1;
+            queryClient.setQueryData<{ likesCount: number; users: any[] }>(key, (prevQueryData) => {
+                if (prevQueryData !== undefined) {
+                    return {
+                        likesCount: prevQueryData.likesCount - 1,
+                        users: prevQueryData.users,
+                    };
+                }
                 return prevQueryData;
             });
 
