@@ -1,4 +1,5 @@
 import Avatar from "components/avatar";
+import FollowButton from "components/follow-button";
 import Like from "components/like";
 import { motion, useInView } from "framer-motion";
 import useImageColors from "hooks/use-image-colors";
@@ -9,7 +10,6 @@ import { IArtPostProps } from "./art-post.types";
 import ArtDetail from "./components/art-detail";
 import ArtPicture from "./components/art-picture";
 import Bookmark from "./components/bookmark";
-import FollowButton from "./components/follow-button";
 import Header from "./components/header";
 import LikesCount from "./components/likes-count";
 
@@ -60,7 +60,7 @@ const ArtPost: React.FC<IArtPostProps> = ({
                         <Avatar width={60} height={60} picture={artist.image} title={title} />
                         <Header id={artist.id} title={title} artist={artist.name} year={date} />
                     </div>
-                    <FollowButton />
+                    <FollowButton id={artist.id} type="artist" width={100} initial={artist.following} />
                 </div>
                 <div className="w-full mt-4 relative">
                     <ArtPicture id={id} title={title} picture={image.url} priority={priority} />
