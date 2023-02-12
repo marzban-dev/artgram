@@ -34,6 +34,7 @@ const Avatar: React.FC<IAvatarProps> = ({ picture, square, title, width, height,
                         src={picture}
                         alt={title}
                         style={{ objectFit: "cover" }}
+                        quality={50}
                         onLoadingComplete={() => setIsLoaded(true)}
                         fill
                     />
