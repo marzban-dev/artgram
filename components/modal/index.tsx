@@ -67,16 +67,16 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
                 {show && (
                     <div className="z-[999] fixed top-0 flex justify-center items-center w-full h-full [perspective:1000px]">
                         <motion.div
-                            variants={isMobile ? contentMobileVariants : contentDesktopVariants}
-                            initial="hide"
-                            animate="show"
-                            exit="hide"
-                            className="z-[1000] min-h-[250px] max-h-[500px] w-full min-[520px]:w-[500px] rounded-t-[20px] rounded-b-none min-[520px]:rounded-[20px] bg-[rgb(20,20,20)] absolute max-[520px]:bottom-0 origin-bottom"
-                            drag="y"
+                            className="z-[1000] min-h-[250px] max-h-[500px] h-full w-full min-[520px]:w-[500px] rounded-t-[20px] rounded-b-none min-[520px]:rounded-[20px] bg-[rgb(20,20,20)] absolute max-[520px]:bottom-0 origin-bottom overflow-hidden"
                             dragConstraints={{ bottom: 0, top: 0 }}
                             dragElastic={{ bottom: 0.4, top: 0.01 }}
                             dragTransition={{ bounceStiffness: 200, bounceDamping: 25 }}
+                            variants={isMobile ? contentMobileVariants : contentDesktopVariants}
+                            drag={isMobile ? "y" : undefined}
                             onDragEnd={onDragEnd}
+                            initial="hide"
+                            animate="show"
+                            exit="hide"
                         >
                             <div className="w-full hidden max-[520px]:flex justify-center items-center py-3 cursor-grab">
                                 <div className="w-[70px] h-[6px] rounded-[5px] bg-[rgb(40,40,40)]" />
