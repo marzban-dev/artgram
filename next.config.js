@@ -25,7 +25,7 @@ const nextConfig = {
             },
             {
                 protocol: "https",
-                hostname: "upload.wikimedia.org",
+                hostname: "artgram.iran.liara.run",
                 port: "",
             },
             {
