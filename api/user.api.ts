@@ -10,12 +10,10 @@ import {
     IGetFollowersRequestParams,
     IGetFollowersResponse,
     IGetSavedArtsRequestParams,
-    IGetSavedArtsResponse,
-    IGetScrapAPiArtistResponse,
-    IGetUserProfileRequestParams,
+    IGetSavedArtsResponse, IGetUserProfileRequestParams,
     IGetUserProfileResponse,
     ISaveArtRequestParams,
-    IUnsaveArtRequestParams,
+    IUnsaveArtRequestParams
 } from "./user.types";
 
 export const getUserProfile = async (params: IGetUserProfileRequestParams) => {
@@ -25,15 +23,8 @@ export const getUserProfile = async (params: IGetUserProfileRequestParams) => {
 };
 
 export const getArtistProfile = async (params: IGetArtistRequestParams): Promise<IGetArtistProfileResponse> => {
-    const axiosOption = {
-        baseURL: "http://localhost:3000",
-    };
-
-    let artistName: string;
     let artistArtsCount: number;
     let artistResponse: AxiosResponse<IGetArtistResponse, any>;
-    let scrapApiResponse: AxiosResponse<IGetScrapAPiArtistResponse, any>;
-    let artistImageApiResponse: AxiosResponse<string, any>;
 
     try {
         artistResponse = await axios.get<IGetArtistResponse>(`/artist/${params.id}/`);
@@ -49,28 +40,9 @@ export const getArtistProfile = async (params: IGetArtistRequestParams): Promise
         throw e;
     }
 
-    const splittedUrl = artistResponse.data.wikipedia.split("/");
-    artistName = splittedUrl[splittedUrl.length - 1];
-    artistImageApiResponse = await axios.get<string>(
-        `/api/artist-picture?q=${artistName + " artist picture wikipedia"}`,
-        axiosOption
-    );
-
-    try {
-        scrapApiResponse = await axios.get<IGetScrapAPiArtistResponse>(`/api/artist?q=${artistName}`, axiosOption);
-    } catch (e) {
-        return {
-            artsCount: artistArtsCount,
-            ...artistResponse.data,
-            avatar: artistImageApiResponse.data,
-        };
-    }
-
     return {
         artsCount: artistArtsCount,
         ...artistResponse.data,
-        ...scrapApiResponse.data,
-        avatar: artistImageApiResponse.data,
     };
 };
 

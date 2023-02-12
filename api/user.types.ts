@@ -1,4 +1,4 @@
-import { IArt } from "./arts.types";
+import { IArt, IArtist } from "./arts.types";
 
 /**
  * Global types
@@ -21,13 +21,7 @@ export interface ISimpleUser {
     profile_img: string;
 }
 
-export interface IArtist extends IScrapApiArtist {
-    id: string;
-    name: string;
-    wikipedia: string;
-}
-
-export interface IFollower extends Omit<IUser, "header_img" | "date_joined" | "bio" | "link" | "location"> {}
+export interface IFollower extends ISimpleUser {}
 
 export interface ISavedArt {
     id: number;
@@ -35,19 +29,6 @@ export interface ISavedArt {
     text: string;
     created_date: string;
     art: IArt;
-}
-
-/**
- * Apis request, response types
- */
-
-export interface IScrapApiArtist {
-    description?: string;
-    age?: string;
-    quote?: string;
-    googlearts?: string;
-    artnet?: string;
-    background?: string;
 }
 
 export interface IFollowUserRequestParams {
@@ -67,14 +48,10 @@ export interface IGetArtistRequestParams {
     id: string;
 }
 
-export interface IGetScrapAPiArtistResponse extends IScrapApiArtist {}
+export interface IGetArtistResponse extends IArtist {}
 
-export interface IGetArtistResponse
-    extends Omit<IArtist, "description" | "age" | "quote" | "googlearts" | "background"> {}
-
-export interface IGetArtistProfileResponse extends IGetArtistResponse, IGetScrapAPiArtistResponse {
+export interface IGetArtistProfileResponse extends IGetArtistResponse {
     artsCount: number;
-    avatar: string;
 }
 
 export interface IGetFollowersRequestParams {
