@@ -76,9 +76,7 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
                             dragConstraints={{ bottom: 0, top: 0 }}
                             dragElastic={{ bottom: 0.4, top: 0.01 }}
                             dragTransition={{ bounceStiffness: 200, bounceDamping: 25 }}
-                            // onDragStart={onMessageDragStart}
                             onDragEnd={onDragEnd}
-                            // onUpdate={onMotionUpdate}
                         >
                             <div className="w-full hidden max-[520px]:flex justify-center items-center py-3 cursor-grab">
                                 <div className="w-[70px] h-[6px] rounded-[5px] bg-[rgb(40,40,40)]" />
