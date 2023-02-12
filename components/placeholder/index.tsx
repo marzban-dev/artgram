@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Skeleton from "react-loading-skeleton";
 import { IPlaceholderProps } from "./placeholder.types";
 
-const Placeholder: React.FC<IPlaceholderProps> = ({ wrapperClassName, width, height, ...props }) => {
+const Placeholder: React.FC<IPlaceholderProps> = ({ wrapperClassName = "", width, height, ...props }) => {
     const wrapperStyle: React.CSSProperties = {
         width,
         height,
