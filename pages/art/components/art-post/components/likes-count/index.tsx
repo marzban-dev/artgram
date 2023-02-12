@@ -20,7 +20,7 @@ const LikesCount: React.FC<ILikesCountProps> = ({ id, initial }) => {
 
     return (
         <div
-            className="text-[16px] text-[rgb(150,150,150)] font-semibold"
+            className="text-[16px] text-[rgb(150,150,150)] font-semibold cursor-pointer"
             style={containerStyle}
             onClick={() => setShow(true)}
         >
