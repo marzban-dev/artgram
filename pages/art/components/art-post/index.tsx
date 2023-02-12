@@ -1,3 +1,4 @@
+import Avatar from "components/avatar";
 import Like from "components/like";
 import { motion, useInView } from "framer-motion";
 import useImageColors from "hooks/use-image-colors";
@@ -7,7 +8,6 @@ import { useEffect, useRef } from "react";
 import { IArtPostProps } from "./art-post.types";
 import ArtDetail from "./components/art-detail";
 import ArtPicture from "./components/art-picture";
-import Avatar from "./components/avatar";
 import Bookmark from "./components/bookmark";
 import FollowButton from "./components/follow-button";
 import Header from "./components/header";
@@ -16,11 +16,14 @@ import LikesCount from "./components/likes-count";
 const ArtPost: React.FC<IArtPostProps> = ({
     id,
     title,
-    picture,
+    image,
     artist,
     location,
     type,
-    year,
+    date,
+    form,
+    school,
+    technique,
     priority,
     likes_count,
     user_like,
@@ -54,13 +57,13 @@ const ArtPost: React.FC<IArtPostProps> = ({
             >
                 <div className="w-full flex justify-between items-center px-5">
                     <div className="flex justify-start items-center gap-4 w-[calc(100%_-_100px)]">
-                        <Avatar title={artist.name + " artist"} />
-                        <Header id={artist.id} title={title} artist={artist.name} year={year} />
+                        <Avatar width={60} height={60} picture={artist.image} title={title} />
+                        <Header id={artist.id} title={title} artist={artist.name} year={date} />
                     </div>
                     <FollowButton />
                 </div>
                 <div className="w-full mt-4 relative">
-                    <ArtPicture id={id} title={title} picture={picture} priority={priority} />
+                    <ArtPicture id={id} title={title} picture={image.url} priority={priority} />
                     <div className="flex justify-center items-start flex-col absolute z-20 bottom-[16px] left-[18px] gap-2">
                         <ArtDetail id={id} icon={BrushIcon} text={type} iconSize={14} />
                         <ArtDetail id={id} icon={LocationIcon} text={location} iconSize={10} />
