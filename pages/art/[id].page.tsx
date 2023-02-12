@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { getArt } from "api/arts.api";
 import { useArtQuery } from "hooks/use-art";
-import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { TArtPageUrlParams } from "./art.types";
 import Arts from "./components/arts";
 import Background from "./components/background";
@@ -23,27 +21,20 @@ const ArtPage: NextPage = () => {
 
     return (
         <PageTransition>
-                <main className="w-full h-screen">
-                    <Background picture={art?.picture} />
+            <main className="w-full h-screen">
+                <Background picture={art!.image.url} />
 
-                    <Fullscreen />
+                <Fullscreen />
 
-                    {windowHeight !== 0 && (
-                        <div className="relative z-[40]">
-                            <Arts id={Number(query.id)} art={art!} containerHeight={windowHeight} />
-                        </div>
-                    )}
-                </main> 
+                {windowHeight !== 0 && (
+                    <div className="relative z-[40]">
+                        <Arts id={Number(query.id)} art={art!} containerHeight={windowHeight} />
+                    </div>
+                )}
+            </main>
         </PageTransition>
     );
 };
-
-// export const getStaticPaths: GetStaticPaths<TArtPageUrlParams> = async () => {
-//     return {
-//         fallback: "blocking",
-//         paths: [],
-//     };
-// };
 
 export const getServerSideProps: GetServerSideProps<any, TArtPageUrlParams> = async (context) => {
     const session = await getSession({ req: context.req });
@@ -57,16 +48,26 @@ export const getServerSideProps: GetServerSideProps<any, TArtPageUrlParams> = as
             return {
                 id: 7306,
                 artist: {
-                    id: 721,
-                    name: "BRAY, Jan de",
-                    wikipedia: "Jan de Bray",
+                    id: 909,
+                    name: "CAPORALI, Bartolomeo",
+                    image: "https://www.wga.hu/biojpg/c/caporali/biograph.jpg",
+                    following: false,
                 },
-                title: "Bacchus",
-                picture: "https://www.wga.hu/art/b/bray/jan/bacchus.jpg",
-                year: "c. 1665",
-                type: "Oil on panel, 23 x 18 cm",
-                location: "Private collection",
-                reference: "https://www.wga.hu/",
+                title: "Annunciation",
+                date: "1467-68",
+                technique: "Tempera, oil and gold on panel, 50 x 48 cm (each)",
+                location: "Galleria Nazionale dell'Umbria, Perugia",
+                image: {
+                    id: 7306,
+                    url: "https://www.wga.hu/art/c/caporali/annuncia.jpg",
+                    width: 1629,
+                    height: 800,
+                    thumbnail: "https://www.wga.hu/preview/c/caporali/annuncia.jpg",
+                },
+                form: "painting",
+                school: "Italian",
+                type: "religious",
+                reference: "www.wga.hu",
                 likes_count: 1,
                 user_like: true,
                 user_repost: false,
