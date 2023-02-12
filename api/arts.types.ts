@@ -7,18 +7,42 @@ import { ISimpleUser } from "./user.types";
 export interface IArtist {
     id: number;
     name: string;
-    wikipedia: string;
+    birth_data: string;
+    profession: string;
+    school: string;
+    bio: string;
+    image: string;
+    wikipedia: string | null;
+    following: boolean;
+}
+
+export interface ISimpleArtist {
+    id: number;
+    name: string;
+    image: string;
+    following: boolean;
+}
+
+export interface IImage {
+    id: number;
+    url: string;
+    width: number;
+    height: number;
+    thumbnail: string;
 }
 
 export interface IArt {
     id: number;
+    artist: ISimpleArtist;
     title: string;
-    picture: string;
-    year: string;
-    type: string;
+    image: IImage;
+    date: string;
+    technique: string;
     location: string;
+    type: string;
+    form: string;
+    school: string;
     reference: string;
-    artist: IArtist;
     likes_count: number;
     user_like: boolean;
     user_repost: boolean;
@@ -35,13 +59,26 @@ export interface IArtLike {
  * Apis request, response types
  */
 
-type TOrdering = "artist" | "title" | "year" | "type" | "location" | "reference";
+type TOrdering =
+    | "artist"
+    | "title"
+    | "date"
+    | "technique"
+    | "form"
+    | "school"
+    | "type"
+    | "location"
+    | "reference"
+    | "likes_count";
 
 export interface IGetArtsRequestParams {
     pageParam: {
         artist?: number;
         title__contains?: string;
-        year__contains?: string;
+        date__contains?: string;
+        technique__contains?: string;
+        form__contains?: string;
+        school__contains?: string;
         type__contains?: string;
         location__contains?: string;
         ordering?: TOrdering | `-${TOrdering}`;
