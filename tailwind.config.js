@@ -31,6 +31,8 @@ module.exports = {
                     return parseInt(a) - parseInt(z);
                 },
             });
+        }),
+        plugin(function ({ matchVariant }) {
             matchVariant("max", (value) => `@media (max-width: ${value})`, {
                 sort(a, z) {
                     return parseInt(a) - parseInt(z);
