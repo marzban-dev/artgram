@@ -4,11 +4,12 @@
 
 @layer components {
     :root {
-        --art-primary-color: rgb(130,130,130);
-        --art-lighter-color: rgb(130,130,130);
+        --art-primary-color: rgb(130, 130, 130);
+        --art-lighter-color: rgb(130, 130, 130);
     }
 
-    html, body {
+    html,
+    body {
         overflow: hidden;
     }
 
@@ -19,6 +20,23 @@
 
     .hide-scrollbar::-webkit-scrollbar {
         display: none;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-track {
+        background: rgb(0, 0, 255, 0);
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+        background: rgb(40, 40, 40);
+        border-radius: 10px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+        background: rgb(50, 50, 50);
     }
 
     .grid-item,
