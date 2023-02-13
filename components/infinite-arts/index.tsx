@@ -23,6 +23,7 @@ const InfiniteArts: React.FC<IInfiniteArtsProps> = ({ arts, count, callback, cla
                     next={callback}
                     hasMore={hasMoreArts}
                     loader={<Spinner size={40} style={{ padding: "50px 0" }} />}
+                    style={{overflowY : "hidden"}}
                 >
                     <MasonryGrid>{renderArts}</MasonryGrid>
                 </InfiniteScroll>
