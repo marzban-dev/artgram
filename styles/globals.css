@@ -8,11 +8,6 @@
         --art-lighter-color: rgb(130, 130, 130);
     }
 
-    html,
-    body {
-        overflow: hidden;
-    }
-
     .hide-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
