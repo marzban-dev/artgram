@@ -4,6 +4,8 @@ export interface IFullscreenArt {
     id: number;
     title: string;
     picture: string;
+    width: number;
+    height: number;
 }
 
 interface IInitialState {
