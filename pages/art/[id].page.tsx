@@ -6,6 +6,9 @@ import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
+import { setOrderBy, setSearchBy, TOrderBy, TSearchBy } from "store/slice/explore.slice";
 import { TArtPageUrlParams } from "./art.types";
 import Arts from "./components/arts";
 import Background from "./components/background";
@@ -17,13 +20,18 @@ const ArtPage: NextPage = () => {
     const [windowHeight, setWindowHeight] = useState(0);
 
     useEffect(() => {
+        const bodyEl = document.querySelector("body") as HTMLBodyElement;
+        const htmlEl = document.querySelector("html") as HTMLHtmlElement;
+        bodyEl.style.overflow = "hidden";
+        htmlEl.style.overflow = "hidden";
+
         setWindowHeight(window.innerHeight);
     }, []);
 
     return (
         <PageTransition>
             <main className="w-full h-screen">
-                <Background picture={art!.image.url} />
+                <Background picture={art?.image.url} />
 
                 <Fullscreen />
 
