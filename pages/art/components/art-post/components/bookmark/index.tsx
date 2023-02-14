@@ -9,10 +9,10 @@ import { MouseEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IBookmarkProps } from "./bookmark.types";
 
-const Bookmark: React.FC<IBookmarkProps> = ({ id }) => {
+const Bookmark: React.FC<IBookmarkProps> = ({ id, initial }) => {
     const { data, status } = useSession();
     const animationControl = useAnimation();
-    const [isSaved, setIsSaved] = useState(false);
+    const [isSaved, setIsSaved] = useState(initial);
     const { isError: isSaveArtError, mutateAsync: saveArt } = useSaveArtMutation();
     const { isError: isUnsaveArtError, mutateAsync: unsaveArt } = useUnsaveArtMutation();
 
