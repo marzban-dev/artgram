@@ -5,17 +5,21 @@ import { useExploreQuery } from "hooks/use-explore";
 import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
+import Navbar from "./components/navbar";
+import Search from "./components/search";
 
 const ExplorePage: NextPage = () => {
     const { data: arts, fetchNextPage } = useExploreQuery();
 
     return (
         <PageTransition>
-            <PagePadding>
-                <main className="h-screen">
+            <main className="h-screen">
+                <Navbar />
+                <Search />
+                <PagePadding>
                     {arts && <InfiniteArts arts={arts.pages.flat()} callback={fetchNextPage} count={Infinity} />}
-                </main>
-            </PagePadding>
+                </PagePadding>
+            </main>
         </PageTransition>
     );
 };
@@ -26,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const isRequestFromRouter = context.req.url?.includes("_next");
 
     if (!isRequestFromRouter) {
-        await queryClient.prefetchInfiniteQuery(["explore"], () => getArts({ pageParam: { limit: 18 } }));
+        await queryClient.prefetchInfiniteQuery(["explore"], () => getArts({ pageParam: { limit: 10 } }));
 
         return {
             props: {
