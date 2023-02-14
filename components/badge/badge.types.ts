@@ -1,6 +1,6 @@
 export interface IBadgeProps {
     id: string;
-    onSelect: (id: string) => void;
+    onSelect: (id: any) => void;
     selected: boolean;
     text: string;
     icon?: any;
