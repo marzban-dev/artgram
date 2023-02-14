@@ -6,12 +6,12 @@ import { useDispatch } from "react-redux";
 import { setFullscreenArt } from "store/slice/app.slice";
 import { IArtPictureProps } from "./art-picture.types";
 
-const ArtPicture: React.FC<IArtPictureProps> = ({ id, picture, title, priority }) => {
+const ArtPicture: React.FC<IArtPictureProps> = ({ id, picture, title, width, height, priority }) => {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
 
     const makeArtFullScreen = () => {
-        dispatch(setFullscreenArt({ id, title, picture }));
+        dispatch(setFullscreenArt({ id, title, picture, width, height }));
     };
 
     return (
