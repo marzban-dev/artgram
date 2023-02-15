@@ -79,6 +79,8 @@ const Background: React.FC = () => {
                             alt="background"
                             className="brightness-[0.5]"
                             style={{ objectFit: "cover" }}
+                            quality={40}
+                            priority
                             fill
                         />
                     </motion.div>
