@@ -4,8 +4,9 @@ import { getArts } from "api/arts.api";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import { IArt } from "api/arts.types";
 
-export const useSearch = () => {
+export const useSearchQuery = () => {
     const search = useSelector((state: RootState) => state.explore.search);
     const searchBy = useSelector((state: RootState) => state.explore.searchBy);
     const orderBy = useSelector((state: RootState) => state.explore.orderBy);
