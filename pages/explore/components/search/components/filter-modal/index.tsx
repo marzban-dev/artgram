@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import Badge from "components/badge";
 import Modal from "components/modal";
-import { useSearch } from "hooks/use-search";
+import { useSearchQuery } from "hooks/use-search";
 import AscIcon from "public/assets/icon/arrow-down-a-z.svg";
 import DesIcon from "public/assets/icon/arrow-up-z-a.svg";
 import BrushIcon from "public/assets/icon/brush.svg";
@@ -11,23 +11,25 @@ import LocationIcon from "public/assets/icon/location-dot.svg";
 import PaletteIcon from "public/assets/icon/palette.svg";
 import ShapesIcon from "public/assets/icon/shapes.svg";
 import TitleIcon from "public/assets/icon/text.svg";
-import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
-import { setOrderBy, setSearchBy, TOrderBy, TSearchBy } from "store/slice/explore.slice";
+import { setIsSearching, setOrderBy, setSearchBy, TOrderBy, TSearchBy } from "store/slice/explore.slice";
+import { IFilterModalProps } from "./filter-modal.types";
 
-const FilterModal: React.FC = () => {
+const FilterModal: React.FC<IFilterModalProps> = ({ show, setShow }) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
-    const { refetch } = useSearch();
-    const [show, setShow] = useState(false);
+    const { refetch } = useSearchQuery();
     const search = useSelector((state: RootState) => state.explore.search);
     const searchBy = useSelector((state: RootState) => state.explore.searchBy);
     const orderBy = useSelector((state: RootState) => state.explore.orderBy);
 
     const clearAndRefetch = () => {
-        queryClient.setQueryData(["search"], null);
-        setTimeout(() => refetch(), 500);
+        setTimeout(async () => {
+            dispatch(setIsSearching(true));
+            await refetch();
+            dispatch(setIsSearching(false));
+        }, 500);
     };
 
     const onSearchBySelect = (id: TSearchBy) => {
@@ -42,7 +44,10 @@ const FilterModal: React.FC = () => {
 
     return (
         <Modal show={show} onClose={() => setShow(false)}>
-            <div className="pt-2 pb-5 min-[520px]:py-5 px-6 flex justify-start items-start flex-col gap-4">
+            <div className="pt-2 pb-5 min-[520px]:py-5 px-6 flex justify-start items-start flex-col gap-6">
+                <div className="w-full flex justify-center items-center border-b-2 border-[rgb(40,40,40)] pb-2">
+                    <span className="text-white font-medium text-[25px]">Filter</span>
+                </div>
                 <div className="flex flex-col justify-start items-start gap-2 w-full">
                     <h3 className="text-white text-[18px] font-medium pl-3">Search By</h3>
                     <div className="flex justify-start items-center flex-wrap gap-2">
