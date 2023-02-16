@@ -79,7 +79,7 @@ const Background: React.FC = () => {
                             alt="background"
                             className="brightness-[0.5]"
                             style={{ objectFit: "cover" }}
-                            quality={40}
+                            quality={25}
                             priority
                             fill
                         />
