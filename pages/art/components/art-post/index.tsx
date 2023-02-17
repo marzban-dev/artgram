@@ -27,6 +27,7 @@ const ArtPost: React.FC<IArtPostProps> = ({
     priority,
     likes_count,
     user_like,
+    user_repost,
 }) => {
     const artContainer = useRef(null);
     const isInView = useInView(artContainer, { once: true });
@@ -63,7 +64,14 @@ const ArtPost: React.FC<IArtPostProps> = ({
                     <FollowButton id={artist.id} type="artist" width={100} initial={artist.following} />
                 </div>
                 <div className="w-full mt-4 relative">
-                    <ArtPicture id={id} title={title} picture={image.url} priority={priority} />
+                    <ArtPicture
+                        id={id}
+                        title={title}
+                        picture={image.url}
+                        width={image.width}
+                        height={image.height}
+                        priority={priority}
+                    />
                     <div className="flex justify-center items-start flex-col absolute z-20 bottom-[16px] left-[18px] gap-2">
                         <ArtDetail id={id} icon={BrushIcon} text={type} iconSize={14} />
                         <ArtDetail id={id} icon={LocationIcon} text={location} iconSize={10} />
@@ -77,7 +85,7 @@ const ArtPost: React.FC<IArtPostProps> = ({
                         <LikesCount id={id} initial={likes_count} />
                     </div>
                     <div className="flex justify-center items-center">
-                        <Bookmark id={id} />
+                        <Bookmark id={id} initial={user_repost} />
                     </div>
                 </div>
             </motion.div>
