@@ -6,13 +6,14 @@ import PageLoading from "layouts/page-loading";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { Toaster, DefaultToastOptions } from "react-hot-toast";
 import { Provider } from "react-redux";
 import store from "store";
 import "../styles/globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletonTheme } from "react-loading-skeleton";
+import FloatNavbar from "components/float-navbar";
 
 export default function App({ Component, pageProps }: AppProps) {
     const { pathname } = useRouter();
@@ -36,7 +37,14 @@ export default function App({ Component, pageProps }: AppProps) {
                     <Hydrate state={pageProps.dehydratedState}>
                         <SkeletonTheme baseColor="rgb(28,28,28)" highlightColor="rgb(40,40,40)">
                             <AnimatePresence mode="wait" initial={false}>
-                                {isRouteLoading ? <PageLoading key={1} /> : <Component key={pathname} {...pageProps} />}
+                                {isRouteLoading ? (
+                                    <PageLoading key={1} />
+                                ) : (
+                                    <Fragment>
+                                        <Component key={pathname} {...pageProps} />
+                                        <FloatNavbar />
+                                    </Fragment>
+                                )}
                             </AnimatePresence>
                             <Toaster toastOptions={toastOptions} position="bottom-center" reverseOrder={false} />
                         </SkeletonTheme>
