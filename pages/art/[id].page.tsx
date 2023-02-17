@@ -1,6 +1,7 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getArt } from "api/arts.api";
 import { useArtQuery } from "hooks/use-art";
+import useHideOverflow from "hooks/use-hide-overflow";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
@@ -18,13 +19,9 @@ const ArtPage: NextPage = () => {
     const { query } = useRouter();
     const { data: art } = useArtQuery(Number(query.id));
     const [windowHeight, setWindowHeight] = useState(0);
+    useHideOverflow();
 
     useEffect(() => {
-        const bodyEl = document.querySelector("body") as HTMLBodyElement;
-        const htmlEl = document.querySelector("html") as HTMLHtmlElement;
-        bodyEl.style.overflow = "hidden";
-        htmlEl.style.overflow = "hidden";
-
         setWindowHeight(window.innerHeight);
     }, []);
 
