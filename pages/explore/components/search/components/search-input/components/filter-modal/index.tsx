@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import Badge from "components/badge";
 import Modal from "components/modal";
 import { useSearchQuery } from "hooks/use-search";
@@ -18,7 +17,6 @@ import { IFilterModalProps } from "./filter-modal.types";
 
 const FilterModal: React.FC<IFilterModalProps> = ({ show, setShow }) => {
     const dispatch = useDispatch();
-    const queryClient = useQueryClient();
     const { refetch } = useSearchQuery();
     const search = useSelector((state: RootState) => state.explore.search);
     const searchBy = useSelector((state: RootState) => state.explore.searchBy);
