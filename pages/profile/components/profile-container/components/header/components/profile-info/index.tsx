@@ -1,13 +1,13 @@
 import { IProfileInfoProps } from "./profile-info.types";
 
-const ProfileInfo: React.FC<IProfileInfoProps> = ({ icon: Icon, text, link, iconSize }) => {
+const ProfileInfo: React.FC<IProfileInfoProps> = ({ icon: Icon, text, link, iconSize = 18 }) => {
     const iconStyle: React.CSSProperties = {
-        width: iconSize + "px",
+        height: iconSize,
     };
 
     return (
         <span className="text-white flex justify-start items-center gap-2">
-            <Icon className="fill-white w-[15px]" style={iconStyle} />
+            <Icon className="fill-white" style={iconStyle} />
             {link ? (
                 <a
                     target="_blank"
