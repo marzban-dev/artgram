@@ -34,25 +34,25 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like }) => {
 
     return (
         <section
-            className="grid-item p-3 cursor-pointer"
+            className="grid-item p-[6px] min-[550px]:p-2 min-[1020px]:p-3 cursor-pointer"
             onClick={() => router.push(`/art/${id}`)}
             onMouseEnter={() => setShowActions(true)}
             onMouseLeave={() => !isLiked && setShowActions(false)}
             ref={imageContainerRef}
             data-testid="container"
         >
-            <div className="origin-center [perspective:1000px] rounded-[25px] brightness-[0.85] duration-200">
+            <div className="origin-center [perspective:1000px] rounded-[10px] min-[750px]:rounded-[15px] min-[1020px]:rounded-[25px] overflow-hidden brightness-[0.85] duration-200">
                 <motion.div
                     id={`art-${id}`}
                     initial="hide"
                     variants={imageWrapperVariants}
                     animate={isImageInView ? "show" : "hide"}
-                    className="rounded-[25px] overflow-hidden origin-top relative"
+                    className="origin-top relative"
                 >
                     <Placeholder isLoaded={isLoaded} />
                     <motion.div
                         animate={{ opacity: isLoaded ? 1 : 0 }}
-                        className="rounded-[25px] overflow-hidden relative w-full h-full"
+                        className="relative w-full h-full"
                     >
                         <ActionOverlay
                             id={id}
