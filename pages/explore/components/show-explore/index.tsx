@@ -10,7 +10,7 @@ const ShowExplore: React.FC = () => {
     const { data: searchResult } = useSearchQuery();
     const isSearching = useSelector((state: RootState) => state.explore.isSearching);
 
-    return !searchResult && !isSearching ? (
+    return arts && !searchResult && !isSearching ? (
         <InfiniteArts arts={arts!.pages.flat()} callback={fetchNextExplorePage} count={Infinity} />
     ) : null;
 };
