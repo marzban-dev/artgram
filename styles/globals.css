@@ -39,7 +39,7 @@
         width: 25%;
     }
 
-    @media screen and (max-width: 620px) {
+    @media screen and (max-width: 900px) {
         .grid-item,
         .grid-sizer {
             width: 33.33333333%;
