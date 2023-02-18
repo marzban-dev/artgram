@@ -1,5 +1,6 @@
 import axios from "config/axios";
 import createAuthHeader from "utils/create-auth-header";
+import sleep from "utils/sleep";
 import {
     IGetArtRequestParams,
     IGetArtResponse,
@@ -37,7 +38,7 @@ export const getArts = async (params: IGetArtsRequestParams) => {
 };
 
 export const getArtLikes = async (params: IGetArtLikesRequestParams) => {
-    const response = await axios.get<IGetArtLikesResponse>(`/art/like/`, { params });
+    const response = await axios.get<IGetArtLikesResponse>(`/art/like/`, { params: { art: params.id } });
 
     return {
         likesCount: response.data.count,
