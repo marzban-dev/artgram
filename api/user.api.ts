@@ -68,7 +68,7 @@ export const getSavedArts = async (params: IGetSavedArtsRequestParams) => {
     const limit = params.pageParam.limit;
     const offset = params.pageParam.page * limit - limit;
 
-    const response = await axios.get<IGetSavedArtsResponse>("/user/reposts/", {
+    const response = await axios.get<IGetSavedArtsResponse>("/repost/", {
         params: {
             owner: params.pageParam.id,
             limit,
@@ -80,9 +80,9 @@ export const getSavedArts = async (params: IGetSavedArtsRequestParams) => {
 };
 
 export const saveArt = async (params: ISaveArtRequestParams) => {
-    await axios.post("/user/reposts/", { art: params.id }, { headers: { ...createAuthHeader(params.token) } });
+    await axios.post("/repost/", { art: params.id }, { headers: { ...createAuthHeader(params.token) } });
 };
 
 export const unsaveArt = async (params: IUnsaveArtRequestParams) => {
-    await axios.delete(`/user/${params.id}/`, { headers: { ...createAuthHeader(params.token) } });
+    await axios.delete(`/repost/${params.id}/`, { headers: { ...createAuthHeader(params.token) } });
 };

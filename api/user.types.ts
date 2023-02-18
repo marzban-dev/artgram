@@ -13,6 +13,7 @@ export interface IUser {
     bio: string;
     link: string;
     location: string;
+    repost_count: number;
 }
 
 export interface ISimpleUser {
