@@ -1,3 +1,5 @@
+import { IUser } from "./user.types";
+
 export interface ISigninRequestParams {
     username: string;
     password: string;
@@ -20,8 +22,4 @@ export interface ISignupResponse {
     email: string;
 }
 
-export interface IGetUserResponse {
-    id: number;
-    username: string;
-    email: string;
-}
+export interface IGetUserResponse extends IUser {}
