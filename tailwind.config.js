@@ -14,6 +14,8 @@ module.exports = {
                 "form-background-lighter": "var(--form-background-lighter-color)",
                 "art-primary": "var(--art-primary-color)",
                 "art-lighter": "var(--art-lighter-color)",
+                "artist-primary": "var(--artist-primary-color)",
+                "artist-lighter": "var(--artist-lighter-color)",
             },
             backgroundImage: {
                 "form-background-gradient":
