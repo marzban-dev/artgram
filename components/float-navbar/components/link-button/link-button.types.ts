@@ -1,6 +1,6 @@
 export interface INavButtonProps {
     icon?: any;
-    avatar?: any;
+    avatar?: string;
     route: string;
     attention?: boolean;
 }

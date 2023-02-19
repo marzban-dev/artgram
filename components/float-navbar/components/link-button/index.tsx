@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Avatar from "components/avatar";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { INavButtonProps } from "./link-button.types";

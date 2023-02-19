@@ -1,26 +1,30 @@
-import { useEffect, useState } from "react";
-import MagnifyGlassIcon from "public/assets/icon/magnifying-glass.svg";
-import PlusIcon from "public/assets/icon/circle-plus.svg";
-import UserIcon from "public/assets/img/test3.jpg";
-import NavButton from "./components/link-button";
+import { motion, Variants } from "framer-motion";
+import { useNotificationsQuery } from "hooks/use-notifications";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import PlusIcon from "public/assets/icon/circle-plus.svg";
+import MagnifyGlassIcon from "public/assets/icon/magnifying-glass.svg";
+import UserIcon from "public/assets/icon/user.svg";
+import { useEffect, useState } from "react";
+import NavButton from "./components/link-button";
 
 const FloatNavbar: React.FC = () => {
     const router = useRouter();
+    const { status, data } = useSession();
     const [showFloatNavbar, setShowFloatNavbar] = useState(false);
+    const { data: notifications } = useNotificationsQuery();
 
-    const isArtPage = router.pathname.includes("/art");
+    const showAtFirst = router.pathname.includes("/art") || router.pathname.includes("/profile");
 
     useEffect(() => {
-        if (isArtPage) setShowFloatNavbar(true);
+        if (showAtFirst) setShowFloatNavbar(true);
         else setShowFloatNavbar(false);
 
         const onWindowScroll = () => {
             if (window.scrollY >= window.innerHeight / 2) {
                 setShowFloatNavbar(true);
             } else {
-                if (!isArtPage) setShowFloatNavbar(false);
+                if (!showAtFirst) setShowFloatNavbar(false);
             }
         };
 
@@ -46,7 +50,7 @@ const FloatNavbar: React.FC = () => {
     };
 
     return (
-        <nav className="fixed min-[750px]:left-[10px] max-[749px]:bottom-[8px] max-[749px]:w-full min-[750px]:top-0 w-[60px] min-[750px]:h-full z-[1000] flex justify-center items-center">
+        <nav className="fixed min-[750px]:left-[10px] max-[749px]:bottom-[8px] max-[749px]:w-full min-[750px]:top-0 w-[60px] min-[750px]:h-full z-[800] flex justify-center items-center">
             <motion.ul
                 variants={navVariants}
                 animate={showFloatNavbar ? "show" : "hide"}
@@ -54,7 +58,15 @@ const FloatNavbar: React.FC = () => {
             >
                 <NavButton icon={MagnifyGlassIcon} route="/explore" />
                 <NavButton icon={PlusIcon} route="/request" />
-                <NavButton avatar={UserIcon} route="/profile/user/me" attention />
+                {status === "authenticated" ? (
+                    <NavButton
+                        avatar={data.user.profile_img}
+                        route={`/profile/user/${data.user.username}`}
+                        attention={notifications && notifications.pages.at(-1)!.count !== 0}
+                    />
+                ) : (
+                    <NavButton icon={UserIcon} route="/auth/signin" />
+                )}
             </motion.ul>
         </nav>
     );
