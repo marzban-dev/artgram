@@ -5,14 +5,9 @@ import React, { useMemo } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IInfiniteArtsProps } from "./infinite-arts.types";
 
-const InfiniteArts: React.FC<IInfiniteArtsProps> = ({ arts, count, callback, className }) => {
+const InfiniteArts: React.FC<IInfiniteArtsProps> = ({ arts, hasNextPage, callback, className }) => {
     const renderArts = useMemo(() => {
         return arts.map((art) => <Art {...art} key={art.id} />);
-    }, [arts]);
-
-    const hasMoreArts = useMemo(() => {
-        const fetchedArtsCount = arts.length;
-        return fetchedArtsCount < count;
     }, [arts]);
 
     return (
@@ -21,9 +16,9 @@ const InfiniteArts: React.FC<IInfiniteArtsProps> = ({ arts, count, callback, cla
                 <InfiniteScroll
                     dataLength={arts.length}
                     next={callback}
-                    hasMore={hasMoreArts}
+                    hasMore={hasNextPage}
                     loader={<Spinner size={40} style={{ padding: "50px 0" }} />}
-                    style={{overflowY : "hidden"}}
+                    style={{ overflowY: "hidden" }}
                 >
                     <MasonryGrid>{renderArts}</MasonryGrid>
                 </InfiniteScroll>

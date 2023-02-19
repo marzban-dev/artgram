@@ -2,7 +2,7 @@ import { IArt } from "api/arts.types";
 
 export interface IInfiniteArtsProps {
     arts: IArt[];
-    count: number;
+    hasNextPage: boolean;
     callback: () => void;
     className?: string;
 }
