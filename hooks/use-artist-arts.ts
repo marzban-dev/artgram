@@ -11,13 +11,15 @@ export const useArtistArtsQuery = (id: number) => {
     return useInfiniteQuery(["artist-arts", id], ({ pageParam = pageParamDefaults }) => getArts({ pageParam }), {
         cacheTime: Infinity,
         staleTime: Infinity,
-        getNextPageParam: (_lastPage, pages) => {
+        getNextPageParam: (lastPage, pages) => {
             const page = pages.length + 1;
 
-            return {
+            const nextPage = {
                 ...pageParamDefaults,
                 offset: limit * page - limit,
             };
+
+            return lastPage.length !== 0 ? nextPage : undefined;
         },
     });
 };
