@@ -6,6 +6,7 @@ import useImageColors from "hooks/use-image-colors";
 import LocationIcon from "public/assets/icon/location-dot.svg";
 import BrushIcon from "public/assets/icon/paintbrush.svg";
 import { useEffect, useRef } from "react";
+import setCssVariables from "utils/set-css-variables";
 import { IArtPostProps } from "./art-post.types";
 import ArtDetail from "./components/art-detail";
 import ArtPicture from "./components/art-picture";
@@ -41,9 +42,10 @@ const ArtPost: React.FC<IArtPostProps> = ({
 
     useEffect(() => {
         if (imageColors) {
-            const artContainer = document.querySelector(`#art-container-${id}`) as HTMLElement;
-            artContainer.style.setProperty("--art-primary-color", imageColors.primary);
-            artContainer.style.setProperty("--art-lighter-color", imageColors.lighter);
+            setCssVariables(`#art-container-${id}`, [
+                ["--art-primary-color", imageColors.primary],
+                ["--art-lighter-color", imageColors.lighter],
+            ]);
         }
     }, [imageColors]);
 

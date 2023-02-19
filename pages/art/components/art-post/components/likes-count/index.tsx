@@ -6,12 +6,11 @@ import { ILikesCountProps } from "./likes-count.types";
 const LikesCount: React.FC<ILikesCountProps> = ({ id, initial }) => {
     const [show, setShow] = useState(false);
 
-    const {
-        data: { likesCount },
-    } = useArtLikesQuery(id, initial);
+    const { data } = useArtLikesQuery(id, initial);
+    const count = data!.pages.at(-1)!.count;
 
     const containerStyle: React.CSSProperties = {
-        opacity: likesCount !== 0 ? 1 : 0,
+        opacity: count !== 0 ? 1 : 0,
     };
 
     return (
@@ -21,7 +20,7 @@ const LikesCount: React.FC<ILikesCountProps> = ({ id, initial }) => {
                 style={containerStyle}
                 onClick={() => setShow(true)}
             >
-                <span className="mr-[6px] text-white">{likesCount}</span>
+                <span className="mr-[6px] text-white">{count}</span>
                 <span>Likes</span>
             </div>
             <Likes id={id} initialData={initial} show={show} setShow={setShow} />
