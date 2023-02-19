@@ -4,15 +4,11 @@ import { useArtistArtsQuery } from "hooks/use-artist-arts";
 import React from "react";
 import { IArtistArtsProps } from "./artist-arts.types";
 
-const ArtistArts: React.FC<IArtistArtsProps> = ({ id, count }) => {
-    const { data: arts, fetchNextPage } = useArtistArtsQuery(id);
+const ArtistArts: React.FC<IArtistArtsProps> = ({ id }) => {
+    const { data: arts, fetchNextPage, hasNextPage } = useArtistArtsQuery(id);
 
     return arts?.pages ? (
-        <InfiniteArts
-            arts={arts.pages.flat()}
-            count={count}
-            callback={fetchNextPage}
-        />
+        <InfiniteArts className="mt-6" arts={arts.pages.flat()} hasNextPage={!!hasNextPage} callback={fetchNextPage} />
     ) : (
         <Spinner size={100} />
     );
