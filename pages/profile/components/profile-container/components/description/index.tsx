@@ -19,7 +19,7 @@ const Description: React.FC<IDescriptionProps> = ({ text }) => {
     });
 
     return (
-        <div className="bottom-[25px] relative">
+        <div>
             <p className={paragraphClasses}>{text}</p>
             <div className="flex justify-center items-center">
                 <button
@@ -27,7 +27,7 @@ const Description: React.FC<IDescriptionProps> = ({ text }) => {
                     onClick={() => setIsExpanded(!isExpanded)}
                 >
                     {isExpanded ? "Less" : "More"}
-                    <ArrowIcon className={iconClasses}/>
+                    <ArrowIcon className={iconClasses} />
                 </button>
             </div>
         </div>
