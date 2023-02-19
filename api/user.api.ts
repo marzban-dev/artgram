@@ -9,11 +9,15 @@ import {
     IGetArtistResponse,
     IGetFollowersRequestParams,
     IGetFollowersResponse,
+    IGetNotificationsRequestParams,
+    IGetNotificationsResponse,
     IGetSavedArtsRequestParams,
-    IGetSavedArtsResponse, IGetUserProfileRequestParams,
+    IGetSavedArtsResponse,
+    IGetUserProfileRequestParams,
     IGetUserProfileResponse,
     ISaveArtRequestParams,
-    IUnsaveArtRequestParams
+    ISeenNotificationRequestParams,
+    IUnsaveArtRequestParams,
 } from "./user.types";
 
 export const getUserProfile = async (params: IGetUserProfileRequestParams) => {
@@ -61,20 +65,25 @@ export const getFollowers = async (params: IGetFollowersRequestParams) => {
         { params: { limit, offset } }
     );
 
-    return response.data.results;
+    return {
+        count: response.data.count,
+        next: response.data.next,
+        items: response.data.results,
+    };
 };
 
 export const getSavedArts = async (params: IGetSavedArtsRequestParams) => {
     const limit = params.pageParam.limit;
     const offset = params.pageParam.page * limit - limit;
 
-    const response = await axios.get<IGetSavedArtsResponse>("/repost/", {
-        params: {
-            owner: params.pageParam.id,
-            limit,
-            offset,
-        },
-    });
+    const options = {
+        params: { owner: params.pageParam.id, limit, offset },
+        headers: {},
+    };
+
+    if (params.pageParam.token) options.headers = { ...createAuthHeader(params.pageParam.token) };
+
+    const response = await axios.get<IGetSavedArtsResponse>("/repost/", options);
 
     return response.data.results;
 };
@@ -85,4 +94,28 @@ export const saveArt = async (params: ISaveArtRequestParams) => {
 
 export const unsaveArt = async (params: IUnsaveArtRequestParams) => {
     await axios.delete(`/repost/${params.id}/`, { headers: { ...createAuthHeader(params.token) } });
+};
+
+export const getNotifications = async (params: IGetNotificationsRequestParams) => {
+    const limit = params.pageParam.limit;
+    const offset = params.pageParam.page * limit - limit;
+
+    const options = {
+        params: { limit, offset },
+        headers: { ...createAuthHeader(params.pageParam.token) },
+    };
+
+    const response = await axios.get<IGetNotificationsResponse>("/user/notification/", options);
+
+    return {
+        count: response.data.count,
+        next: response.data.next,
+        items: response.data.results,
+    };
+};
+
+export const seenNotification = async (params: ISeenNotificationRequestParams) => {
+    await axios.get<IGetNotificationsResponse>(`/user/notification/${params.id}/markasread/`, {
+        headers: { ...createAuthHeader(params.token) },
+    });
 };

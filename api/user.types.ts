@@ -32,6 +32,15 @@ export interface ISavedArt {
     art: IArt;
 }
 
+export interface INotification {
+    id: number;
+    type: "f" | "rl";
+    object_id: string;
+    date: string;
+    is_read: boolean;
+    owner: IUser;
+}
+
 export interface IFollowUserRequestParams {
     id: number | string;
     state: boolean;
@@ -66,12 +75,13 @@ export interface IGetFollowersRequestParams {
 
 export interface IGetFollowersResponse {
     count: number;
+    next: string | null;
     results: IFollower[];
 }
 
 export interface IGetSavedArtsRequestParams {
     pageParam: {
-        id: number;
+        id: string;
         limit: number;
         page: number;
         token?: string;
@@ -89,6 +99,25 @@ export interface ISaveArtRequestParams {
 }
 
 export interface IUnsaveArtRequestParams {
+    id: number;
+    token: string;
+}
+
+export interface IGetNotificationsRequestParams {
+    pageParam: {
+        limit: number;
+        page: number;
+        token: string;
+    };
+}
+
+export interface IGetNotificationsResponse {
+    count: number;
+    next: string | null;
+    results: INotification[];
+}
+
+export interface ISeenNotificationRequestParams {
     id: number;
     token: string;
 }
