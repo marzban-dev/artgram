@@ -6,6 +6,8 @@
     :root {
         --art-primary-color: rgb(130, 130, 130);
         --art-lighter-color: rgb(130, 130, 130);
+        --artist-primary-color: rgb(130, 130, 130);
+        --artist-lighter-color: rgb(130, 130, 130);
     }
 
     .hide-scrollbar {
