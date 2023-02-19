@@ -8,8 +8,6 @@ import { useArtsQuery } from "hooks/use-arts";
 const Arts: React.FC<IArtsProps> = ({ id, art, containerHeight }) => {
     const { data: arts, fetchNextPage } = useArtsQuery(id);
 
-    console.log(containerHeight);
-
     const renderArts = useMemo(() => {
         return arts?.pages.flat().map((art) => {
             return <ArtPost {...art} key={art.id} />;
