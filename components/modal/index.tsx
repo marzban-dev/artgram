@@ -65,7 +65,7 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
         <Portal>
             <AnimatePresence>
                 {show && (
-                    <div className="z-[999] fixed top-0 flex justify-center items-center w-full h-full [perspective:1000px]">
+                    <div className="z-[900] fixed top-0 flex justify-center items-center w-full h-full [perspective:1000px]">
                         <motion.div
                             className="z-[1000] min-h-[300px] max-h-[500px] w-full min-[520px]:w-[500px] rounded-t-[20px] rounded-b-none min-[520px]:rounded-[20px] bg-[rgb(20,20,20)] absolute max-[520px]:bottom-0 origin-bottom overflow-hidden"
                             dragConstraints={{ bottom: 0, top: 0 }}
