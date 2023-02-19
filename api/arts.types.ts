@@ -111,10 +111,13 @@ export interface IUnlikeArtRequestParams {
 }
 
 export interface IGetArtLikesRequestParams {
-    id: number;
+    pageParam : {
+        id: number;
+    }
 }
 
 export interface IGetArtLikesResponse {
     count: number;
+    next : string | null;
     results: IArtLike[];
 }

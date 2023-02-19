@@ -38,11 +38,12 @@ export const getArts = async (params: IGetArtsRequestParams) => {
 };
 
 export const getArtLikes = async (params: IGetArtLikesRequestParams) => {
-    const response = await axios.get<IGetArtLikesResponse>(`/art/like/`, { params: { art: params.id } });
+    const response = await axios.get<IGetArtLikesResponse>(`/art/like/`, { params: { art: params.pageParam.id } });
 
     return {
-        likesCount: response.data.count,
-        users: response.data.results,
+        count: response.data.count,
+        next: response.data.next,
+        items: response.data.results,
     };
 };
 
