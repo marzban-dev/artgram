@@ -1,12 +1,9 @@
+import { IUser } from "api/user.types";
 import NextAuth, { DefaultSession } from "next-auth";
 
 declare module "next-auth" {
     interface Session {
-        user: {
-            id: number;
-            username: string;
-            email: string;
-        };
+        user: IUser;
         accessToken: string;
         refreshToken: string;
         expires: DefaultSession["expires"];
