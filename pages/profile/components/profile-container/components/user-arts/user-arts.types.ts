@@ -1,4 +1,3 @@
 export interface IUserArtsProps {
-    id: number;
-    count: number;
+    id: string;
 }
