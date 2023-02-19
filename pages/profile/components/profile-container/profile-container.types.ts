@@ -2,10 +2,10 @@ import { IProfileInfoProps } from "./components/header/components/profile-info/p
 
 export interface IProfileContainerProps {
     avatar: string;
-    name: string;
+    username: string;
+    firstName?: string;
     background?: string;
     description?: string;
-    artsCount: number;
     profileInfo: IProfileInfoProps[];
     type: "user" | "artist";
 }
