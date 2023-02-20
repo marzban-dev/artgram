@@ -1,10 +1,8 @@
-import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getArts } from "api/arts.api";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
-import { IArt } from "api/arts.types";
 
 export const useSearchQuery = () => {
     const search = useSelector((state: RootState) => state.explore.search);
@@ -24,13 +22,15 @@ export const useSearchQuery = () => {
 
     return useInfiniteQuery(["search"], ({ pageParam = pageParamDefaults }) => getArts({ pageParam }), {
         enabled: !!search,
-        getNextPageParam: (_lastPage, pages) => {
+        getNextPageParam: (lastPage, pages) => {
             const page = pages.length + 1;
 
-            return {
+            const nextPage = {
                 ...pageParamDefaults,
                 offset: limit * page - limit,
             };
+
+            return lastPage.next ? nextPage : undefined;
         },
     });
 };
