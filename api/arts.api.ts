@@ -26,7 +26,7 @@ export const getArt = async (params: IGetArtRequestParams) => {
 
 export const getArts = async (params: IGetArtsRequestParams) => {
     const options = {
-        params: { ...params.pageParam, token: undefined },
+        params: { ...params.pageParam, token: undefined},
         headers: {},
     };
 
@@ -34,7 +34,11 @@ export const getArts = async (params: IGetArtsRequestParams) => {
 
     const response = await axios.get<IGetArtsResponse>("/", options);
 
-    return response.data.results;
+    return {
+        items: response.data.results,
+        next: response.data.next,
+        count: response.data.count,
+    };
 };
 
 export const getArtLikes = async (params: IGetArtLikesRequestParams) => {

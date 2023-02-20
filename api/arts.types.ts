@@ -90,6 +90,7 @@ export interface IGetArtsRequestParams {
 
 export interface IGetArtsResponse {
     count: number;
+    next: string | null;
     results: IArt[];
 }
 
@@ -111,13 +112,13 @@ export interface IUnlikeArtRequestParams {
 }
 
 export interface IGetArtLikesRequestParams {
-    pageParam : {
+    pageParam: {
         id: number;
-    }
+    };
 }
 
 export interface IGetArtLikesResponse {
     count: number;
-    next : string | null;
+    next: string | null;
     results: IArtLike[];
 }
