@@ -4,14 +4,18 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ArtPost from "../art-post";
 import { IArtsProps } from "./arts.types";
 import { useArtsQuery } from "hooks/use-arts";
+import flatInfiniteQueryData from "utils/flat-infinite-query-data";
+import { IArt } from "api/arts.types";
 
 const Arts: React.FC<IArtsProps> = ({ id, art, containerHeight }) => {
     const { data: arts, fetchNextPage } = useArtsQuery(id);
 
     const renderArts = useMemo(() => {
-        return arts?.pages.flat().map((art) => {
-            return <ArtPost {...art} key={art.id} />;
-        });
+        if (arts) {
+            return flatInfiniteQueryData<IArt>(arts).map((art) => {
+                return <ArtPost {...art} key={art.id} />;
+            });
+        } else return null;
     }, [arts]);
 
     return (
