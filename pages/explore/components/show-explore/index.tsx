@@ -1,8 +1,10 @@
+import { IArt } from "api/arts.types";
 import InfiniteArts from "components/infinite-arts";
 import { useExploreQuery } from "hooks/use-explore";
 import { useSearchQuery } from "hooks/use-search";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import flatInfiniteQueryData from "utils/flat-infinite-query-data";
 
 const ShowExplore: React.FC = () => {
     const { data: arts, fetchNextPage: fetchNextExplorePage } = useExploreQuery();
@@ -11,7 +13,7 @@ const ShowExplore: React.FC = () => {
     const isSearching = useSelector((state: RootState) => state.explore.isSearching);
 
     return arts && !searchResult && !isSearching ? (
-        <InfiniteArts arts={arts!.pages.flat()} callback={fetchNextExplorePage} count={Infinity} />
+        <InfiniteArts arts={flatInfiniteQueryData<IArt>(arts!)} callback={fetchNextExplorePage} hasNextPage={true} />
     ) : null;
 };
 
