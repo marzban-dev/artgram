@@ -12,7 +12,7 @@ const FloatNavbar: React.FC = () => {
     const router = useRouter();
     const { status, data } = useSession();
     const [showFloatNavbar, setShowFloatNavbar] = useState(false);
-    const { data: notifications } = useNotificationsQuery();
+    const { data: notifications } = useNotificationsQuery({ enabled: status === "authenticated" });
 
     const showAtFirst = router.pathname.includes("/art") || router.pathname.includes("/profile");
 
