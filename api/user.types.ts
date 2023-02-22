@@ -14,6 +14,8 @@ export interface IUser {
     link: string;
     location: string;
     repost_count: number;
+    followings_count: number;
+    followers_count: number;
 }
 
 export interface ISimpleUser {
@@ -42,7 +44,7 @@ export interface INotification {
 }
 
 export interface IFollowUserRequestParams {
-    id: number | string;
+    id: string;
     state: boolean;
     type: "user" | "artist";
     token: string;

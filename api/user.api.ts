@@ -21,7 +21,7 @@ import {
 } from "./user.types";
 
 export const getUserProfile = async (params: IGetUserProfileRequestParams) => {
-    const response = await axios.get<IGetUserProfileResponse>(`/user/get/${params.id}/`);
+    const response = await axios.get<IGetUserProfileResponse>(`/user/${params.id}/`);
 
     return response.data;
 };
