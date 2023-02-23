@@ -1,13 +1,19 @@
 import classNames from "classnames";
-import React, { useState } from "react";
-import { IDescriptionProps } from "./description.types";
 import ArrowIcon from "public/assets/icon/caret-down.svg";
+import { useEffect, useRef, useState } from "react";
+import { IDescriptionProps } from "./description.types";
 
 const Description: React.FC<IDescriptionProps> = ({ text }) => {
+    const [showExpandButton, setShowExpandButton] = useState(true);
     const [isExpanded, setIsExpanded] = useState(false);
+    const paragraphRef = useRef<HTMLParagraphElement>(null);
+
+    useEffect(() => {
+        setShowExpandButton(paragraphRef.current!.scrollHeight > paragraphRef.current!.clientHeight);
+    }, [text]);
 
     const paragraphClasses = classNames({
-        "text-[rgb(200,200,200)] px-[40px] [line-height:1.8] overflow-ellipsis": 1,
+        "text-[rgb(200,200,200)] [line-height:1.8] overflow-ellipsis": 1,
         "line-clamp-4": !isExpanded,
         "line-clamp-unset": isExpanded,
     });
@@ -19,18 +25,23 @@ const Description: React.FC<IDescriptionProps> = ({ text }) => {
     });
 
     return (
-        <div>
-            <p className={paragraphClasses}>{text}</p>
-            <div className="flex justify-center items-center">
-                <button
-                    className="group border-2 border-[rgb(120,120,120)] hover:border-white rounded-[30px] py-1 px-6 text-[rgb(120,120,120)] hover:text-white mt-4 flex justify-center items-center gap-2 transition-colors"
-                    onClick={() => setIsExpanded(!isExpanded)}
-                >
-                    {isExpanded ? "Less" : "More"}
-                    <ArrowIcon className={iconClasses} />
-                </button>
-            </div>
+        <div className="px-[35px]">
+            <p className={paragraphClasses} ref={paragraphRef}>
+                {text}
+            </p>
+            {showExpandButton && (
+                <div className="flex justify-center items-center">
+                    <button
+                        className="group border-2 border-[rgb(120,120,120)] hover:border-white rounded-[30px] py-1 px-6 text-[rgb(120,120,120)] hover:text-white mt-4 flex justify-center items-center gap-2 transition-colors"
+                        onClick={() => setIsExpanded(!isExpanded)}
+                    >
+                        {isExpanded ? "Less" : "More"}
+                        <ArrowIcon className={iconClasses} />
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
+
 export default Description;
