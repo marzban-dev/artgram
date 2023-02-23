@@ -7,6 +7,7 @@ const MasonryGrid: React.FC<IMasonryGridProps> = ({ children }) => {
         const masonryGrid = new Masonry(".masonry-grid", {
             percentPosition: true,
             itemSelector: ".grid-item",
+            transitionDuration: 0
         });
     });
 
