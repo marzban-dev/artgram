@@ -13,6 +13,7 @@ export interface IUser {
     bio: string;
     link: string;
     location: string;
+    following: boolean;
     repost_count: number;
     followings_count: number;
     followers_count: number;
@@ -45,9 +46,7 @@ export interface INotification {
 
 export interface IFollowUserRequestParams {
     id: string;
-    state: boolean;
     type: "user" | "artist";
-    token: string;
 }
 
 export interface IGetUserProfileRequestParams {
@@ -61,10 +60,6 @@ export interface IGetArtistRequestParams {
 }
 
 export interface IGetArtistResponse extends IArtist {}
-
-export interface IGetArtistProfileResponse extends IGetArtistResponse {
-    artsCount: number;
-}
 
 export interface IGetFollowersRequestParams {
     pageParam: {
@@ -86,30 +81,27 @@ export interface IGetSavedArtsRequestParams {
         id: string;
         limit: number;
         page: number;
-        token?: string;
     };
 }
 
 export interface IGetSavedArtsResponse {
     count: number;
+    next: string | null;
     results: ISavedArt[];
 }
 
 export interface ISaveArtRequestParams {
     id: number;
-    token: string;
 }
 
 export interface IUnsaveArtRequestParams {
     id: number;
-    token: string;
 }
 
 export interface IGetNotificationsRequestParams {
     pageParam: {
         limit: number;
         page: number;
-        token: string;
     };
 }
 
@@ -121,5 +113,4 @@ export interface IGetNotificationsResponse {
 
 export interface ISeenNotificationRequestParams {
     id: number;
-    token: string;
 }
