@@ -1,14 +1,13 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { IGetArtistProfileResponse } from "api/user.types";
+import { getArtistProfile } from "api/user.api";
 import { useArtistQuery } from "hooks/use-artist";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
-import CalenderIcon from "public/assets/icon/calendar-star.svg";
 import BrushIcon from "public/assets/icon/brush.svg";
+import CalenderIcon from "public/assets/icon/calendar-star.svg";
 import CapIcon from "public/assets/icon/graduation-cap.svg";
-import ProfileContainer from "../components/profile-container";
 import { useMemo } from "react";
-import { getArtistProfile } from "api/user.api";
+import ProfileContainer from "../components/profile-container";
 
 const ArtistPage: NextPage = () => {
     const { query } = useRouter();
@@ -24,6 +23,7 @@ const ArtistPage: NextPage = () => {
 
     return (
         <ProfileContainer
+            isFollowing={false}
             username={artistData!.name}
             avatar={artistData!.image}
             description={artistData?.bio}
