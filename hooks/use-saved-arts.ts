@@ -11,7 +11,7 @@ export const useSavedArtsQuery = (id: string) => {
                 page: pages.length + 1,
             };
 
-            return lastPage.length !== 0 ? nextPage : undefined;
+            return lastPage.next ? nextPage : undefined;
         },
     });
 };
