@@ -1,12 +1,9 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getArts } from "api/arts.api";
-import { useSession } from "next-auth/react";
 
 export const useArtistArtsQuery = (id: number) => {
-    const { data } = useSession();
-
     const limit = 10;
-    const pageParamDefaults = { limit, offset: 0, artist: id, ordering: "artist", token: data?.accessToken };
+    const pageParamDefaults = { limit, offset: 0, artist: id, ordering: "artist" };
 
     return useInfiniteQuery(["artist-arts", id], ({ pageParam = pageParamDefaults }) => getArts({ pageParam }), {
         cacheTime: Infinity,
@@ -19,7 +16,7 @@ export const useArtistArtsQuery = (id: number) => {
                 offset: limit * page - limit,
             };
 
-            return lastPage.length !== 0 ? nextPage : undefined;
+            return lastPage.next ? nextPage : undefined;
         },
     });
 };
