@@ -63,7 +63,13 @@ const ArtPost: React.FC<IArtPostProps> = ({
                         <Avatar width={60} height={60} picture={artist.image} title={title} />
                         <Header id={artist.id} title={title} artist={artist.name} year={date} />
                     </div>
-                    <FollowButton id={artist.id} type="artist" width={100} initial={artist.following} />
+                    <FollowButton
+                        id={String(artist.id)}
+                        type="artist"
+                        width={100}
+                        initial={artist.following}
+                        colorClass="art"
+                    />
                 </div>
                 <div className="w-full mt-4 relative">
                     <ArtPicture
