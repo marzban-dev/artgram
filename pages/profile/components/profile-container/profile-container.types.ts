@@ -1,4 +1,4 @@
-import { IProfileInfoProps } from "./components/header/components/profile-info/profile-info.types";
+import { IProfileInfoProps } from "./components/profile-info/profile-info.types";
 
 export interface IProfileContainerProps {
     avatar: string;
@@ -6,6 +6,7 @@ export interface IProfileContainerProps {
     firstName?: string;
     background?: string;
     description?: string;
+    isFollowing: boolean;
     profileInfo: IProfileInfoProps[];
     type: "user" | "artist";
 }

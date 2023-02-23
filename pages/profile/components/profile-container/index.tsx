@@ -8,6 +8,8 @@ import Header from "./components/header";
 import PageBackground from "./components/page-background";
 import UserArts from "./components/user-arts";
 import { IProfileContainerProps } from "./profile-container.types";
+import { useMemo } from "react";
+import ProfileInfo from "./components/profile-info";
 
 const ProfileContainer: React.FC<IProfileContainerProps> = ({
     avatar,
@@ -15,11 +17,16 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
     firstName,
     background,
     description,
+    isFollowing,
     profileInfo,
     type,
 }) => {
     const { query } = useRouter();
     const profileId = query.id;
+
+    const renderProfileInfos = useMemo(() => {
+        return profileInfo.map((profInfo) => <ProfileInfo {...profInfo} />);
+    }, [profileInfo]);
 
     return (
         <SkeletonTheme baseColor="rgb(22,22,22)" highlightColor="rgb(32,32,32)">
@@ -31,16 +38,23 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
                     >
                         <div className="w-full">
                             <Header
+                                id={String(profileId)}
                                 avatar={avatar}
                                 username={username}
                                 firstName={firstName}
                                 background={background}
-                                info={profileInfo}
+                                isFollowing={isFollowing}
+                                type={type}
                             />
-                            {description && <Description text={description} />}
+                            <div className="relative bottom-[12px]">
+                                <div className="flex justify-start items-center gap-3 px-[35px] mb-4">
+                                    {renderProfileInfos}
+                                </div>
+                                {description && <Description text={description} />}
+                            </div>
                         </div>
                         {type === "artist" && <ArtistArts id={Number(profileId)} />}
-                        {type === "user" && <UserArts id={String(profileId)}/>}
+                        {type === "user" && <UserArts id={String(profileId)} />}
                     </main>
                 </PagePadding>
                 <PageBackground background={background} />
