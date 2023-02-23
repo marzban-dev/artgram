@@ -26,12 +26,7 @@ export const signup = async (params: ISignupRequestParams) => {
     return response.data;
 };
 
-export const getUser = async (token: string) => {
-    const response = await axios.get<IGetUserResponse>("/user/my/myinfo/", {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
+export const getUser = async () => {
+    const response = await axios.get<IGetUserResponse>("/user/my/myinfo/");
     return response.data;
 };
