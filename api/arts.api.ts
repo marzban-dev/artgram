@@ -1,38 +1,24 @@
 import axios from "config/axios";
-import createAuthHeader from "utils/create-auth-header";
-import sleep from "utils/sleep";
 import {
+    IGetArtLikesRequestParams,
+    IGetArtLikesResponse,
     IGetArtRequestParams,
     IGetArtResponse,
     IGetArtsRequestParams,
     IGetArtsResponse,
     ILikeArtRequestParams,
-    IGetArtLikesRequestParams,
-    IGetArtLikesResponse,
-    IUnlikeArtRequestParams,
+    IUnlikeArtRequestParams
 } from "./arts.types";
 
 export const getArt = async (params: IGetArtRequestParams) => {
-    const options = {
-        headers: {},
-    };
-
-    if (params.token) options.headers = { ...createAuthHeader(params.token) };
-
-    const response = await axios.get<IGetArtResponse>(`/${params.id}/`, options);
-
+    const response = await axios.get<IGetArtResponse>(`/${params.id}/`);
     return response.data;
 };
 
 export const getArts = async (params: IGetArtsRequestParams) => {
-    const options = {
-        params: { ...params.pageParam, token: undefined},
-        headers: {},
-    };
-
-    if (params.pageParam.token) options.headers = { ...createAuthHeader(params.pageParam.token) };
-
-    const response = await axios.get<IGetArtsResponse>("/", options);
+    const response = await axios.get<IGetArtsResponse>("/", {
+        params: { ...params.pageParam, token: undefined },
+    });
 
     return {
         items: response.data.results,
@@ -52,21 +38,9 @@ export const getArtLikes = async (params: IGetArtLikesRequestParams) => {
 };
 
 export const likeArt = async (params: ILikeArtRequestParams) => {
-    const data = {
-        art: params.id,
-    };
-
-    const options = {
-        headers: { ...createAuthHeader(params.token) },
-    };
-
-    await axios.post("/art/like/", data, options);
+    await axios.post("/art/like/", { art: params.id });
 };
 
 export const unlikeArt = async (params: IUnlikeArtRequestParams) => {
-    const options = {
-        headers: { ...createAuthHeader(params.token) },
-    };
-
-    await axios.delete(`/art/like/${params.id}/`, options);
+    await axios.delete(`/art/like/${params.id}/`);
 };
