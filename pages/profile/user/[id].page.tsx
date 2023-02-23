@@ -28,6 +28,7 @@ const UserPage: NextPage = () => {
             avatar={userData!.profile_img}
             description={userData!.bio}
             background={userData!.header_img}
+            isFollowing={userData!.following}
             profileInfo={profileInfo}
             type="user"
         />
@@ -48,7 +49,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     try {
         const userProfile = await getUserProfile({ id: userId });
-
         await queryClient.prefetchQuery(["user", userId], () => userProfile);
     } catch (e) {
         return {
