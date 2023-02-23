@@ -1,6 +1,7 @@
 export interface IFollowButtonProps {
-    id: number | string;
+    id: string;
     type: "user" | "artist";
     width: number | string;
     initial: boolean;
+    colorClass: "art" | "profile";
 }
