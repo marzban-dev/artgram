@@ -48,6 +48,13 @@
         }
     }
 
+    @media screen and (max-width: 560px) {
+        .grid-item,
+        .grid-sizer {
+            width: 50%;
+        }
+    }
+
     span[aria-live="polite"],
     .placeholder-container {
         line-height: 1 !important;
