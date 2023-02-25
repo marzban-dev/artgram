@@ -38,6 +38,7 @@ export interface ISavedArt {
 export interface INotification {
     id: number;
     type: "f" | "rl";
+    obj: IUser;
     object_id: string;
     date: string;
     is_read: boolean;
@@ -111,6 +112,6 @@ export interface IGetNotificationsResponse {
     results: INotification[];
 }
 
-export interface ISeenNotificationRequestParams {
+export interface ISeenNotificationsRequestParams {
     id: number;
 }

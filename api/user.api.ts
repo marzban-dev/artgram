@@ -12,7 +12,7 @@ import {
     IGetUserProfileRequestParams,
     IGetUserProfileResponse,
     ISaveArtRequestParams,
-    ISeenNotificationRequestParams,
+    ISeenNotificationsRequestParams,
     IUnsaveArtRequestParams,
 } from "./user.types";
 
@@ -84,6 +84,6 @@ export const getNotifications = async (params: IGetNotificationsRequestParams) =
     };
 };
 
-export const seenNotification = async (params: ISeenNotificationRequestParams) => {
-    await axios.get<IGetNotificationsResponse>(`/user/notification/${params.id}/markasread/`);
+export const seenNotifications = async (params: ISeenNotificationsRequestParams) => {
+    await axios.post(`/user/notification/${params.id}/`);
 };
