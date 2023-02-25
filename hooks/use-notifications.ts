@@ -1,6 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getNotifications, getSavedArts } from "api/user.api";
-import { useSession } from "next-auth/react";
+import { getNotifications } from "api/user.api";
 
 export const useNotificationsQuery = ({ enabled }: { enabled: boolean }) => {
     const pageParamDefaults = { limit: 5, page: 1 };
