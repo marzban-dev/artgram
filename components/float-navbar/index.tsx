@@ -1,42 +1,32 @@
+import UserProfile from "components/user-profile";
 import { motion, Variants } from "framer-motion";
-import { useNotificationsQuery } from "hooks/use-notifications";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import PlusIcon from "public/assets/icon/circle-plus.svg";
 import MagnifyGlassIcon from "public/assets/icon/magnifying-glass.svg";
 import UserIcon from "public/assets/icon/user.svg";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import NavButton from "./components/link-button";
 
 const FloatNavbar: React.FC = () => {
     const router = useRouter();
     const { status, data } = useSession();
     const [showFloatNavbar, setShowFloatNavbar] = useState(false);
-    const { data: notifications } = useNotificationsQuery({ enabled: status === "authenticated" });
 
-    const showAtFirst = useMemo(() => {
-        const routes = ["/art", "/profile", "/auth"];
+    const shouldRenderAtFirst = useMemo(() => {
+        const routes = ["/art", "/profile"];
         return routes.some((route) => router.pathname.includes(route));
     }, [router.pathname]);
 
-    const isThereNewNotification = useMemo(() => {
-        if (notifications) {
-            const lastNotifications = notifications.pages.at(-1)!;
-            return notifications && lastNotifications.count !== 0 && lastNotifications.items[0].is_read === false;
-        }
-
-        return false;
-    }, [notifications]);
-
     useEffect(() => {
-        if (showAtFirst) setShowFloatNavbar(true);
+        if (shouldRenderAtFirst) setShowFloatNavbar(true);
         else setShowFloatNavbar(false);
 
         const onWindowScroll = () => {
             if (window.scrollY >= window.innerHeight / 2) {
                 setShowFloatNavbar(true);
             } else {
-                if (!showAtFirst) setShowFloatNavbar(false);
+                if (!shouldRenderAtFirst) setShowFloatNavbar(false);
             }
         };
 
@@ -71,11 +61,9 @@ const FloatNavbar: React.FC = () => {
                 <NavButton icon={MagnifyGlassIcon} route="/explore" />
                 <NavButton icon={PlusIcon} route="/request" />
                 {status === "authenticated" ? (
-                    <NavButton
-                        avatar={data.user.profile_img}
-                        route={`/profile/user/${data.user.username}`}
-                        attention={isThereNewNotification}
-                    />
+                    <NavButton route={`/profile/user/${data.user.username}`}>
+                        <UserProfile />
+                    </NavButton>
                 ) : (
                     <NavButton icon={UserIcon} route="/auth/signin" />
                 )}

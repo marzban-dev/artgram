@@ -1,6 +1,5 @@
 export interface INavButtonProps {
     icon?: any;
-    avatar?: string;
+    children?: React.ReactNode;
     route: string;
-    attention?: boolean;
 }

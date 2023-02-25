@@ -1,11 +1,9 @@
 import classNames from "classnames";
-import Avatar from "components/avatar";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { INavButtonProps } from "./link-button.types";
 
-const NavButton: React.FC<INavButtonProps> = ({ icon: Icon, avatar, route, attention }) => {
+const NavButton: React.FC<INavButtonProps> = ({ icon: Icon, children, route }) => {
     const router = useRouter();
 
     const isRouteMatch = router.pathname === route;
@@ -23,11 +21,7 @@ const NavButton: React.FC<INavButtonProps> = ({ icon: Icon, avatar, route, atten
                     <div className="max-[750px]:hidden absolute left-[-12px] w-[6px] h-[6px] rounded-[6px] bg-white" />
                 )}
                 <div className="relative flex justify-center items-center">
-                    {attention && (
-                        <div className="absolute right-[-14px] w-[6px] h-[6px] rounded-full bg-red-500 z-10" />
-                    )}
-                    {Icon && <Icon className={iconClasses} />}
-                    {avatar && <Avatar picture={avatar} title="some title" width={28} height={28} />}
+                    {children ? children : <Icon className={iconClasses} />}
                 </div>
             </Link>
         </li>
