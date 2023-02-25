@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import PlusIcon from "public/assets/icon/circle-plus.svg";
 import MagnifyGlassIcon from "public/assets/icon/magnifying-glass.svg";
 import UserIcon from "public/assets/icon/user.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import NavButton from "./components/link-button";
 
 const FloatNavbar: React.FC = () => {
@@ -14,7 +14,19 @@ const FloatNavbar: React.FC = () => {
     const [showFloatNavbar, setShowFloatNavbar] = useState(false);
     const { data: notifications } = useNotificationsQuery({ enabled: status === "authenticated" });
 
-    const showAtFirst = router.pathname.includes("/art") || router.pathname.includes("/profile");
+    const showAtFirst = useMemo(() => {
+        const routes = ["/art", "/profile", "/auth"];
+        return routes.some((route) => router.pathname.includes(route));
+    }, [router.pathname]);
+
+    const isThereNewNotification = useMemo(() => {
+        if (notifications) {
+            const lastNotifications = notifications.pages.at(-1)!;
+            return notifications && lastNotifications.count !== 0 && lastNotifications.items[0].is_read === false;
+        }
+
+        return false;
+    }, [notifications]);
 
     useEffect(() => {
         if (showAtFirst) setShowFloatNavbar(true);
@@ -62,7 +74,7 @@ const FloatNavbar: React.FC = () => {
                     <NavButton
                         avatar={data.user.profile_img}
                         route={`/profile/user/${data.user.username}`}
-                        attention={notifications && notifications.pages.at(-1)!.count !== 0}
+                        attention={isThereNewNotification}
                     />
                 ) : (
                     <NavButton icon={UserIcon} route="/auth/signin" />
