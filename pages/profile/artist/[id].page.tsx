@@ -16,7 +16,7 @@ const ArtistPage: NextPage = () => {
     const profileInfo = useMemo(() => {
         return [
             { icon: CapIcon, text: artistData!.school },
-            { icon: CalenderIcon, text: artistData!.birth_data },
+            { icon: CalenderIcon, text: new Date(artistData!.birth_data).toDateString() },
             { icon: BrushIcon, text: artistData!.profession },
         ];
     }, [artistData]);
@@ -29,6 +29,7 @@ const ArtistPage: NextPage = () => {
             description={artistData?.bio}
             background={undefined}
             profileInfo={profileInfo}
+            followers={34}
             type="artist"
         />
     );
