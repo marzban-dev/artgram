@@ -1,6 +1,6 @@
 import { motion, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
-import BackgroundImage from "public/assets/img/test8.jpg";
+import BackgroundImage from "public/assets/img/test2.jpg";
 import React, { useEffect, useState } from "react";
 
 const BackgroundPicture: React.FC = () => {
@@ -30,9 +30,9 @@ const BackgroundPicture: React.FC = () => {
     }, []);
 
     return (
-        <div className="w-full h-full absolute top-0 left-0 z-10 overflow-hidden">
+        <div className="w-full absolute h-full overflow-hidden">
             <motion.div
-                className="w-[60%] h-full right-0 absolute"
+                className="w-full h-full"
                 style={{
                     x: transformedMouseX,
                     y: transformedMouseY,
@@ -47,8 +47,8 @@ const BackgroundPicture: React.FC = () => {
                     fill
                 />
             </motion.div>
-            <div className="bg-form-background-gradient w-[60%] h-full absolute top-0 right-0" />
-            <div className="bg-black w-[40%] h-full absolute top-0 left-0" />
+            <div className="w-full h-full bg-form-background-gradient absolute top-0 right-0" />
+            {/* <div className="bg-black w-[40%] h-full absolute top-0 left-0" /> */}
         </div>
     );
 };

@@ -1,20 +1,18 @@
+import Logo from "components/logo";
+import Navbar from "components/navbar";
 import { Form, Formik } from "formik";
+import { motion, Variants } from "framer-motion";
 import useImageColors from "hooks/use-image-colors";
+import Link from "next/link";
 import React, { useEffect } from "react";
 import FormButton from "../form-button";
 import BackgroundPicture from "./components/background-picture";
 import { IFormContainerProps } from "./form-container.types";
-import { motion, Variants } from "framer-motion";
 
-const FormContainer: React.FC<IFormContainerProps> = ({
-    initial,
-    schema,
-    onSubmit,
-    title,
-    children,
-    formState,
-}) => {
+const FormContainer: React.FC<IFormContainerProps> = ({ initial, schema, onSubmit, title, children, formState }) => {
     const imageColors = useImageColors("#form-background-image");
+
+    const formType = title.includes("Create") ? "singup" : "signin";
 
     useEffect(() => {
         if (imageColors) {
@@ -37,18 +35,43 @@ const FormContainer: React.FC<IFormContainerProps> = ({
     };
 
     return (
-        <main className="bg-[#272936] w-full h-screen flex justify-start items-center relative px-[10%]">
-            <BackgroundPicture />
+        <main className="bg-black w-full h-screen flex justify-start items-center relative gap-[80px]">
             <Formik initialValues={initial} validationSchema={schema} onSubmit={onSubmit}>
                 {({ status, isSubmitting }) => (
-                    <motion.div variants={mainVariants} className="w-[350px] z-20">
-                        <Form className="w-full" autoComplete="off">
-                            <div className=" flex justify-center items-start gap-4 flex-col ">
-                                <h1 className="text-[#f6fafb] text-[50px] font-semibold whitespace-nowrap mb-[35px]">
-                                    Signin to account
-                                    <span className="text-form-background-primary">.</span>
-                                </h1>
+                    <motion.div
+                        variants={mainVariants}
+                        className="flex justify-center items-center w-full min-[950px]:w-[50%] h-screen z-20 bg-[rgba(0,0,0,0.4)] min-[950px]:bg-[rgba(0,0,0,0.8)] backdrop-blur-md relative"
+                    >
+                        <Form
+                            className="w-[320px] min-[950px]:w-[350px] flex justify-center items-center flex-col"
+                            autoComplete="off"
+                        >
+                            <div className="absolute top-[25px] z-20 flex justify-center items-center gap-8">
+                                <Logo />
+                                <Navbar />
+                            </div>
+                            <div className="flex justify-center items-start flex-col gap-4 w-full">
+                                <div className="mb-[35px]">
+                                    <h1 className="text-white text-[35px] min-[500px]:text-[40px] font-semibold whitespace-nowrap pb-1">
+                                        {title}
+                                        <span className="text-form-background-primary">.</span>
+                                    </h1>
+                                    <span className="ml-1 min-[500px]:text-[18px] text-[rgb(150,150,150)]">
+                                        {formType === "singup" ? "Have an account? " : "New to artgram? "}
+                                        <Link
+                                            href={formType === "singup" ? "/auth/signin" : "/auth/signup"}
+                                            className="text-blue-500"
+                                        >
+                                            {formType === "singup" ? "Sign in now" : "Sign up now"}
+                                        </Link>
+                                    </span>
+                                </div>
                                 {children}
+                                {formType !== "singup" && (
+                                    <Link href="/auth/signin" className="ml-1 text-blue-500">
+                                        Forgot password?
+                                    </Link>
+                                )}
                                 {status && (
                                     <div className="text-red-400 text-[16px] font-medium flex justify-start items-center gap-2 px-3 sm:px-4 mt-2">
                                         {status}
@@ -62,6 +85,7 @@ const FormContainer: React.FC<IFormContainerProps> = ({
                     </motion.div>
                 )}
             </Formik>
+            <BackgroundPicture />
         </main>
     );
 };
