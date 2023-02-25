@@ -8,7 +8,7 @@ const PagePadding: React.FC<IPagePaddingProps> = ({ children }) => {
     const containerClasses = classNames({
         "w-full h-full": 1,
         "px-[6%] min-[550px]:px-[8%] min-[750px]:px-[12%]": pathname.includes("/explore"),
-        "min-[750px]:px-[6%] min-[1300px]:px-[12%] 1": pathname.includes("/profile"),
+        "min-[750px]:px-[6%] min-[1300px]:px-[12%]": pathname.includes("/profile"),
     });
 
     return <div className={containerClasses}>{children}</div>;
