@@ -1,15 +1,16 @@
 import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import ArtistArts from "./components/artist-arts";
 import Description from "./components/description";
 import Header from "./components/header";
 import PageBackground from "./components/page-background";
+import ProfileInfos from "./components/profile-infos";
+import ProfileInfo from "./components/profile-infos/components/profile-info";
 import UserArts from "./components/user-arts";
 import { IProfileContainerProps } from "./profile-container.types";
-import { useMemo } from "react";
-import ProfileInfo from "./components/profile-info";
 
 const ProfileContainer: React.FC<IProfileContainerProps> = ({
     avatar,
@@ -19,21 +20,19 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
     description,
     isFollowing,
     profileInfo,
+    followers,
+    following,
     type,
 }) => {
     const { query } = useRouter();
     const profileId = query.id;
-
-    const renderProfileInfos = useMemo(() => {
-        return profileInfo.map((profInfo) => <ProfileInfo {...profInfo} />);
-    }, [profileInfo]);
 
     return (
         <SkeletonTheme baseColor="rgb(22,22,22)" highlightColor="rgb(32,32,32)">
             <PageTransition>
                 <PagePadding>
                     <main
-                        className="w-full rounded-[25px] bg-[rgb(65,65,65,0.3)] relative z-20 my-[100px] backdrop-blur-sm p-6"
+                        className="w-full min-[750px]:rounded-[25px] bg-[rgb(55,55,55,0.3)] min-[750px]:bg-[rgb(65,65,65,0.3)] relative z-20 min-[750px]:my-[100px] backdrop-blur-[1px] min-[750px]:backdrop-blur-sm min-[661px]:p-6"
                         id="profile-container"
                     >
                         <div className="w-full">
@@ -44,12 +43,12 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
                                 firstName={firstName}
                                 background={background}
                                 isFollowing={isFollowing}
+                                followers={followers}
+                                following={following}
                                 type={type}
                             />
-                            <div className="relative bottom-[12px]">
-                                <div className="flex justify-start items-center gap-3 px-[35px] mb-4">
-                                    {renderProfileInfos}
-                                </div>
+                            <div className="relative bottom-[40px] min-[661px]:bottom-[12px] max-[660px]:px-3">
+                                <ProfileInfos infos={profileInfo} />
                                 {description && <Description text={description} />}
                             </div>
                         </div>

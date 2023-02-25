@@ -2,7 +2,7 @@ import { ISavedArt } from "api/user.types";
 import InfiniteArts from "components/infinite-arts";
 import Spinner from "components/spinner";
 import { useSavedArtsQuery } from "hooks/use-saved-arts";
-import React, { useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import flatInfiniteQueryData from "utils/flat-infinite-query-data";
 import { IUserArtsProps } from "./user-arts.types";
 
@@ -18,9 +18,14 @@ const UserArts: React.FC<IUserArtsProps> = ({ id }) => {
     }, [savedArts]);
 
     return arts ? (
-        <InfiniteArts className="mt-6" arts={arts} hasNextPage={!!hasNextPage} callback={fetchNextPage} />
+        <InfiniteArts
+            className="min-[661px]:mt-6 max-[660px]:px-3 max-[660px]:pb-6"
+            arts={arts}
+            hasNextPage={!!hasNextPage}
+            callback={fetchNextPage}
+        />
     ) : (
-        <Spinner size={100} />
+        <Spinner style={{ padding: "80px 0" }} size={40} />
     );
 };
-export default UserArts;
+export default memo(UserArts);

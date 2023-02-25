@@ -1,4 +1,4 @@
-import { IProfileInfoProps } from "../profile-info/profile-info.types";
+import { IProfileInfoProps } from "../profile-infos/components/profile-info/profile-info.types";
 
 export interface IHeaderProps {
     id: string;
@@ -7,5 +7,7 @@ export interface IHeaderProps {
     username: string;
     firstName?: string;
     isFollowing: boolean;
+    followers: number;
+    following?: number;
     type: "user" | "artist";
 }

@@ -1,16 +1,23 @@
+import { IArt } from "api/arts.types";
 import InfiniteArts from "components/infinite-arts";
 import Spinner from "components/spinner";
 import { useArtistArtsQuery } from "hooks/use-artist-arts";
-import React from "react";
+import React, { memo } from "react";
+import flatInfiniteQueryData from "utils/flat-infinite-query-data";
 import { IArtistArtsProps } from "./artist-arts.types";
 
 const ArtistArts: React.FC<IArtistArtsProps> = ({ id }) => {
     const { data: arts, fetchNextPage, hasNextPage } = useArtistArtsQuery(id);
 
     return arts?.pages ? (
-        <InfiniteArts className="mt-6" arts={arts.pages.flat()} hasNextPage={!!hasNextPage} callback={fetchNextPage} />
+        <InfiniteArts
+            className="min-[661px]:mt-6 max-[660px]:px-3 max-[660px]:pb-6"
+            arts={flatInfiniteQueryData<IArt>(arts)}
+            hasNextPage={!!hasNextPage}
+            callback={fetchNextPage}
+        />
     ) : (
-        <Spinner size={100} />
+        <Spinner style={{ padding: "80px 0" }} size={40} />
     );
 };
-export default ArtistArts;
+export default memo(ArtistArts);

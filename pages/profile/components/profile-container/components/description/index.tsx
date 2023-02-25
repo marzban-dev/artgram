@@ -1,3 +1,4 @@
+import { memo } from "react";
 import classNames from "classnames";
 import ArrowIcon from "public/assets/icon/caret-down.svg";
 import { useEffect, useRef, useState } from "react";
@@ -25,7 +26,7 @@ const Description: React.FC<IDescriptionProps> = ({ text }) => {
     });
 
     return (
-        <div className="px-[35px]">
+        <div className="px-[10px] min-[661px]:px-[25px] min-[950px]:px-[35px]">
             <p className={paragraphClasses} ref={paragraphRef}>
                 {text}
             </p>
@@ -44,4 +45,4 @@ const Description: React.FC<IDescriptionProps> = ({ text }) => {
     );
 };
 
-export default Description;
+export default memo(Description);
