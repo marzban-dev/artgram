@@ -16,8 +16,8 @@ const UserPage: NextPage = () => {
     const profileInfo = useMemo(() => {
         return [
             { icon: LocationIcon, text: userData!.location },
-            { icon: CalenderIcon, text: userData!.date_joined },
-            { icon: LinkIcon, text: userData!.link },
+            { icon: CalenderIcon, text: new Date(userData!.date_joined).toDateString() },
+            { icon: LinkIcon, text: "https://pornhub.com" },
         ];
     }, [userData]);
 
@@ -30,6 +30,8 @@ const UserPage: NextPage = () => {
             background={userData!.header_img}
             isFollowing={userData!.following}
             profileInfo={profileInfo}
+            followers={userData!.followers_count}
+            following={userData!.followings_count}
             type="user"
         />
     );
