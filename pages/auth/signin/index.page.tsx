@@ -58,7 +58,7 @@ const SigninPage: NextPage = () => {
                 schema={schema}
                 onSubmit={onSubmit}
                 initial={initialValue}
-                title="Signin"
+                title="Signin to account"
                 formState={formState}
             >
                 <FormInput
@@ -84,7 +84,7 @@ const SigninPage: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
-            csrfToken: await getCsrfToken(context),
+            // csrfToken: await getCsrfToken(context),
         },
     };
 };
