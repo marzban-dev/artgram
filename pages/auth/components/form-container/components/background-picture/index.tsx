@@ -1,21 +1,21 @@
+import { motion, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
 import BackgroundImage from "public/assets/img/test8.jpg";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import React, { useEffect, useState } from "react";
 
 const BackgroundPicture: React.FC = () => {
     const mouseX = useSpring(0, {
         stiffness: 100,
-        damping: 100,
+        damping: 50,
     });
     const mouseY = useSpring(0, {
         stiffness: 100,
-        damping: 100,
+        damping: 50,
     });
     const [windowWidth, setWindowWidth] = useState(1);
     const [windowHeight, setWindowHeight] = useState(1);
     const transformedMouseX = useTransform(mouseX, [0, windowWidth], [-25, 25]);
-    const transformedMouseY = useTransform(mouseY, [0, windowHeight], [-5, 5]);
+    const transformedMouseY = useTransform(mouseY, [0, windowHeight], [-25, 25]);
 
     const onMouseMove = (e: MouseEvent) => {
         mouseX.set(e.pageX);

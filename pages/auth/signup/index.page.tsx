@@ -2,12 +2,10 @@ import { signup } from "api/auth.api";
 import { AxiosError } from "axios";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
-import Link from "next/link";
 import EmailIcon from "public/assets/icon/envelope.svg";
 import LockIcon from "public/assets/icon/lock.svg";
 import UserIcon from "public/assets/icon/user.svg";
 import { useState } from "react";
-import sleep from "utils/sleep";
 import * as Yup from "yup";
 import FormContainer from "../components/form-container";
 import { TFormState } from "../components/form-container/form-container.types";
@@ -23,9 +21,7 @@ const SignupPage: NextPage = () => {
             .max(20, "Username must lower than 20 char")
             .required("Username is required"),
         email: Yup.string().email("Email is not valid").required("Email is required"),
-        password: Yup.string()
-            .min(8, "Password must bigger than 7 char")
-            .required("Password is required"),
+        password: Yup.string().min(8, "Password must bigger than 7 char").required("Password is required"),
     });
 
     const onSubmit: TSignupOnSubmit = async (values, { setSubmitting, setStatus }) => {
@@ -67,9 +63,6 @@ const SignupPage: NextPage = () => {
                 title="Signup"
                 formState={formState}
             >
-                <Link href="/" className="border-2 border-yellow-400 p-4 text-white">
-                    Go To Other Page
-                </Link>
                 <FormInput
                     id="username"
                     name="username"
@@ -99,7 +92,6 @@ const SignupPage: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    await sleep(500);
     return {
         props: {},
     };

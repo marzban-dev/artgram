@@ -1,12 +1,10 @@
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
 import { getCsrfToken, signIn } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import LockIcon from "public/assets/icon/lock.svg";
 import UserIcon from "public/assets/icon/user.svg";
 import { useState } from "react";
-import sleep from "utils/sleep";
 import * as Yup from "yup";
 import FormContainer from "../components/form-container";
 import { TFormState } from "../components/form-container/form-container.types";
@@ -63,9 +61,6 @@ const SigninPage: NextPage = () => {
                 title="Signin"
                 formState={formState}
             >
-                <Link href="/" className="border-2 border-yellow-400 p-4 text-white">
-                    Go To Other Page
-                </Link>
                 <FormInput
                     id="username"
                     name="username"
@@ -87,7 +82,6 @@ const SigninPage: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    await sleep(500);
     return {
         props: {
             csrfToken: await getCsrfToken(context),
