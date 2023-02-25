@@ -60,7 +60,7 @@ const SignupPage: NextPage = () => {
                 schema={schema}
                 onSubmit={onSubmit}
                 initial={initialValue}
-                title="Signup"
+                title="Create account"
                 formState={formState}
             >
                 <FormInput
