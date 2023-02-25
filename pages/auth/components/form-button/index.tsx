@@ -25,7 +25,7 @@ const FormButton: React.FC<IFormButtonProps> = ({ formState, disabled, children 
     const overlayClasses = classNames({
         "absolute w-[500px] h-[500px] rounded-full flex justify-center items-center scale-0": 1,
         "bg-red-500": formState === "error",
-        "bg-green-500": formState === "success",
+        "bg-green-600": formState === "success",
     });
 
     const overlayIconClasses = classNames({
