@@ -9,7 +9,7 @@ const ProfileInfos: React.FC<IProfileInfosProps> = ({ infos }) => {
     }, [infos]);
 
     return (
-        <div className="flex justify-start items-center flex-wrap gap-2 min-[750px]:gap-3 px-[10px] min-[661px]:px-[25px] min-[950px]:px-[35px] mb-4">
+        <div className="flex justify-center min-[661px]:justify-start items-center flex-wrap gap-2 min-[750px]:gap-3 px-[10px] min-[661px]:px-[25px] min-[950px]:px-[35px] mb-4">
             {renderProfileInfos}
         </div>
     );
