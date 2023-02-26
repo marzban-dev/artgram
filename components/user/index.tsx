@@ -2,7 +2,7 @@ import Avatar from "components/avatar";
 import FollowButton from "components/follow-button";
 import { IUserProps } from "./user.types";
 
-const User: React.FC<IUserProps> = ({ avatar, firstName, username }) => {
+const User: React.FC<IUserProps> = ({ avatar, firstName, username, isFollowing }) => {
     return (
         <div className="w-full flex justify-start items-center gap-4 h-[60px]">
             <Avatar width={60} height={60} picture={avatar} title={username} />
@@ -10,7 +10,7 @@ const User: React.FC<IUserProps> = ({ avatar, firstName, username }) => {
                 <span className="text-[18px]">{firstName}</span>
                 <span className="text-[rgb(150,150,150)] text-[16px]">{username}</span>
             </div>
-            <FollowButton id={username} type="user" width={100} colorClass="profile" initial={false} />
+            <FollowButton id={username} type="user" width={100} colorClass="profile" initial={isFollowing} />
         </div>
     );
 };
