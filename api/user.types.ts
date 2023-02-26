@@ -23,9 +23,8 @@ export interface ISimpleUser {
     username: string;
     first_name: string;
     profile_img: string;
+    following: boolean;
 }
-
-export interface IFollower extends ISimpleUser {}
 
 export interface ISavedArt {
     id: number;
@@ -74,7 +73,22 @@ export interface IGetFollowersRequestParams {
 export interface IGetFollowersResponse {
     count: number;
     next: string | null;
-    results: IFollower[];
+    results: ISimpleUser[];
+}
+
+export interface IGetFollowingRequestParams {
+    pageParam: {
+        id: string | number;
+        type: "user" | "artist";
+        limit: number;
+        page: number;
+    };
+}
+
+export interface IGetFollowingResponse {
+    count: number;
+    next: string | null;
+    results: ISimpleUser[];
 }
 
 export interface IGetSavedArtsRequestParams {

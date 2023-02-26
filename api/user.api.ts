@@ -5,6 +5,8 @@ import {
     IGetArtistResponse,
     IGetFollowersRequestParams,
     IGetFollowersResponse,
+    IGetFollowingRequestParams,
+    IGetFollowingResponse,
     IGetNotificationsRequestParams,
     IGetNotificationsResponse,
     IGetSavedArtsRequestParams,
@@ -35,7 +37,23 @@ export const getFollowers = async (params: IGetFollowersRequestParams) => {
     const offset = params.pageParam.page * limit - limit;
 
     const response = await axios.get<IGetFollowersResponse>(
-        `/${params.pageParam.type}/${params.pageParam.id}/followers/`,
+        `/${params.pageParam.type}/${params.pageParam.id}/follower/`,
+        { params: { limit, offset } }
+    );
+
+    return {
+        count: response.data.count,
+        next: response.data.next,
+        items: response.data.results,
+    };
+};
+
+export const getFollowing = async (params: IGetFollowingRequestParams) => {
+    const limit = params.pageParam.limit;
+    const offset = params.pageParam.page * limit - limit;
+
+    const response = await axios.get<IGetFollowingResponse>(
+        `/${params.pageParam.type}/${params.pageParam.id}/following/`,
         { params: { limit, offset } }
     );
 
