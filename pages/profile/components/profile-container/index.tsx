@@ -1,14 +1,12 @@
 import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import ArtistArts from "./components/artist-arts";
 import Description from "./components/description";
 import Header from "./components/header";
 import PageBackground from "./components/page-background";
 import ProfileInfos from "./components/profile-infos";
-import ProfileInfo from "./components/profile-infos/components/profile-info";
 import UserArts from "./components/user-arts";
 import { IProfileContainerProps } from "./profile-container.types";
 
