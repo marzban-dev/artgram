@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { motion, useInView, Variants } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,14 +7,24 @@ import { IArtProps } from "./art.types";
 import ActionOverlay from "./components/action-overlay";
 import Placeholder from "./components/placeholder";
 
-const Art: React.FC<IArtProps> = ({ id, image, title, user_like }) => {
+const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) => {
     const router = useRouter();
+    const queryClient = useQueryClient();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(user_like);
     const [showActions, setShowActions] = useState(isLiked);
 
     const imageContainerRef = useRef<HTMLElement | null>(null);
     const isImageInView = useInView(imageContainerRef, { once: true });
+
+    const goToArtPage = () => {
+        queryClient.setQueryData(["art", id], (prevQueryData) => {
+            console.log(prevQueryData, "art", id);
+            if (!prevQueryData) return artObject;
+            return prevQueryData;
+        });
+        router.push(`/art/${id}`);
+    };
 
     const imageWrapperVariants: Variants = {
         hide: {
@@ -35,7 +46,7 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like }) => {
     return (
         <section
             className="grid-item p-[6px] min-[550px]:p-2 min-[1020px]:p-3 cursor-pointer"
-            onClick={() => router.push(`/art/${id}`)}
+            onClick={goToArtPage}
             onMouseEnter={() => setShowActions(true)}
             onMouseLeave={() => !isLiked && setShowActions(false)}
             ref={imageContainerRef}
@@ -50,10 +61,7 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like }) => {
                     className="origin-top relative"
                 >
                     <Placeholder isLoaded={isLoaded} />
-                    <motion.div
-                        animate={{ opacity: isLoaded ? 1 : 0 }}
-                        className="relative w-full h-full"
-                    >
+                    <motion.div animate={{ opacity: isLoaded ? 1 : 0 }} className="relative w-full h-full">
                         <ActionOverlay
                             id={id}
                             showActions={showActions}
