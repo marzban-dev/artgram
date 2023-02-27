@@ -84,7 +84,6 @@ export interface IGetArtsRequestParams {
         ordering?: TOrdering | `-${TOrdering}`;
         limit?: number;
         offset?: number;
-        token?: string;
     };
 }
 
@@ -96,19 +95,16 @@ export interface IGetArtsResponse {
 
 export interface IGetArtRequestParams {
     id: number;
-    token?: string;
 }
 
 export interface IGetArtResponse extends IArt {}
 
 export interface ILikeArtRequestParams {
     id: number;
-    token: string;
 }
 
 export interface IUnlikeArtRequestParams {
     id: number;
-    token: string;
 }
 
 export interface IGetArtLikesRequestParams {

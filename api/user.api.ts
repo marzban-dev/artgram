@@ -37,7 +37,7 @@ export const getFollowers = async (params: IGetFollowersRequestParams) => {
     const offset = params.pageParam.page * limit - limit;
 
     const response = await axios.get<IGetFollowersResponse>(
-        `/${params.pageParam.type}/${params.pageParam.id}/follower/`,
+        `/${params.pageParam.type}/${params.pageParam.id}/follower${params.pageParam.type === "artist" ? "s" : ""}/`,
         { params: { limit, offset } }
     );
 
