@@ -11,11 +11,15 @@ import toast from "react-hot-toast";
 import { ILikeProps } from "./like.types";
 
 const Like: React.FC<ILikeProps> = ({ id, initial, onLikeCallback, onDislikeCallback }) => {
-    const { data, status } = useSession();
+    const { status } = useSession();
     const animationControl = useAnimation();
     const [isLiked, setIsLiked] = useState(initial);
     const { isLoading: isLikeLoading, isError: isLikeError, mutateAsync: likeArt } = useLikeArtMutation(id);
     const { isLoading: isUnlikeLoading, isError: isUnlikeError, mutateAsync: unlikeArt } = useUnlikeArtMutation(id);
+
+    useEffect(() => {
+        setIsLiked(initial);
+    }, [initial]);
 
     useEffect(() => {
         if (isLikeError) {
@@ -53,10 +57,10 @@ const Like: React.FC<ILikeProps> = ({ id, initial, onLikeCallback, onDislikeCall
 
             if (isLiked) {
                 if (onDislikeCallback) onDislikeCallback();
-                await unlikeArt({ id, token: data!.accessToken });
+                await unlikeArt({ id });
             } else {
                 if (onLikeCallback) onLikeCallback();
-                await likeArt({ id, token: data!.accessToken });
+                await likeArt({ id });
             }
         } else alertUserToLogin();
     };
