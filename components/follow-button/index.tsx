@@ -1,16 +1,15 @@
 import classNames from "classnames";
-import { useAnimation } from "framer-motion";
 import { useFollowUserMutation } from "hooks/use-follow-user";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState, MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { IFollowButtonProps } from "./follow-button.types";
 
 const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, colorClass }) => {
-    const { data, status } = useSession();
+    const { status } = useSession();
     const [isFollowed, setIsFollowed] = useState(initial);
-    const { isError: isFollowError, mutateAsync: follow } = useFollowUserMutation();
+    const { isError: isFollowError, mutateAsync: follow } = useFollowUserMutation(Number(id), type);
 
     useEffect(() => {
         if (isFollowError) setIsFollowed(!isFollowed);
