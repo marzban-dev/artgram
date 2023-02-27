@@ -1,7 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { InfiniteData, useMutation, useQueryClient } from "@tanstack/react-query";
 import { likeArt } from "api/arts.api";
+import { IArtLike } from "api/arts.types";
+import { useSession } from "next-auth/react";
 
 export const useLikeArtMutation = (id: number) => {
+    const { data: authedUser } = useSession();
     const queryClient = useQueryClient();
     const key = ["art-likes", id];
 
@@ -11,15 +14,21 @@ export const useLikeArtMutation = (id: number) => {
             await queryClient.cancelQueries();
             const prevQueryData = queryClient.getQueryData(key);
 
-            queryClient.setQueryData<{ likesCount: number; users: any[] }>(key, (prevQueryData) => {
-                if (prevQueryData !== undefined) {
-                    return {
-                        likesCount: prevQueryData.likesCount + 1,
-                        users: prevQueryData.users,
-                    };
+            queryClient.setQueryData<InfiniteData<{ count: number; next: string | null; items: IArtLike[] }>>(
+                key,
+                (prevQueryData) => {
+                    if (prevQueryData !== undefined) {
+                        const copyOfPagesArray = prevQueryData.pages;
+                        copyOfPagesArray.at(-1)!.count += 1;
+
+                        return {
+                            pages: copyOfPagesArray,
+                            pageParams: prevQueryData.pageParams,
+                        };
+                    }
+                    return prevQueryData;
                 }
-                return prevQueryData;
-            });
+            );
 
             return { prevQueryData };
         },
