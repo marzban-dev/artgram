@@ -7,7 +7,7 @@ import { IInfiniteArtsProps } from "./infinite-arts.types";
 
 const InfiniteArts: React.FC<IInfiniteArtsProps> = ({ arts, hasNextPage, callback, className }) => {
     const renderArts = useMemo(() => {
-        return arts.map((art) => <Art {...art} key={art.id} />);
+        return arts.map((art) => <Art {...art} artObject={art} key={art.id} />);
     }, [arts]);
 
     return (
