@@ -40,18 +40,16 @@ const Header: React.FC<IHeaderProps> = ({
             <Background username={username} background={background} />
             <div className="flex justify-center min-[660px]:justify-start items-center min-[661px]:items-end max-[660px]:flex-col gap-4 min-[750px]:gap-6 relative px-[25px] min-[950px]:px-[35px] bottom-[65px] min-[661px]:bottom-[35px] z-30">
                 <Avatar
-                    width={100}
-                    height={100}
                     picture={avatar}
                     title={username}
-                    className="overflow-hidden shadow-xl shadow-[rgba(0,0,0,0.15)]"
+                    className="w-[100px] h-[100px] overflow-hidden shadow-xl shadow-[rgba(0,0,0,0.15)]"
                     placeholderClassName="border border-[rgb(40,40,40)]"
                     square
                 />
                 <div className="flex justify-center min-[660px]:justify-between items-center min-[661px]:items-end max-[660px]:flex-col gap-5 min-[661px]:gap-1 w-[calc(100%-120px)]">
                     <div className="flex items-start flex-col gap-1">
                         <Username firstName={firstName} username={username} />
-                        <Info followers={followers} following={following} username={username} type={type}/>
+                        <Info id={id} followers={followers} following={following} username={username} type={type} />
                     </div>
                     <FollowButton id={id} initial={isFollowing} type={type} width={120} colorClass="profile" />
                 </div>
