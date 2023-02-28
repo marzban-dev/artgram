@@ -17,9 +17,14 @@ export default function Document() {
             <body className="font-lato overflow-x-hidden bg-black">
                 <Main />
                 <div id="portal" />
+                {/* this div is only exist for getting correct 100vh size in px */}
+                <div className="h-screen w-0 fixed" id="full-height-element" />
                 <NextScript />
                 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js" defer></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script>
+                <script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"
+                    defer
+                ></script>
             </body>
         </Html>
     );
