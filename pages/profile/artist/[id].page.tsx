@@ -17,7 +17,7 @@ const ArtistPage: NextPage = () => {
         if (artistData) {
             return [
                 { icon: CapIcon, text: artistData.school },
-                { icon: CalenderIcon, text: new Date(artistData.birth_data).toDateString() },
+                { icon: CalenderIcon, text: artistData.birth_data },
                 { icon: BrushIcon, text: artistData.profession },
             ];
         }
