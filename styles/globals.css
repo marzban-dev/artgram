@@ -36,6 +36,13 @@
         background: rgb(50, 50, 50);
     }
 
+    .no-flicker {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+    }
+
     .grid-item,
     .grid-sizer {
         width: 25%;
