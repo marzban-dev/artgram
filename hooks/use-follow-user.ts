@@ -4,14 +4,16 @@ import { followUser } from "api/user.api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-export const useFollowUserMutation = (profileId: number, type: "user" | "artist") => {
+export const useFollowUserMutation = (profileId: string, type: "user" | "artist") => {
     const router = useRouter();
     const { data: authData, status } = useSession();
     const queryClient = useQueryClient();
 
-    const profileKey = [type, profileId];
+    const castedProfileId = type === "artist" ? Number(profileId) : profileId;
+
+    const profileKey = [type, castedProfileId];
     const artKey = router.pathname.includes("/art/") ? ["art", Number(router.query.id)] : undefined;
-    const profileFollowersKey = ["followers", profileId];
+    const profileFollowersKey = ["followers", castedProfileId];
     const userProfileFollowingKey = status === "authenticated" ? ["following", authData.user.username] : undefined;
 
     return useMutation({
