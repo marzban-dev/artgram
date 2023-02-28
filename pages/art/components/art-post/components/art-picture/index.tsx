@@ -15,19 +15,22 @@ const ArtPicture: React.FC<IArtPictureProps> = ({ id, picture, title, width, hei
     };
 
     return (
-        <div onClick={makeArtFullScreen} className="w-full relative aspect-square z-10 cursor-pointer">
-            {!isLoaded && <Placeholder width="100%" height="100%" />}
+        <div
+            onClick={makeArtFullScreen}
+            className="w-full h-full max-h-[450px] min-[800px]:max-h-[550px] z-10 cursor-pointer overflow-hidden relative"
+        >
+            {!isLoaded && <Placeholder wrapperClassName="absolute z-10" width="100%" height="100%" borderRadius={0}/>}
             <motion.div animate={{ opacity: isLoaded ? 1 : 0 }}>
                 <Image
                     id={`art-${id}`}
                     src={picture}
                     alt={title}
-                    style={{ objectFit: "cover" }}
                     priority={priority}
                     quality={50}
+                    width={width}
+                    height={height}
                     className="brightness-[0.85] transition-[filter] duration-[400ms]"
                     onLoadingComplete={() => setIsLoaded(true)}
-                    fill
                 />
             </motion.div>
         </div>
