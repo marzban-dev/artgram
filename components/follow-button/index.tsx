@@ -9,7 +9,7 @@ import { IFollowButtonProps } from "./follow-button.types";
 const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, colorClass }) => {
     const { status } = useSession();
     const [isFollowed, setIsFollowed] = useState(initial);
-    const { isError: isFollowError, mutateAsync: follow } = useFollowUserMutation(Number(id), type);
+    const { isError: isFollowError, mutateAsync: follow } = useFollowUserMutation(id, type);
 
     useEffect(() => {
         if (isFollowError) setIsFollowed(!isFollowed);
@@ -51,7 +51,7 @@ const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, 
     };
 
     const buttonClasses = classNames({
-        "h-[38px] border-2 rounded-lg font-semibold w-full py-1 bg-transparent transition-all hover:text-white": 1,
+        "h-[32px] min-[800px]:h-[38px] text-[14px] min-[800px]:text-[16px] border-2 rounded-lg font-semibold w-full bg-transparent transition-all hover:text-white": 1,
         "border-art-primary text-art-primary hover:bg-art-primary": colorClass === "art",
         "border-profile-primary text-profile-primary hover:bg-profile-primary": colorClass === "profile",
     });
