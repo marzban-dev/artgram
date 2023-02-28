@@ -15,16 +15,16 @@ const Arts: React.FC<IArtsProps> = ({ id, art, containerHeight }) => {
             return flatInfiniteQueryData<IArt>(arts).map((art) => {
                 return <ArtPost {...art} key={art.id} />;
             });
-        } else return null;
+        } else return <Spinner size={40} style={{ padding: "50px 0 100px 0" }} />;
     }, [arts]);
 
     return (
         <InfiniteScroll
-            className="w-full pt-[25px] snap-y snap-proximity overflow-y-scroll"
+            className="w-full min-[520px]:pt-[25px] snap-y snap-proximity overflow-y-scroll"
             dataLength={arts ? arts.pages.flat().length : 1}
             next={fetchNextPage}
             hasMore={true}
-            loader={<Spinner size={40} style={{ padding: "50px 0" }} />}
+            loader={<Spinner size={40} style={{ padding: "50px 0 100px 0" }} />}
             scrollThreshold={0.9}
             height={containerHeight}
         >
