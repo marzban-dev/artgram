@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import UserProfile from "components/user-profile";
 import { motion, Variants } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -12,6 +13,8 @@ const FloatNavbar: React.FC = () => {
     const router = useRouter();
     const { status, data } = useSession();
     const [showFloatNavbar, setShowFloatNavbar] = useState(false);
+
+    const isArtPage = router.pathname.includes("/art/");
 
     const shouldRenderAtFirst = useMemo(() => {
         const routes = ["/art", "/profile"];
@@ -36,28 +39,27 @@ const FloatNavbar: React.FC = () => {
 
     const navVariants: Variants = {
         hide: {
-            scale: 0.8,
             opacity: 0,
-            transition: {
-                duration: 0.1,
-                scale: {
-                    duration: 0.15,
-                },
-            },
         },
         show: {
-            scale: 1,
             opacity: 1,
         },
     };
 
+    const navClasses = classNames({
+        "fixed min-[750px]:left-[10px] max-[749px]:bottom-[8px] max-[749px]:w-full min-[750px]:top-0 w-[60px] min-[750px]:h-full z-[800] flex justify-center items-center": 1,
+        "max-[519px]:bottom-0": isArtPage,
+    });
+
+    const ulClasses = classNames({
+        "max-[749px]:bg-[rgb(12,12,12)] max-[749px]:h-[50px] max-[749px]:px-10 flex min-[750px]:flex-col justify-center items-center gap-10 min-[750px]:gap-8": 1,
+        "min-[520px]:rounded-[30px] max-[519px]:w-full max-[519px]:h-[60px] max-[519px]:border-t max-[519px]:border-t-[rgb(25,25,25)]":
+            isArtPage,
+    });
+
     return (
-        <nav className="fixed min-[750px]:left-[10px] max-[749px]:bottom-[8px] max-[749px]:w-full min-[750px]:top-0 w-[60px] min-[750px]:h-full z-[800] flex justify-center items-center">
-            <motion.ul
-                variants={navVariants}
-                animate={showFloatNavbar ? "show" : "hide"}
-                className="max-[749px]:bg-[rgb(12,12,12)] max-[749px]:py-3 max-[749px]:px-10 rounded-[30px] flex min-[750px]:flex-col justify-center items-center gap-10 min-[750px]:gap-8"
-            >
+        <nav className={navClasses}>
+            <motion.ul variants={navVariants} animate={showFloatNavbar ? "show" : "hide"} className={ulClasses}>
                 <NavButton icon={MagnifyGlassIcon} route="/explore" />
                 <NavButton icon={PlusIcon} route="/request" />
                 {status === "authenticated" ? (
