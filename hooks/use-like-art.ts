@@ -1,10 +1,8 @@
 import { InfiniteData, useMutation, useQueryClient } from "@tanstack/react-query";
 import { likeArt } from "api/arts.api";
 import { IArtLike } from "api/arts.types";
-import { useSession } from "next-auth/react";
 
 export const useLikeArtMutation = (id: number) => {
-    const { data: authedUser } = useSession();
     const queryClient = useQueryClient();
     const key = ["art-likes", id];
 
