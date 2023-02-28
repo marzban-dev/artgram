@@ -55,6 +55,7 @@ const FloatNavbar: React.FC = () => {
         "max-[749px]:bg-[rgb(12,12,12)] max-[749px]:h-[50px] max-[749px]:px-10 flex min-[750px]:flex-col justify-center items-center gap-10 min-[750px]:gap-8": 1,
         "min-[520px]:rounded-[30px] max-[519px]:w-full max-[519px]:h-[60px] max-[519px]:border-t max-[519px]:border-t-[rgb(25,25,25)]":
             isArtPage,
+        "rounded-[30px]": !isArtPage,
     });
 
     return (
