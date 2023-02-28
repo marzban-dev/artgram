@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { IAvatarProps } from "./avatar.types";
 
-const Avatar: React.FC<IAvatarProps> = ({ picture, square, title, width, height, className, placeholderClassName }) => {
+const Avatar: React.FC<IAvatarProps> = ({ picture, square, title, className = "w-[60px] h-[60px]", placeholderClassName }) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const containerClasses = classNames(
@@ -26,7 +26,7 @@ const Avatar: React.FC<IAvatarProps> = ({ picture, square, title, width, height,
     };
 
     return (
-        <div className={containerClasses} style={{ width, height }}>
+        <div className={containerClasses}>
             {picture && (
                 <motion.div animate={{ opacity: isLoaded ? 1 : 0 }}>
                     <Image
