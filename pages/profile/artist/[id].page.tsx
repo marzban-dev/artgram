@@ -1,7 +1,7 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getArtistProfile } from "api/user.api";
 import { useArtistQuery } from "hooks/use-artist";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import BrushIcon from "public/assets/icon/brush.svg";
 import CalenderIcon from "public/assets/icon/calendar-star.svg";
@@ -11,58 +11,58 @@ import ProfileContainer from "../components/profile-container";
 
 const ArtistPage: NextPage = () => {
     const { query } = useRouter();
-    const { data: artistData } = useArtistQuery(String(query.id));
+    const { data: artistData } = useArtistQuery(Number(query.id));
 
     const profileInfo = useMemo(() => {
-        return [
-            { icon: CapIcon, text: artistData!.school },
-            { icon: CalenderIcon, text: new Date(artistData!.birth_data).toDateString() },
-            { icon: BrushIcon, text: artistData!.profession },
-        ];
+        if (artistData) {
+            return [
+                { icon: CapIcon, text: artistData.school },
+                { icon: CalenderIcon, text: new Date(artistData.birth_data).toDateString() },
+                { icon: BrushIcon, text: artistData.profession },
+            ];
+        }
+        return null;
     }, [artistData]);
 
-    return (
+    return artistData && profileInfo ? (
         <ProfileContainer
-            isFollowing={false}
-            username={artistData!.name}
-            avatar={artistData!.image}
+            isFollowing={artistData.following}
+            username={artistData.name}
+            avatar={artistData.image}
             description={artistData?.bio}
             background={undefined}
             profileInfo={profileInfo}
             followers={34}
             type="artist"
         />
-    );
+    ) : null;
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    return {
-        fallback: "blocking",
-        paths: [],
-    };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const queryClient = new QueryClient();
 
     const artistId = String(context.params!.id);
 
-    try {
-        const artistProfile = await getArtistProfile({ id: artistId });
+    const isRequestFromRouter = context.req.url?.includes("_next");
 
-        await queryClient.prefetchQuery(["artist", artistId], () => artistProfile);
-    } catch (e) {
-        return {
-            notFound: true,
-        };
+    if (!isRequestFromRouter) {
+        try {
+            const artistProfile = await getArtistProfile({ id: artistId });
+            await queryClient.prefetchQuery(["artist", Number(artistId)], () => artistProfile);
+
+            return {
+                props: {
+                    dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+                },
+            };
+        } catch (e) {
+            return {
+                notFound: true,
+            };
+        }
     }
 
-    return {
-        revalidate: 60,
-        props: {
-            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-        },
-    };
+    return { props: {} };
 };
 
 export default ArtistPage;
