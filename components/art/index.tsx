@@ -2,10 +2,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { motion, useInView, Variants } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IArtProps } from "./art.types";
 import ActionOverlay from "./components/action-overlay";
 import Placeholder from "./components/placeholder";
+import { useMediaQuery } from "react-responsive";
 
 const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) => {
     const router = useRouter();
@@ -13,6 +14,12 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(user_like);
     const [showActions, setShowActions] = useState(isLiked);
+    const isMobile = useMediaQuery({ maxWidth: 500 });
+
+    useEffect(() => {
+        if (isMobile) setShowActions(true);
+        else setShowActions(isLiked);
+    }, [isMobile]);
 
     const imageContainerRef = useRef<HTMLElement | null>(null);
     const isImageInView = useInView(imageContainerRef, { once: true });
