@@ -21,7 +21,7 @@ const UserProfile: React.FC = () => {
             {isThereNewNotification && (
                 <div className="absolute right-[-14px] w-[6px] h-[6px] rounded-full bg-red-500 z-10" />
             )}
-            <Avatar picture={data!.user.profile_img} title={data!.user.username} width={28} height={28} />
+            <Avatar className="w-[28px] h-[28px]" picture={data!.user.profile_img} title={data!.user.username} />
         </div>
     );
 };
