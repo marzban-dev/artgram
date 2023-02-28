@@ -10,7 +10,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ILikeProps } from "./like.types";
 
-const Like: React.FC<ILikeProps> = ({ id, initial, onLikeCallback, onDislikeCallback }) => {
+const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, onDislikeCallback }) => {
     const { status } = useSession();
     const animationControl = useAnimation();
     const [isLiked, setIsLiked] = useState(initial);
@@ -131,7 +131,7 @@ const Like: React.FC<ILikeProps> = ({ id, initial, onLikeCallback, onDislikeCall
                         data-testid="icon-fill"
                         key={1}
                     >
-                        <LikeFillIcon className="fill-red-500 w-[25px]" />
+                        <LikeFillIcon className="fill-red-500" style={{ width: size }} />
                     </motion.div>
                 )}
                 {!isLiked && (
@@ -143,7 +143,7 @@ const Like: React.FC<ILikeProps> = ({ id, initial, onLikeCallback, onDislikeCall
                         data-testid="icon-stroke"
                         key={2}
                     >
-                        <LikeStrokeIcon className="fill-white w-[25px]" />
+                        <LikeStrokeIcon className="fill-white" style={{ width: size }} />
                     </motion.div>
                 )}
             </AnimatePresence>
