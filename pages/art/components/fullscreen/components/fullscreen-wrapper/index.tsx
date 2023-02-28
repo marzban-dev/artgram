@@ -100,7 +100,6 @@ const FullscreenWrapper: React.FC<IFullscreenWrapperProps> = ({ fullscreenArt })
             initial="hide"
             animate="show"
             exit="hide"
-            title="Exit fullscreen"
         >
             <motion.div
                 className="w-full h-full flex justify-center items-center [perspective:1000px]"
@@ -126,7 +125,7 @@ const FullscreenWrapper: React.FC<IFullscreenWrapperProps> = ({ fullscreenArt })
                     <Image
                         src={fullscreenArt.picture}
                         alt={fullscreenArt.title}
-                        quality={100}
+                        quality={50}
                         className="rounded-[25px]"
                         style={{ objectFit: "contain" }}
                         onLoadingComplete={() => setIsLoaded(true)}
