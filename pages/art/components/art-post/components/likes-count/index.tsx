@@ -7,6 +7,7 @@ const LikesCount: React.FC<ILikesCountProps> = ({ id, initial }) => {
     const [show, setShow] = useState(false);
 
     const { data } = useArtLikesQuery(id, initial);
+
     const count = data!.pages.at(-1)!.count;
 
     const containerStyle: React.CSSProperties = {
