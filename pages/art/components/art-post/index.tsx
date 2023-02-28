@@ -1,7 +1,6 @@
 import Avatar from "components/avatar";
 import FollowButton from "components/follow-button";
 import Like from "components/like";
-import { motion, useInView } from "framer-motion";
 import useImageColors from "hooks/use-image-colors";
 import LocationIcon from "public/assets/icon/location-dot.svg";
 import BrushIcon from "public/assets/icon/paintbrush.svg";
@@ -31,7 +30,6 @@ const ArtPost: React.FC<IArtPostProps> = ({
     user_repost,
 }) => {
     const artContainer = useRef(null);
-    const isInView = useInView(artContainer, { once: true });
 
     const imageColors = useImageColors(`#art-${id}`, {
         darkPrimary: 0.8,
@@ -50,17 +48,19 @@ const ArtPost: React.FC<IArtPostProps> = ({
     }, [imageColors]);
 
     return (
-        <section className="w-full flex justify-center items-center mt-[30px] snap-center last:mb-[30px]">
-            <motion.div
-                className="max-w-[550px] w-full overflow-hidden py-4 bg-[rgb(20,20,20)] rounded-2xl"
+        <section className="w-full flex justify-center items-center min-[520px]:mt-[30px] snap-center last:mb-[30px]">
+            <div
+                className="w-full min-[520px]:max-w-[450px] min-[800px]:max-w-[550px] overflow-hidden py-4 bg-black min-[520px]:bg-[rgb(20,20,20)] min-[520px]:rounded-2xl"
                 id={`art-container-${id}`}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.4 }}
                 ref={artContainer}
             >
                 <div className="w-full flex justify-between items-center px-5">
-                    <div className="flex justify-start items-center gap-4 w-[calc(100%_-_100px)]">
-                        <Avatar width={60} height={60} picture={artist.image} title={title} />
+                    <div className="flex justify-start items-center gap-3 min-[800px]:gap-4 w-[calc(100%_-_100px)]">
+                        <Avatar
+                            className="w-[45px] min-[800px]:w-[60px] h-[45px] min-[800px]:h-[60px]"
+                            picture={artist.image}
+                            title={title}
+                        />
                         <Header id={artist.id} title={title} artist={artist.name} year={date} />
                     </div>
                     <FollowButton
@@ -96,7 +96,7 @@ const ArtPost: React.FC<IArtPostProps> = ({
                         <Bookmark id={id} initial={user_repost} />
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 };
