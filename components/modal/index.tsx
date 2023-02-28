@@ -10,13 +10,13 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
         hide: {
             opacity: 0,
             transition: {
-                duration: 0.25,
+                duration: 0.2,
             },
         },
         show: {
             opacity: 1,
             transition: {
-                duration: 0.25,
+                duration: 0.2,
             },
         },
     };
@@ -36,8 +36,8 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
             y: 0,
             transition: {
                 duration: 0.2,
-                rotateX: { type: "spring", stiffness: 200, damping: 30 },
-                y: { type: "spring", stiffness: 200, damping: 30 },
+                rotateX: { type: "spring", stiffness: 350, damping: 40 },
+                y: { type: "spring", stiffness: 350, damping: 40 },
             },
         },
     };
@@ -67,7 +67,7 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
                 {show && (
                     <div className="z-[900] fixed top-0 flex justify-center items-center w-full h-full [perspective:1000px]">
                         <motion.div
-                            className="z-[1000] min-h-[300px] max-h-[500px] w-full min-[520px]:w-[500px] rounded-t-[20px] rounded-b-none min-[520px]:rounded-[20px] bg-[rgb(20,20,20)] absolute max-[520px]:bottom-0 origin-bottom overflow-hidden"
+                            className="z-[1000] min-h-[300px] max-h-[500px] w-full min-[520px]:w-[500px] rounded-t-[20px] rounded-b-none min-[520px]:rounded-[20px] bg-[rgb(20,20,20)] absolute max-[520px]:bottom-0 origin-bottom overflow-hidden no-flicker"
                             dragConstraints={{ bottom: 0, top: 0 }}
                             dragElastic={{ bottom: 0.4, top: 0.01 }}
                             dragTransition={{ bounceStiffness: 200, bounceDamping: 25 }}
@@ -88,9 +88,8 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
                             initial="hide"
                             animate="show"
                             exit="hide"
-                            className="z-[999] bg-[rgba(0,0,0,0.9)] w-full h-full cursor-pointer absolute"
+                            className="z-[999] bg-[rgba(0,0,0,0.8)] w-full h-full cursor-pointer absolute"
                             onClick={onClose}
-                            title="Click To Close"
                         ></motion.div>
                     </div>
                 )}
