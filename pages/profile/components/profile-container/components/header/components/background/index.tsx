@@ -10,7 +10,7 @@ const Background: React.FC<IBackgroundProps> = ({ username, background }) => {
     const [isLoaded, setIsLoaded] = useState(true);
 
     return (
-        <div className="w-full h-[150px] min-[661px]:h-[200px] min-[661px]:rounded-[15px] overflow-hidden bg-[rgb(22,22,22)]">
+        <div className="w-full h-[170px] min-[661px]:h-[200px] min-[661px]:rounded-[15px] overflow-hidden bg-[rgb(22,22,22)]">
             <AnimatePresence>
                 {!isLoaded && (
                     <Placeholder
