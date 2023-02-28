@@ -14,7 +14,7 @@ const Description: React.FC<IDescriptionProps> = ({ text }) => {
     }, [text]);
 
     const paragraphClasses = classNames({
-        "text-[rgb(200,200,200)] [line-height:1.8] overflow-ellipsis": 1,
+        "text-[rgb(200,200,200)] [line-height:1.8] overflow-ellipsis max-[660px]:text-center": 1,
         "line-clamp-4": !isExpanded,
         "line-clamp-unset": isExpanded,
     });
