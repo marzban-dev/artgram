@@ -38,7 +38,7 @@ const Followers: React.FC<IFollowersProps> = ({ id, type, initial }) => {
                     hasNextPage={hasNextPage}
                     setShow={setShow}
                     show={show}
-                    title="Following"
+                    title="Followers"
                 />
             )}
         </Fragment>
