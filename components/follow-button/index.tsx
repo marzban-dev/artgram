@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Spinner from "components/spinner";
 import { useFollowUserMutation } from "hooks/use-follow-user";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -6,7 +7,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { IFollowButtonProps } from "./follow-button.types";
 
-const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, colorClass }) => {
+const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, colorClass, showLoading }) => {
     const { status } = useSession();
     const [isFollowed, setIsFollowed] = useState(initial);
     const { isError: isFollowError, mutateAsync: follow } = useFollowUserMutation(id, type);
@@ -38,12 +39,14 @@ const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, 
     const onFollow = async (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
 
-        if (status === "authenticated") {
-            setIsFollowed(!isFollowed);
+        if (!showLoading) {
+            if (status === "authenticated") {
+                setIsFollowed(!isFollowed);
 
-            // api automatically detecting that is need to follow or unfollow the user
-            await follow({ id, type });
-        } else alertUserToLogin();
+                // api automatically detecting that is need to follow or unfollow the user
+                await follow({ id, type });
+            } else alertUserToLogin();
+        }
     };
 
     const buttonStyle: React.CSSProperties = {
@@ -58,7 +61,7 @@ const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, 
 
     return (
         <button className={buttonClasses} style={buttonStyle} onClick={onFollow}>
-            {isFollowed ? "Unfollow" : "Follow"}
+            {showLoading ? <Spinner size={20} /> : isFollowed ? "Unfollow" : "Follow"}
         </button>
     );
 };

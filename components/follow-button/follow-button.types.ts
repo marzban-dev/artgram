@@ -4,4 +4,5 @@ export interface IFollowButtonProps {
     width: number | string;
     initial: boolean;
     colorClass: "art" | "profile";
+    showLoading ?: boolean;
 }
