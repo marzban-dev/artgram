@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { IArt } from "api/arts.types";
-import { IFollower, ISavedArt, IUser } from "api/user.types";
+import { ISavedArt, ISimpleUser, IUser } from "api/user.types";
 
 export const generateMockArt = (id?: number): IArt => {
     return {
@@ -8,14 +8,24 @@ export const generateMockArt = (id?: number): IArt => {
         artist: {
             id: faker.datatype.number({ min: 1, max: 100000 }),
             name: faker.name.fullName(),
-            wikipedia: faker.internet.url(),
+            following: false,
+            image: faker.image.imageUrl(undefined, undefined, undefined, true),
+        },
+        image: {
+            height: faker.datatype.number({ min: 1000, max: 2000 }),
+            width: faker.datatype.number({ min: 1000, max: 2000 }),
+            id: faker.datatype.number({ min: 1, max: 100000 }),
+            thumbnail: faker.image.imageUrl(undefined, undefined, undefined, true),
+            url: faker.internet.url(),
         },
         location: faker.address.country(),
-        picture: faker.image.imageUrl(undefined, undefined, undefined, true),
+        form: faker.lorem.word(),
+        school: faker.lorem.word(2),
+        technique: faker.lorem.word(2),
+        date: faker.date.recent().toString(),
         reference: faker.internet.url(),
         title: faker.lorem.words(),
         type: faker.lorem.words(2),
-        year: faker.date.recent().toString(),
         likes_count: faker.datatype.number({ min: 1, max: 100000 }),
         user_like: true,
         user_repost: true,
@@ -34,6 +44,10 @@ export const generateMockSavedArt = (id?: number): ISavedArt => {
 
 export const generateMockUser = (username?: string): IUser => {
     return {
+        followers_count: faker.datatype.number({ min: 0, max: 500 }),
+        followings_count: faker.datatype.number({ min: 0, max: 500 }),
+        repost_count: faker.datatype.number({ min: 0, max: 500 }),
+        following: faker.datatype.boolean(),
         username: username ? username : faker.internet.userName(),
         bio: faker.lorem.lines(),
         date_joined: faker.date.recent().toString(),
@@ -45,8 +59,9 @@ export const generateMockUser = (username?: string): IUser => {
     };
 };
 
-export const generateMockFollower = (username?: string): IFollower => {
+export const generateMockFollower = (username?: string): ISimpleUser => {
     return {
+        following: faker.datatype.boolean(),
         first_name: faker.name.firstName(),
         profile_img: faker.internet.url(),
         username: username ? username : faker.internet.userName(),
