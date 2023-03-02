@@ -46,7 +46,7 @@ const FormContainer: React.FC<IFormContainerProps> = ({ initial, schema, onSubmi
                             className="w-[320px] min-[950px]:w-[350px] flex justify-center items-center flex-col"
                             autoComplete="off"
                         >
-                            <div className="absolute top-[25px] z-20 flex justify-center items-center gap-8">
+                            <div className="absolute top-[25px] px-[25px] z-20 flex justify-between items-center gap-8 w-full">
                                 <Logo />
                                 <Navbar />
                             </div>
