@@ -23,22 +23,22 @@ const ExplorePage: NextPage = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const queryClient = new QueryClient();
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//     const queryClient = new QueryClient();
 
-    const isRequestFromRouter = context.req.url?.includes("_next");
+//     try {
+//         await queryClient.prefetchInfiniteQuery(["explore"], () => getArts({ pageParam: { limit: 4 } }));
 
-    if (!isRequestFromRouter) {
-        await queryClient.prefetchInfiniteQuery(["explore"], () => getArts({ pageParam: { limit: 15 } }));
-
-        return {
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            },
-        };
-    } else {
-        return { props: {} };
-    }
-};
+//         return {
+//             props: {
+//                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//             },
+//         };
+//     } catch (e) {
+//         return {
+//             notFound: true,
+//         };
+//     }
+// };
 
 export default ExplorePage;
