@@ -50,8 +50,8 @@ const Bookmark: React.FC<IBookmarkProps> = ({ id, initial }) => {
             setIsSaved(!isSaved);
             animationControl.start("bobble");
 
-            if (isSaved) await unsaveArt({ id, token: data!.accessToken });
-            else await saveArt({ id, token: data!.accessToken });
+            if (isSaved) await unsaveArt({ id });
+            else await saveArt({ id });
         } else alertUserToLogin();
     };
 
