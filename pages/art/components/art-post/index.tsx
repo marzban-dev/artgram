@@ -55,14 +55,8 @@ const ArtPost: React.FC<IArtPostProps> = ({
                 ref={artContainer}
             >
                 <div className="w-full flex justify-between items-center px-5">
-                    <div className="flex justify-start items-center gap-3 min-[800px]:gap-4 w-[calc(100%_-_100px)]">
-                        <Avatar
-                            className="w-[45px] min-[800px]:w-[60px] h-[45px] min-[800px]:h-[60px]"
-                            picture={artist.image}
-                            title={title}
-                        />
-                        <Header id={artist.id} title={title} artist={artist.name} year={date} />
-                    </div>
+                    <Header title={title} artist={artist} year={date} />
+
                     <FollowButton
                         id={String(artist.id)}
                         type="artist"
