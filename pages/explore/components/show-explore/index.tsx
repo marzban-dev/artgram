@@ -1,5 +1,6 @@
 import { IArt } from "api/arts.types";
 import InfiniteArts from "components/infinite-arts";
+import Spinner from "components/spinner";
 import { useExploreQuery } from "hooks/use-explore";
 import { useSearchQuery } from "hooks/use-search";
 import { useSelector } from "react-redux";
@@ -12,9 +13,18 @@ const ShowExplore: React.FC = () => {
     const { data: searchResult } = useSearchQuery();
     const isSearching = useSelector((state: RootState) => state.explore.isSearching);
 
-    return arts && !searchResult && !isSearching ? (
-        <InfiniteArts arts={flatInfiniteQueryData<IArt>(arts!)} callback={fetchNextExplorePage} hasNextPage={true} />
-    ) : null;
+    if (arts && !searchResult && !isSearching) {
+        return (
+            <InfiniteArts
+                arts={flatInfiniteQueryData<IArt>(arts!)}
+                callback={fetchNextExplorePage}
+                hasNextPage={true}
+            />
+        );
+    } else {
+        if (!arts) return <Spinner size={30} />;
+        else return null;
+    }
 };
 
 export default ShowExplore;
