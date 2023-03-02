@@ -1,17 +1,18 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getArtistProfile } from "api/user.api";
 import { useArtistQuery } from "hooks/use-artist";
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import BrushIcon from "public/assets/icon/brush.svg";
 import CalenderIcon from "public/assets/icon/calendar-star.svg";
 import CapIcon from "public/assets/icon/graduation-cap.svg";
 import { useMemo } from "react";
 import ProfileContainer from "../components/profile-container";
+import { TArtistPageProps } from "./artist.types";
 
 const ArtistPage: NextPage = () => {
     const { query } = useRouter();
-    const { data: artistData } = useArtistQuery(Number(query.id));
+    const { data: artistData, isFetching } = useArtistQuery(Number(query.id));
 
     const profileInfo = useMemo(() => {
         if (artistData) {
@@ -32,37 +33,40 @@ const ArtistPage: NextPage = () => {
             description={artistData?.bio}
             background={undefined}
             profileInfo={profileInfo}
+            isFetching={isFetching}
             followers={34}
             type="artist"
         />
     ) : null;
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+    return {
+        fallback: "blocking",
+        paths: [],
+    };
+};
+
+export const getStaticProps: GetStaticProps<any, TArtistPageProps> = async (context) => {
     const queryClient = new QueryClient();
 
     const artistId = String(context.params!.id);
 
-    const isRequestFromRouter = context.req.url?.includes("_next");
+    try {
+        const artistProfile = await getArtistProfile({ id: artistId });
+        await queryClient.prefetchQuery(["artist", Number(artistId)], () => artistProfile);
 
-    if (!isRequestFromRouter) {
-        try {
-            const artistProfile = await getArtistProfile({ id: artistId });
-            await queryClient.prefetchQuery(["artist", Number(artistId)], () => artistProfile);
-
-            return {
-                props: {
-                    dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-                },
-            };
-        } catch (e) {
-            return {
-                notFound: true,
-            };
-        }
+        return {
+            revalidate: 60,
+            props: {
+                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+            },
+        };
+    } catch (e) {
+        return {
+            notFound: true,
+        };
     }
-
-    return { props: {} };
 };
 
 export default ArtistPage;
