@@ -16,6 +16,7 @@ const Header: React.FC<IHeaderProps> = ({
     background,
     isFollowing,
     type,
+    isFetching,
     followers,
     following,
 }) => {
@@ -51,7 +52,14 @@ const Header: React.FC<IHeaderProps> = ({
                         <Username firstName={firstName} username={username} />
                         <Info id={id} followers={followers} following={following} username={username} type={type} />
                     </div>
-                    <FollowButton id={id} initial={isFollowing} type={type} width={120} colorClass="profile" />
+                    <FollowButton
+                        id={id}
+                        initial={isFollowing}
+                        type={type}
+                        width={120}
+                        colorClass="profile"
+                        showLoading={isFetching}
+                    />
                 </div>
             </div>
         </Fragment>

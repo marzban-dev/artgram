@@ -9,5 +9,6 @@ export interface IHeaderProps {
     isFollowing: boolean;
     followers: number;
     following?: number;
+    isFetching: boolean;
     type: "user" | "artist";
 }
