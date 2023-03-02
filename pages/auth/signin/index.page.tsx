@@ -84,7 +84,7 @@ const SigninPage: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
-            // csrfToken: await getCsrfToken(context),
+            csrfToken: await getCsrfToken(context),
         },
     };
 };
