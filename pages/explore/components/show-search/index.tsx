@@ -17,7 +17,7 @@ const ShowSearch: React.FC = () => {
                 <InfiniteArts
                     arts={flatInfiniteQueryData<IArt>(searchResult)}
                     callback={fetchNextSearchPage}
-                    hasNextPage={hasNextPage}
+                    hasNextPage={!!hasNextPage}
                 />
             )}
             {isSearching && (
