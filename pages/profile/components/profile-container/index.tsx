@@ -20,6 +20,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
     profileInfo,
     followers,
     following,
+    isFetching,
     type,
 }) => {
     const { query } = useRouter();
@@ -43,6 +44,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
                                 isFollowing={isFollowing}
                                 followers={followers}
                                 following={following}
+                                isFetching={isFetching}
                                 type={type}
                             />
                             <div className="relative bottom-[40px] min-[661px]:bottom-[12px] max-[660px]:px-3">

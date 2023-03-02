@@ -11,4 +11,5 @@ export interface IProfileContainerProps {
     following?: number;
     profileInfo: IProfileInfoProps[];
     type: "user" | "artist";
+    isFetching : boolean;
 }
