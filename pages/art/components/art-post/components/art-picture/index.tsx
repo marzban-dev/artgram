@@ -17,7 +17,7 @@ const ArtPicture: React.FC<IArtPictureProps> = ({ id, picture, title, width, hei
     return (
         <div
             onClick={makeArtFullScreen}
-            className="w-full h-full max-h-[450px] min-[800px]:max-h-[550px] z-10 cursor-pointer overflow-hidden relative"
+            className="w-full h-full max-h-[450px] min-[800px]:max-h-[550px] z-10 cursor-pointer overflow-hidden relative flex justify-center items-center bg-[rgb(15,15,15)]"
         >
             {!isLoaded && <Placeholder wrapperClassName="absolute z-10" width="100%" height="100%" borderRadius={0}/>}
             <motion.div animate={{ opacity: isLoaded ? 1 : 0 }}>
