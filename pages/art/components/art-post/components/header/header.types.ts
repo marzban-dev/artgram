@@ -1,6 +1,7 @@
+import { ISimpleArtist } from "api/arts.types";
+
 export interface IHeaderProps {
-    id: number;
     title: string;
-    artist: string;
+    artist: ISimpleArtist;
     year: string;
 }
