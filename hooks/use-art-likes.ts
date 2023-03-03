@@ -1,12 +1,13 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getArtLikes } from "api/arts.api";
 
-export const useArtLikesQuery = (id: number, initialData: number = 0) => {
-    const pageParamDefaults = { id };
+export const useArtLikesQuery = (id: number, enabled: boolean) => {
+    const pageParamDefaults = { id, limit: 5, page: 1 };
 
     return useInfiniteQuery(["art-likes", id], ({ pageParam = pageParamDefaults }) => getArtLikes({ pageParam }), {
+        enabled,
         placeholderData: {
-            pages: [{ items: [], next: "", count: initialData }],
+            pages: [{ items: [], next: "", count: 0 }],
             pageParams: [null],
         },
         getNextPageParam: (lastPage, pages) => {
