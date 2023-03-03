@@ -7,7 +7,7 @@ import {
     IGetArtsRequestParams,
     IGetArtsResponse,
     ILikeArtRequestParams,
-    IUnlikeArtRequestParams
+    IUnlikeArtRequestParams,
 } from "./arts.types";
 
 export const getArt = async (params: IGetArtRequestParams) => {
@@ -28,7 +28,12 @@ export const getArts = async (params: IGetArtsRequestParams) => {
 };
 
 export const getArtLikes = async (params: IGetArtLikesRequestParams) => {
-    const response = await axios.get<IGetArtLikesResponse>(`/art/like/`, { params: { art: params.pageParam.id } });
+    const limit = params.pageParam.limit;
+    const offset = params.pageParam.page * limit - limit;
+
+    const response = await axios.get<IGetArtLikesResponse>(`/art/like/`, {
+        params: { art: params.pageParam.id, limit, offset },
+    });
 
     return {
         count: response.data.count,

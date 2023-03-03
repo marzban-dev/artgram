@@ -110,6 +110,8 @@ export interface IUnlikeArtRequestParams {
 export interface IGetArtLikesRequestParams {
     pageParam: {
         id: number;
+        limit: number;
+        page: number;
     };
 }
 
