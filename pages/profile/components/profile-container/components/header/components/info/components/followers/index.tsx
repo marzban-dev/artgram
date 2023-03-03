@@ -1,6 +1,7 @@
 import { ISimpleUser } from "api/user.types";
 import User from "components/user";
 import UsersModal from "components/users-modal";
+import { useCountQuery } from "hooks/use-count";
 import { useFollowersQuery } from "hooks/use-followers";
 import { Fragment, useMemo, useState } from "react";
 import flatInfiniteQueryData from "utils/flat-infinite-query-data";
@@ -8,8 +9,8 @@ import { IFollowersProps } from "./followers.types";
 
 const Followers: React.FC<IFollowersProps> = ({ id, type, initial }) => {
     const [show, setShow] = useState(false);
-    const { data, fetchNextPage, hasNextPage } = useFollowersQuery(id, type, initial);
-    const count = data!.pages.at(-1)!.count;
+    const { data: count } = useCountQuery(["followers", id], initial, { id, type });
+    const { data, fetchNextPage, hasNextPage } = useFollowersQuery(id, type, show);
 
     const users = useMemo(() => {
         return flatInfiniteQueryData<ISimpleUser>(data!).map((user) => (
