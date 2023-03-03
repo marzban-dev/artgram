@@ -12,7 +12,7 @@ import { INotificationsProps } from "./notifications.types";
 
 const Notifications: React.FC<INotificationsProps> = ({ show, setShow }) => {
     const notificationsContainer = useRef<HTMLDivElement>(null);
-    const { data: notifications, fetchNextPage, hasNextPage } = useNotificationsQuery({ enabled: true });
+    const { data: notifications, fetchNextPage, hasNextPage } = useNotificationsQuery(show);
     const { mutate: seenNotifications } = useSeenNotificationsMutation();
 
     useEffect(() => {
