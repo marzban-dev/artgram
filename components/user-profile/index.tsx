@@ -1,20 +1,10 @@
 import Avatar from "components/avatar";
-import { useNotificationsQuery } from "hooks/use-notifications";
+import { useCheckNotifications } from "hooks/use-check-notifications";
 import { useSession } from "next-auth/react";
-import { useMemo } from "react";
 
 const UserProfile: React.FC = () => {
     const { data } = useSession();
-    const { data: notifications } = useNotificationsQuery({ enabled: true });
-
-    const isThereNewNotification = useMemo(() => {
-        if (notifications) {
-            const lastNotifications = notifications.pages.at(-1)!;
-            return notifications && lastNotifications.count !== 0 && lastNotifications.items[0].is_read === false;
-        }
-
-        return false;
-    }, [notifications]);
+    const { data: isThereNewNotification } = useCheckNotifications(true);
 
     return (
         <div className="relative flex justify-center items-center">
