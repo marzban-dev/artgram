@@ -15,7 +15,7 @@ const Arts: React.FC<IArtsProps> = ({ id, art, containerHeight }) => {
             return flatInfiniteQueryData<IArt>(arts).map((art) => {
                 return <ArtPost {...art} key={art.id} />;
             });
-        } else return <Spinner size={40} style={{ padding: "50px 0 100px 0" }} />;
+        } else return null;
     }, [arts]);
 
     return (
@@ -25,7 +25,7 @@ const Arts: React.FC<IArtsProps> = ({ id, art, containerHeight }) => {
             next={fetchNextPage}
             hasMore={true}
             loader={<Spinner size={40} style={{ padding: "50px 0 100px 0" }} />}
-            scrollThreshold={0.9}
+            scrollThreshold={0.8}
             height={containerHeight}
         >
             {art && <ArtPost {...art} priority />}
