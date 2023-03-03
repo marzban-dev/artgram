@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getNotifications } from "api/user.api";
 
-export const useNotificationsQuery = ({ enabled }: { enabled: boolean }) => {
+export const useNotificationsQuery = (enabled: boolean = false) => {
     const pageParamDefaults = { limit: 5, page: 1 };
 
     return useInfiniteQuery(["notifications"], ({ pageParam = pageParamDefaults }) => getNotifications({ pageParam }), {
