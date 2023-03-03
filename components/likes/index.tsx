@@ -6,8 +6,8 @@ import { useMemo } from "react";
 import flatInfiniteQueryData from "utils/flat-infinite-query-data";
 import { ILikesProps } from "./likes.types";
 
-const Likes: React.FC<ILikesProps> = ({ show, setShow, id, initialData }) => {
-    const { data, fetchNextPage, hasNextPage } = useArtLikesQuery(id, initialData);
+const Likes: React.FC<ILikesProps> = ({ show, setShow, id }) => {
+    const { data, fetchNextPage, hasNextPage } = useArtLikesQuery(id, show);
 
     const users = useMemo(() => {
         return flatInfiniteQueryData<IArtLike>(data!).map((like) => (
