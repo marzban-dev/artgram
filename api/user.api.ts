@@ -69,7 +69,7 @@ export const getSavedArts = async (params: IGetSavedArtsRequestParams) => {
     const offset = params.pageParam.page * limit - limit;
 
     const response = await axios.get<IGetSavedArtsResponse>("/repost/", {
-        params: { owner: params.pageParam.id, limit, offset },
+        params: { owner: params.pageParam.id, ordering: "-created_date", limit, offset },
     });
 
     return {
@@ -100,6 +100,12 @@ export const getNotifications = async (params: IGetNotificationsRequestParams) =
         next: response.data.next,
         items: response.data.results,
     };
+};
+
+export const checkNotifications = async () => {
+    const response = await getNotifications({ pageParam: { limit: 1, page: 1 } });
+    if (response.items.length !== 0) return !response.items[0].is_read;
+    else return false;
 };
 
 export const seenNotifications = async (params: ISeenNotificationsRequestParams) => {
