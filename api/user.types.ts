@@ -1,4 +1,4 @@
-import { IArt, IArtist } from "./arts.types";
+import { IArt, IArtist, ISavedArt, ISimpleArtist } from "./arts.types";
 
 /**
  * Global types
@@ -17,6 +17,7 @@ export interface IUser {
     repost_count: number;
     followings_count: number;
     followers_count: number;
+    artist_followings_count: number;
 }
 
 export interface ISimpleUser {
@@ -24,14 +25,6 @@ export interface ISimpleUser {
     first_name: string;
     profile_img: string;
     following: boolean;
-}
-
-export interface ISavedArt {
-    id: number;
-    owner: IUser;
-    text: string;
-    created_date: string;
-    art: IArt;
 }
 
 export interface INotification {
@@ -91,7 +84,7 @@ export interface IGetFollowingResponse {
     results: ISimpleUser[];
 }
 
-export interface IGetSavedArtsRequestParams {
+export interface IGetFollowingArtistRequestParams {
     pageParam: {
         id: string;
         limit: number;
@@ -99,18 +92,10 @@ export interface IGetSavedArtsRequestParams {
     };
 }
 
-export interface IGetSavedArtsResponse {
+export interface IGetFollowingArtistResponse {
     count: number;
     next: string | null;
-    results: ISavedArt[];
-}
-
-export interface ISaveArtRequestParams {
-    id: number;
-}
-
-export interface IUnsaveArtRequestParams {
-    id: number;
+    results: ISimpleArtist[];
 }
 
 export interface IGetNotificationsRequestParams {

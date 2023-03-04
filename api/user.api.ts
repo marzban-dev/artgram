@@ -5,17 +5,15 @@ import {
     IGetArtistResponse,
     IGetFollowersRequestParams,
     IGetFollowersResponse,
+    IGetFollowingArtistRequestParams,
+    IGetFollowingArtistResponse,
     IGetFollowingRequestParams,
     IGetFollowingResponse,
     IGetNotificationsRequestParams,
     IGetNotificationsResponse,
-    IGetSavedArtsRequestParams,
-    IGetSavedArtsResponse,
     IGetUserProfileRequestParams,
     IGetUserProfileResponse,
-    ISaveArtRequestParams,
     ISeenNotificationsRequestParams,
-    IUnsaveArtRequestParams,
 } from "./user.types";
 
 export const getUserProfile = async (params: IGetUserProfileRequestParams) => {
@@ -64,12 +62,12 @@ export const getFollowing = async (params: IGetFollowingRequestParams) => {
     };
 };
 
-export const getSavedArts = async (params: IGetSavedArtsRequestParams) => {
+export const getFollowingArtist = async (params: IGetFollowingArtistRequestParams) => {
     const limit = params.pageParam.limit;
     const offset = params.pageParam.page * limit - limit;
 
-    const response = await axios.get<IGetSavedArtsResponse>("/repost/", {
-        params: { owner: params.pageParam.id, ordering: "-created_date", limit, offset },
+    const response = await axios.get<IGetFollowingArtistResponse>(`/user/${params.pageParam.id}/following/artists/`, {
+        params: { limit, offset },
     });
 
     return {
@@ -77,14 +75,6 @@ export const getSavedArts = async (params: IGetSavedArtsRequestParams) => {
         next: response.data.next,
         items: response.data.results,
     };
-};
-
-export const saveArt = async (params: ISaveArtRequestParams) => {
-    await axios.post("/repost/", { art: params.id });
-};
-
-export const unsaveArt = async (params: IUnsaveArtRequestParams) => {
-    await axios.delete(`/repost/${params.id}/`);
 };
 
 export const getNotifications = async (params: IGetNotificationsRequestParams) => {
