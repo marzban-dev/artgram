@@ -2,7 +2,7 @@
  * Global types
  */
 
-import { ISimpleUser } from "./user.types";
+import { ISimpleUser, IUser } from "./user.types";
 
 export interface IArtist {
     id: number;
@@ -20,6 +20,7 @@ export interface ISimpleArtist {
     id: number;
     name: string;
     image: string;
+    profession: string;
     following: boolean;
 }
 
@@ -46,6 +47,14 @@ export interface IArt {
     likes_count: number;
     user_like: boolean;
     user_repost: boolean;
+}
+
+export interface ISavedArt {
+    id: number;
+    owner: IUser;
+    text: string;
+    created_date: string;
+    art: IArt;
 }
 
 export interface IArtLike {
@@ -95,6 +104,7 @@ export interface IGetArtsResponse {
 
 export interface IGetArtRequestParams {
     id: number;
+    token?: string;
 }
 
 export interface IGetArtResponse extends IArt {}
@@ -119,4 +129,26 @@ export interface IGetArtLikesResponse {
     count: number;
     next: string | null;
     results: IArtLike[];
+}
+
+export interface IGetSavedArtsRequestParams {
+    pageParam: {
+        id: string;
+        limit: number;
+        page: number;
+    };
+}
+
+export interface IGetSavedArtsResponse {
+    count: number;
+    next: string | null;
+    results: ISavedArt[];
+}
+
+export interface ISaveArtRequestParams {
+    id: number;
+}
+
+export interface IUnsaveArtRequestParams {
+    id: number;
 }
