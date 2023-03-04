@@ -19,6 +19,7 @@ const Header: React.FC<IHeaderProps> = ({
     isFetching,
     followers,
     following,
+    followingArtists,
 }) => {
     const imageColors = useImageColors(`#artist-background`, {
         darkPrimary: 0.2,
@@ -50,7 +51,14 @@ const Header: React.FC<IHeaderProps> = ({
                 <div className="flex justify-center min-[660px]:justify-between items-center min-[661px]:items-end max-[660px]:flex-col gap-5 min-[661px]:gap-1 w-[calc(100%-120px)]">
                     <div className="flex items-start flex-col gap-1">
                         <Username firstName={firstName} username={username} />
-                        <Info id={id} followers={followers} following={following} username={username} type={type} />
+                        <Info
+                            id={id}
+                            followers={followers}
+                            following={following}
+                            followingArtists={followingArtists}
+                            username={username}
+                            type={type}
+                        />
                     </div>
                     <FollowButton
                         id={id}
