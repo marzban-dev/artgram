@@ -15,6 +15,8 @@ export const useFollowUserMutation = (profileId: string, type: "user" | "artist"
     const artKey = router.pathname.includes("/art/") ? ["art", Number(router.query.id)] : undefined;
     const profileFollowersKey = ["followers", castedProfileId];
     const userProfileFollowingKey = status === "authenticated" ? ["following", authData.user.username] : undefined;
+    const userProfileArtistsKey =
+        status === "authenticated" ? ["following-artists", authData.user.username] : undefined;
 
     return useMutation({
         mutationFn: followUser,
@@ -57,10 +59,22 @@ export const useFollowUserMutation = (profileId: string, type: "user" | "artist"
             if (artKey) queryClient.setQueryData(artKey, ctx!.prevArtQueryData);
         },
         onSettled: () => {
+            // Invalidate profile
             queryClient.invalidateQueries(profileKey);
+
+            // If user inside art page and he did follow action, then invalidate art too
             if (artKey) queryClient.invalidateQueries(artKey);
             queryClient.invalidateQueries(profileFollowersKey);
-            if (userProfileFollowingKey) queryClient.invalidateQueries(userProfileFollowingKey);
+
+            // Invalidate authenticated user following and artists
+            if (userProfileFollowingKey) {
+                queryClient.invalidateQueries(userProfileFollowingKey);
+                queryClient.invalidateQueries([userProfileFollowingKey[0] + "-count", userProfileFollowingKey[1]]);
+            }
+            if (userProfileArtistsKey) {
+                queryClient.invalidateQueries(userProfileArtistsKey);
+                queryClient.invalidateQueries([userProfileArtistsKey[0] + "-count", userProfileArtistsKey[1]]);
+            }
         },
     });
 };
