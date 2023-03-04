@@ -12,10 +12,12 @@ const Likes: React.FC<ILikesProps> = ({ show, setShow, id }) => {
     const users = useMemo(() => {
         return flatInfiniteQueryData<IArtLike>(data!).map((like) => (
             <User
+                id={like.owner.username}
                 avatar={like.owner.profile_img}
-                firstName={like.owner.username}
-                username={like.owner.username}
+                title={like.owner.username}
+                underTitle={like.owner.username}
                 isFollowing={like.owner.following}
+                type="user"
                 key={like.id}
             />
         ));
