@@ -15,10 +15,12 @@ const Following: React.FC<IFollowingProps> = ({ id, type, initial }) => {
     const users = useMemo(() => {
         return flatInfiniteQueryData<ISimpleUser>(data!).map((user) => (
             <User
+                id={user.username}
                 avatar={user.profile_img}
-                firstName={user.username}
-                username={user.username}
+                underTitle={user.username}
+                title={user.username}
                 isFollowing={user.following}
+                type="user"
                 key={user.username}
             />
         ));
