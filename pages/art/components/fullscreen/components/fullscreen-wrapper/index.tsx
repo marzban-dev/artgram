@@ -125,7 +125,6 @@ const FullscreenWrapper: React.FC<IFullscreenWrapperProps> = ({ fullscreenArt })
                     <Image
                         src={fullscreenArt.picture}
                         alt={fullscreenArt.title}
-                        quality={50}
                         className="rounded-[25px]"
                         style={{ objectFit: "contain" }}
                         onLoadingComplete={() => setIsLoaded(true)}
