@@ -1,6 +1,8 @@
 export interface IUserProps {
+    id: string;
     avatar: string;
-    username: string;
-    firstName: string;
+    title: string;
+    type: "user" | "artist";
+    underTitle: string;
     isFollowing: boolean;
 }
