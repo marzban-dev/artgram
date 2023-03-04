@@ -16,7 +16,6 @@ const Background: React.FC<IBackgroundProps> = ({ picture }) => {
                 src={picture}
                 alt="background"
                 style={{ objectFit: "cover" }}
-                quality={50}
                 onLoadingComplete={() => setIsLoaded(true)}
                 fill
             />
