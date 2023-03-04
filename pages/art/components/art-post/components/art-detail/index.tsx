@@ -1,52 +1,75 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Fragment, useState } from "react";
+import BrushIcon from "public/assets/icon/brush.svg";
+import CapIcon from "public/assets/icon/graduation-cap.svg";
+import InfoIcon from "public/assets/icon/info.svg";
+import LocationIcon from "public/assets/icon/location-dot.svg";
+import PaletteIcon from "public/assets/icon/palette.svg";
+import ShapesIcon from "public/assets/icon/shapes.svg";
+import { Fragment, useMemo, useState } from "react";
 import { IArtDetailProps } from "./art-detail.types";
+import Detail from "./components/detail";
 
-const ArtDetail: React.FC<IArtDetailProps> = ({ id, icon: Icon, text, iconSize }) => {
+const ArtDetail: React.FC<IArtDetailProps> = ({ id, form, location, school, technique, type }) => {
     const [show, setShow] = useState(false);
 
-    const onMouseEnter = () => {
+    const onMouseEnterInfoIcon = () => {
         const artPictureContainer = document.querySelector(`#art-${id}`) as HTMLDivElement;
         artPictureContainer.style.filter = "brightness(0.4)";
         setShow(true);
     };
 
-    const onMouseLeave = () => {
+    const onMouseLeaveDetailLayer = () => {
         const artPictureContainer = document.querySelector(`#art-${id}`) as HTMLDivElement;
         artPictureContainer.style.filter = "brightness(0.85)";
         setShow(false);
     };
 
+    const renderInfos = useMemo(() => {
+        const infos = [
+            { icon: ShapesIcon, text: form, title: "form" },
+            { icon: LocationIcon, text: location, title: "location" },
+            { icon: CapIcon, text: school, title: "school" },
+            { icon: BrushIcon, text: technique, title: "technique" },
+            { icon: PaletteIcon, text: type, title: "type" },
+        ];
+
+        return infos.map((detail) => <Detail key={detail.title} {...detail} />);
+    }, []);
+
     return (
-        <div
-            className="relative shadow-lg shadow-[rgba(0,0,0,0.5)] rounded-full"
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            data-testid="art-detail-container"
-        >
-            <div className="w-[30px] h-[30px] bg-[rgba(35,35,35,1)] rounded-full flex justify-center items-center z-10 relative">
-                <Icon
-                    className="fill-[rgba(200,200,200,1)]"
-                    style={{
-                        width: iconSize + "px",
-                    }}
-                />
+        <Fragment>
+            <div className="flex justify-center items-center absolute z-20 bottom-[16px] left-[18px]">
+                <div
+                    className="shadow-lg shadow-[rgba(0,0,0,0.5)] rounded-full"
+                    onMouseEnter={onMouseEnterInfoIcon}
+                    data-testid="art-detail-container"
+                >
+                    <div className="w-[30px] h-[30px] bg-[rgba(35,35,35,1)] rounded-full flex justify-center items-center z-20 relative">
+                        <InfoIcon className="fill-[rgba(200,200,200,1)] h-[15px]" />
+                    </div>
+                </div>
             </div>
             <AnimatePresence>
                 {show && (
                     <motion.div
-                        className="rounded-full bg-[rgba(20,20,20,1)] absolute whitespace-nowrap top-0 h-full text-[rgba(185,185,185,1)] pl-[40px] pr-4 flex justify-center items-center"
+                        className="w-full h-full absolute top-0 z-10 text-[18px] flex justify-center items-center gap-2"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
+                        onMouseLeave={onMouseLeaveDetailLayer}
                         data-testid="art-detail-text"
                     >
-                        {text}
+                        <div
+                            className="max-w-[400px] w-full bg-[rgb(20,20,20)] p-5 rounded-[20px] flex justify-center items-start flex-col gap-2"
+                            onMouseLeave={onMouseLeaveDetailLayer}
+                        >
+                            {renderInfos}
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </Fragment>
     );
 };
 

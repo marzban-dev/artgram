@@ -1,6 +1,8 @@
 export interface IArtDetailProps {
     id: number;
-    icon: any;
-    text: string;
-    iconSize: number;
+    location: string;
+    type: string;
+    form: string;
+    school: string;
+    technique: string;
 }
