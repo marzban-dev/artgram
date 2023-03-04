@@ -20,6 +20,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
     profileInfo,
     followers,
     following,
+    followingArtists,
     isFetching,
     type,
 }) => {
@@ -44,6 +45,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
                                 isFollowing={isFollowing}
                                 followers={followers}
                                 following={following}
+                                followingArtists={followingArtists}
                                 isFetching={isFetching}
                                 type={type}
                             />

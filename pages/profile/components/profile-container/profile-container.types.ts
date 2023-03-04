@@ -9,7 +9,8 @@ export interface IProfileContainerProps {
     isFollowing: boolean;
     followers: number;
     following?: number;
+    followingArtists?: number;
     profileInfo: IProfileInfoProps[];
     type: "user" | "artist";
-    isFetching : boolean;
+    isFetching: boolean;
 }
