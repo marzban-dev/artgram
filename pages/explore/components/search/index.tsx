@@ -4,7 +4,7 @@ import SearchInput from "./components/search-input";
 
 const Search: React.FC = () => {
     return (
-        <div className="w-full h-[65vh] flex justify-center items-center flex-col overflow-hidden relative mb-8">
+        <div className="w-full h-[380px] min-[600px]:h-[450px] flex justify-center items-center flex-col overflow-hidden relative mb-8">
             <Background />
             <Description />
             <SearchInput />
