@@ -10,6 +10,8 @@ import { TArtPageUrlParams } from "./art.types";
 import Arts from "./components/arts";
 import Background from "./components/background";
 import Fullscreen from "./components/fullscreen";
+import Cookies from "universal-cookie";
+import { getSession } from "next-auth/react";
 
 const ArtPage: NextPage = () => {
     const { query } = useRouter();
@@ -41,24 +43,24 @@ const ArtPage: NextPage = () => {
     );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    return {
-        fallback: "blocking",
-        paths: [],
-    };
-};
-
-export const getStaticProps: GetStaticProps<any, TArtPageUrlParams> = async (context) => {
+export const getServerSideProps: GetServerSideProps<any, TArtPageUrlParams> = async (context) => {
+    const session = await getSession({ req: context.req });
     const queryClient = new QueryClient();
 
     const artId = Number(context.params!.id);
 
+    const cookies = new Cookies(context.req.headers.cookie);
+    const cachedArt = cookies.get(`art-${artId}`);
+
     try {
-        const art = await getArt({ id: artId });
-        await queryClient.prefetchQuery(["art", artId], () => art);
+        if (!cachedArt) {
+            const art = await getArt({ id: artId, token: session?.accessToken });
+            await queryClient.prefetchQuery(["art", artId], () => art);
+        } else {
+            await queryClient.prefetchQuery(["art", artId], () => cachedArt);
+        }
 
         return {
-            revalidate: 60,
             props: {
                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
             },
