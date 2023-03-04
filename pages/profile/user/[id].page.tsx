@@ -36,6 +36,7 @@ const UserPage: NextPage = () => {
             profileInfo={profileInfo}
             followers={userData.followers_count}
             following={userData.followings_count}
+            followingArtists={userData.artist_followings_count}
             isFetching={isFetching}
             type="user"
         />
