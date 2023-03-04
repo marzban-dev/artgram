@@ -7,6 +7,7 @@ import { IArtProps } from "./art.types";
 import ActionOverlay from "./components/action-overlay";
 import Placeholder from "./components/placeholder";
 import { useMediaQuery } from "react-responsive";
+import Cookies from "universal-cookie";
 
 const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) => {
     const router = useRouter();
@@ -25,11 +26,9 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
     const isImageInView = useInView(imageContainerRef, { once: true });
 
     const goToArtPage = () => {
-        queryClient.setQueryData(["art", id], (prevQueryData) => {
-            console.log(prevQueryData, "art", id);
-            if (!prevQueryData) return artObject;
-            return prevQueryData;
-        });
+        const cookies = new Cookies();
+        cookies.set(`art-${id}`, artObject, { path: "/" });
+
         router.push(`/art/${id}`);
     };
 
