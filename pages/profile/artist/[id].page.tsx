@@ -12,7 +12,7 @@ import { TArtistPageProps } from "./artist.types";
 
 const ArtistPage: NextPage = () => {
     const { query } = useRouter();
-    const { data: artistData, isFetching } = useArtistQuery(Number(query.id));
+    const { data: artistData, isLoading } = useArtistQuery(Number(query.id));
 
     const profileInfo = useMemo(() => {
         if (artistData) {
@@ -33,8 +33,8 @@ const ArtistPage: NextPage = () => {
             description={artistData?.bio}
             background={undefined}
             profileInfo={profileInfo}
-            isFetching={isFetching}
-            followers={34}
+            isFetching={isLoading}
+            followers={0}
             type="artist"
         />
     ) : null;
