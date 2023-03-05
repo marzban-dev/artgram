@@ -65,6 +65,7 @@ export const useFollowUserMutation = (profileId: string, type: "user" | "artist"
             // If user inside art page and he did follow action, then invalidate art too
             if (artKey) queryClient.invalidateQueries(artKey);
             queryClient.invalidateQueries(profileFollowersKey);
+            queryClient.invalidateQueries([profileFollowersKey[0] + "-count", profileFollowersKey[1]]);
 
             // Invalidate authenticated user following and artists
             if (userProfileFollowingKey) {
