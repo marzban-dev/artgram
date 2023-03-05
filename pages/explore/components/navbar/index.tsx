@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
     return (
         <div className="w-full h-[80px]">
             <PagePadding>
-                <div className="w-full h-full flex justify-between items-center gap-8 max-[550px]:px-3]">
+                <div className="w-full h-full flex justify-between items-center gap-8 max-[550px]:px-3">
                     <Logo />
                     <AppNavbar />
                 </div>
