@@ -12,16 +12,21 @@ import Detail from "./components/detail";
 const ArtDetail: React.FC<IArtDetailProps> = ({ id, form, location, school, technique, type }) => {
     const [show, setShow] = useState(false);
 
-    const onMouseEnterInfoIcon = () => {
+    const openDetails = () => {
         const artPictureContainer = document.querySelector(`#art-${id}`) as HTMLDivElement;
         artPictureContainer.style.filter = "brightness(0.4)";
         setShow(true);
     };
 
-    const onMouseLeaveDetailLayer = () => {
+    const closeDetails = () => {
         const artPictureContainer = document.querySelector(`#art-${id}`) as HTMLDivElement;
         artPictureContainer.style.filter = "brightness(0.85)";
         setShow(false);
+    };
+
+    const onDetailsButtonClicked = () => {
+        if (show) closeDetails();
+        else openDetails();
     };
 
     const renderInfos = useMemo(() => {
@@ -39,15 +44,15 @@ const ArtDetail: React.FC<IArtDetailProps> = ({ id, form, location, school, tech
     return (
         <Fragment>
             <div className="flex justify-center items-center absolute z-20 bottom-[16px] left-[18px]">
-                <div
+                <button
                     className="shadow-lg shadow-[rgba(0,0,0,0.5)] rounded-full"
-                    onMouseEnter={onMouseEnterInfoIcon}
+                    onClick={onDetailsButtonClicked}
                     data-testid="art-detail-container"
                 >
                     <div className="w-[30px] h-[30px] bg-[rgba(35,35,35,1)] rounded-full flex justify-center items-center z-20 relative">
                         <InfoIcon className="fill-[rgba(200,200,200,1)] h-[15px]" />
                     </div>
-                </div>
+                </button>
             </div>
             <AnimatePresence>
                 {show && (
@@ -57,12 +62,12 @@ const ArtDetail: React.FC<IArtDetailProps> = ({ id, form, location, school, tech
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        onMouseLeave={onMouseLeaveDetailLayer}
+                        onClick={closeDetails}
                         data-testid="art-detail-text"
                     >
                         <div
                             className="max-w-[340px] min-[460px]:max-w-[400px] w-full bg-[rgb(20,20,20)] p-4 min-[460px]:p-5 rounded-[20px] flex justify-center items-start flex-col gap-2"
-                            onMouseLeave={onMouseLeaveDetailLayer}
+                            onClick={(e) => e.stopPropagation()}
                         >
                             {renderInfos}
                         </div>
