@@ -6,6 +6,7 @@ import useHideOverflow from "hooks/use-hide-overflow";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
@@ -29,6 +30,10 @@ const ArtPage: NextPage = () => {
 
     return (
         <PageTransition>
+            <Head>
+                <title>Art - {art!.title}</title>
+                <meta name="description" content={`Art ${art!.title} by ${art!.artist.name}`} />
+            </Head>
             <main className="w-full h-screen">
                 <Background picture={art?.image.url} />
 
