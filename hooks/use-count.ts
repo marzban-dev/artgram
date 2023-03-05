@@ -1,4 +1,4 @@
-import { QueryKey, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getArtLikes } from "api/arts.api";
 import { getFollowers, getFollowing, getFollowingArtist, getNotifications } from "api/user.api";
 
@@ -13,7 +13,7 @@ type TKey = [type: TRequestTypes, id: number | string];
 
 export const useCountQuery = (key: TKey, initial: number, params?: TRequestParams, enabled: boolean = true) => {
     const pageParamDefaults = { limit: 0, page: 1 };
-
+    
     return useQuery(
         [key[0] + "-count", key[1]],
         async ({ pageParam = pageParamDefaults }) => {
