@@ -14,7 +14,7 @@ const ExplorePage: NextPage = () => {
         <PageTransition>
             <Head>
                 <title>Explore</title>
-                <meta name="description" content="lorem ipsum dolor site." />
+                <meta name="description" content="Explore the world of arts and artists" />
             </Head>
             <main className="h-screen">
                 <Navbar />
