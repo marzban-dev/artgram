@@ -1,17 +1,18 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getArt } from "api/arts.api";
+import BackButton from "components/back-button";
 import { useArtQuery } from "hooks/use-art";
 import useHideOverflow from "hooks/use-hide-overflow";
 import PageTransition from "layouts/page-transition";
-import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
 import { TArtPageUrlParams } from "./art.types";
 import Arts from "./components/arts";
 import Background from "./components/background";
 import Fullscreen from "./components/fullscreen";
-import Cookies from "universal-cookie";
-import { getSession } from "next-auth/react";
 
 const ArtPage: NextPage = () => {
     const { query } = useRouter();
@@ -35,6 +36,10 @@ const ArtPage: NextPage = () => {
 
                 {windowHeight !== 0 && (
                     <div className="relative z-[40] bg-black min-[520px]:bg-transparent">
+                        <div className="fixed max-[520px]:top-0 max-[520px]:left-0 top-[20px] left-[20px] max-[520px]:w-full h-[50px] bg-[rgba(0,0,0,0.7)] backdrop-blur-lg min-[520px]:rounded-[30px] z-[900] flex justify-start items-center px-[20px] gap-4">
+                            <BackButton />
+                            <h2 className="text-white text-[18px]">Arts</h2>
+                        </div>
                         <Arts id={Number(query.id)} art={art!} containerHeight={windowHeight} />
                     </div>
                 )}
