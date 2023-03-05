@@ -3,6 +3,7 @@ import { getArts } from "api/arts.api";
 import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 import Navbar from "./components/navbar";
 import Search from "./components/search";
 import ShowExplore from "./components/show-explore";
@@ -11,6 +12,10 @@ import ShowSearch from "./components/show-search";
 const ExplorePage: NextPage = () => {
     return (
         <PageTransition>
+            <Head>
+                <title>Explore</title>
+                <meta name="description" content="lorem ipsum dolor site." />
+            </Head>
             <main className="h-screen">
                 <Navbar />
                 <Search />
