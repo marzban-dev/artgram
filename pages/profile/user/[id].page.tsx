@@ -12,7 +12,7 @@ import { TUserPageProps } from "./user.types";
 
 const UserPage: NextPage = () => {
     const { query } = useRouter();
-    const { data: userData, isFetching } = useUserQuery(String(query.id));
+    const { data: userData, isLoading } = useUserQuery(String(query.id));
 
     const profileInfo = useMemo(() => {
         if (userData) {
@@ -37,7 +37,7 @@ const UserPage: NextPage = () => {
             followers={userData.followers_count}
             following={userData.followings_count}
             followingArtists={userData.artist_followings_count}
-            isFetching={isFetching}
+            isFetching={isLoading}
             type="user"
         />
     ) : null;
