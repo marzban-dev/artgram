@@ -2,6 +2,7 @@ import { signup } from "api/auth.api";
 import { AxiosError } from "axios";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 import EmailIcon from "public/assets/icon/envelope.svg";
 import LockIcon from "public/assets/icon/lock.svg";
 import UserIcon from "public/assets/icon/user.svg";
@@ -56,6 +57,10 @@ const SignupPage: NextPage = () => {
 
     return (
         <PageTransition>
+            <Head>
+                <title>Sign up</title>
+                <meta name="description" content="Create new artgram account" />
+            </Head>
             <FormContainer
                 schema={schema}
                 onSubmit={onSubmit}
