@@ -13,7 +13,7 @@ const FollowButton: React.FC<IFollowButtonProps> = ({ id, type, width, initial, 
     const { isError: isFollowError, mutateAsync: follow } = useFollowUserMutation(id, type);
 
     useEffect(() => {
-        if (isFollowError) setIsFollowed(!isFollowed);
+        if (isFollowError) setIsFollowed((oldValue) => !oldValue);
     }, [isFollowError]);
 
     useEffect(() => {
