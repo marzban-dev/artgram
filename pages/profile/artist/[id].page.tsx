@@ -2,11 +2,12 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getArtistProfile } from "api/user.api";
 import { useArtistQuery } from "hooks/use-artist";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import BrushIcon from "public/assets/icon/brush.svg";
 import CalenderIcon from "public/assets/icon/calendar-star.svg";
 import CapIcon from "public/assets/icon/graduation-cap.svg";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import ProfileContainer from "../components/profile-container";
 import { TArtistPageProps } from "./artist.types";
 
@@ -26,17 +27,23 @@ const ArtistPage: NextPage = () => {
     }, [artistData]);
 
     return artistData && profileInfo ? (
-        <ProfileContainer
-            isFollowing={artistData.following}
-            username={artistData.name}
-            avatar={artistData.image}
-            description={artistData?.bio}
-            background={undefined}
-            profileInfo={profileInfo}
-            isFetching={isLoading}
-            followers={0}
-            type="artist"
-        />
+        <Fragment>
+            <Head>
+                <title>Artist - {artistData.name}</title>
+                <meta name="description" content={artistData.bio} />
+            </Head>
+            <ProfileContainer
+                isFollowing={artistData.following}
+                username={artistData.name}
+                avatar={artistData.image}
+                description={artistData?.bio}
+                background={undefined}
+                profileInfo={profileInfo}
+                isFetching={isLoading}
+                followers={0}
+                type="artist"
+            />
+        </Fragment>
     ) : null;
 };
 
