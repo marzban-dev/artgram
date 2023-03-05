@@ -50,18 +50,18 @@ const Detail: React.FC<IDetailProps> = ({ icon: Icon, text, title }) => {
     return (
         <div className="flex justify-start items-center gap-2 rounded-[30px] pr-3 w-full">
             <button
-                className="flex justify-center items-center gap-2 bg-[rgb(30,30,30)] fill-art-primary text-art-primary rounded-[30px] px-3 py-1 whitespace-nowrap border-2 border-transparent hover:border-art-lighter transition-colors"
+                className="flex justify-center items-center gap-2 bg-[rgb(30,30,30)] rounded-[30px] px-2 min-[460px]:px-3 py-[2px] min-[460px]:py-1 whitespace-nowrap border-2 border-transparent hover:border-art-lighter transition-colors"
                 onClick={onTitleClicked}
             >
-                <Icon className="h-[16px]" />
-                {title}
+                <Icon className="h-[16px] fill-art-primary" />
+                <span className="text-[15px] min-[460px]:text-[16px] text-art-primary">{title}</span>
             </button>
             <div className="overflow-hidden relative">
                 <div className="bg-gradient-to-l from-[rgb(20,20,20)] to-transparent w-[10px] h-full absolute top-0 right-0 z-20" />
                 <motion.div
                     variants={textVariants}
                     animate="scroll"
-                    className="text-[rgba(200,200,200,1)] whitespace-nowrap px-2"
+                    className="text-[rgba(200,200,200,1)] whitespace-nowrap px-2 text-[15px] min-[460px]:text-[16px]"
                     ref={textRef}
                 >
                     {text}
