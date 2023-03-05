@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { IArt } from "api/arts.types";
-import { ISavedArt, ISimpleUser, IUser } from "api/user.types";
+import { IArt, ISavedArt } from "api/arts.types";
+import { ISimpleUser, IUser } from "api/user.types";
 
 export const generateMockArt = (id?: number): IArt => {
     return {
@@ -10,6 +10,7 @@ export const generateMockArt = (id?: number): IArt => {
             name: faker.name.fullName(),
             following: false,
             image: faker.image.imageUrl(undefined, undefined, undefined, true),
+            profession: faker.lorem.words(2),
         },
         image: {
             height: faker.datatype.number({ min: 1000, max: 2000 }),
@@ -56,6 +57,7 @@ export const generateMockUser = (username?: string): IUser => {
         link: faker.internet.url(),
         profile_img: faker.internet.url(),
         location: faker.address.country(),
+        artist_followings_count: faker.datatype.number({ min: 0, max: 500 }),
     };
 };
 
