@@ -9,7 +9,7 @@ import { IFollowersProps } from "./followers.types";
 
 const Followers: React.FC<IFollowersProps> = ({ id, type, initial }) => {
     const [show, setShow] = useState(false);
-    const { data: count } = useCountQuery(["followers", id], initial, { id, type });
+    const { data: count } = useCountQuery(["followers", type === "artist" ? Number(id) : id], initial, { id, type });
     const { data, fetchNextPage, hasNextPage } = useFollowersQuery(id, type, show);
 
     const users = useMemo(() => {
