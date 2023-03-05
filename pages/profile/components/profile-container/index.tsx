@@ -32,7 +32,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({
             <PageTransition>
                 <PagePadding>
                     <main
-                        className="w-full min-[750px]:rounded-[25px] bg-[rgb(55,55,55,0.3)] min-[750px]:bg-[rgb(65,65,65,0.3)] relative z-20 min-[750px]:my-[100px] backdrop-blur-[1px] min-[750px]:backdrop-blur-sm min-[661px]:px-6 min-[661px]:pt-6 pb-[100px]"
+                        className="w-full min-[750px]:rounded-[25px] bg-[rgb(55,55,55,0.4)] min-[750px]:bg-[rgb(60,60,60,0.4)] relative z-20 min-[750px]:my-[100px] min-[661px]:px-6 min-[661px]:pt-6 pb-[100px]"
                         id="profile-container"
                     >
                         <div className="w-full">
