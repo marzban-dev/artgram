@@ -20,7 +20,7 @@ const Arts: React.FC<IArtsProps> = ({ id, art, containerHeight }) => {
 
     return (
         <InfiniteScroll
-            className="w-full min-[520px]:pt-[25px] snap-y snap-proximity overflow-y-scroll"
+            className="w-full min-[520px]:pt-[25px] snap-y snap-proximity overflow-y-scroll max-[520px]:pt-[50px]"
             dataLength={arts ? arts.pages.flat().length : 1}
             next={fetchNextPage}
             hasMore={true}
