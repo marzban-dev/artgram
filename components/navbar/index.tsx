@@ -7,18 +7,22 @@ const Navbar: React.FC = () => {
 
     return (
         <nav>
-            <ul className="flex justify-start items-center gap-8">
-                <Link href="/explore" className="text-white">
+            <ul className="flex justify-start items-center gap-4 min-[550px]:gap-8">
+                <Link href="/explore" className="text-white text-[14px] min-[550px]:text-[16px]">
                     Explore
                 </Link>
-                <Link href="/request" className="text-white">
+                <Link href="/request" className="text-white text-[14px] min-[550px]:text-[16px]">
                     Request Artist
                 </Link>
                 {status === "authenticated" ? (
                     <Link href={`/profile/user/${data.user.username}`}>
                         <UserProfile />
                     </Link>
-                ) : null}
+                ) : (
+                    <Link href="/request" className="text-white text-[14px] min-[550px]:text-[16px]">
+                        Signin
+                    </Link>
+                )}
             </ul>
         </nav>
     );
