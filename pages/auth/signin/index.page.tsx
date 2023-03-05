@@ -1,6 +1,7 @@
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";
 import { getCsrfToken, signIn } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import LockIcon from "public/assets/icon/lock.svg";
 import UserIcon from "public/assets/icon/user.svg";
@@ -20,9 +21,7 @@ const SigninPage: NextPage = () => {
             .min(2, "Username is too short")
             .max(20, "Username must lower than 20 char")
             .required("Username is required"),
-        password: Yup.string()
-            .min(8, "Password must bigger than 7 char")
-            .required("Password is required"),
+        password: Yup.string().min(8, "Password must bigger than 7 char").required("Password is required"),
     });
 
     const onSubmit: TSigninOnSubmit = async (values, { setSubmitting, setStatus }) => {
@@ -54,6 +53,10 @@ const SigninPage: NextPage = () => {
 
     return (
         <PageTransition>
+            <Head>
+                <title>Sign in</title>
+                <meta name="description" content="Sign in to your artgram account" />
+            </Head>
             <FormContainer
                 schema={schema}
                 onSubmit={onSubmit}
