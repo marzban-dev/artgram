@@ -61,7 +61,7 @@ const ArtDetail: React.FC<IArtDetailProps> = ({ id, form, location, school, tech
                         data-testid="art-detail-text"
                     >
                         <div
-                            className="max-w-[350px] min-[460px]:max-w-[400px] w-full bg-[rgb(20,20,20)] p-4 min-[460px]:p-5 rounded-[20px] flex justify-center items-start flex-col gap-2"
+                            className="max-w-[340px] min-[460px]:max-w-[400px] w-full bg-[rgb(20,20,20)] p-4 min-[460px]:p-5 rounded-[20px] flex justify-center items-start flex-col gap-2"
                             onMouseLeave={onMouseLeaveDetailLayer}
                         >
                             {renderInfos}
