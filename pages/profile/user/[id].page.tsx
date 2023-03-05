@@ -2,11 +2,12 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getUserProfile } from "api/user.api";
 import { useUserQuery } from "hooks/use-user";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import CalenderIcon from "public/assets/icon/calendar-star.svg";
 import LinkIcon from "public/assets/icon/link.svg";
 import LocationIcon from "public/assets/icon/location-dot.svg";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import ProfileContainer from "../components/profile-container";
 import { TUserPageProps } from "./user.types";
 
@@ -26,20 +27,26 @@ const UserPage: NextPage = () => {
     }, [userData]);
 
     return userData && profileInfo ? (
-        <ProfileContainer
-            username={userData.username}
-            firstName={userData.first_name}
-            avatar={userData.profile_img}
-            description={userData.bio}
-            background={userData.header_img}
-            isFollowing={userData.following}
-            profileInfo={profileInfo}
-            followers={userData.followers_count}
-            following={userData.followings_count}
-            followingArtists={userData.artist_followings_count}
-            isFetching={isLoading}
-            type="user"
-        />
+        <Fragment>
+            <Head>
+                <title>User - @{userData.username}</title>
+                <meta name="description" content={userData.bio ? userData.bio : userData.username} />
+            </Head>
+            <ProfileContainer
+                username={userData.username}
+                firstName={userData.first_name}
+                avatar={userData.profile_img}
+                description={userData.bio}
+                background={userData.header_img}
+                isFollowing={userData.following}
+                profileInfo={profileInfo}
+                followers={userData.followers_count}
+                following={userData.followings_count}
+                followingArtists={userData.artist_followings_count}
+                isFetching={isLoading}
+                type="user"
+            />
+        </Fragment>
     ) : null;
 };
 
