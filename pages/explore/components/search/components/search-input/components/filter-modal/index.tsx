@@ -41,83 +41,78 @@ const FilterModal: React.FC<IFilterModalProps> = ({ show, setShow }) => {
     };
 
     return (
-        <Modal show={show} onClose={() => setShow(false)}>
-            <div className="pt-2 pb-5 min-[520px]:py-5 px-6 flex justify-start items-start flex-col gap-6">
-                <div className="w-full flex justify-center items-center border-b-2 border-[rgb(40,40,40)] pb-2">
-                    <span className="text-white font-medium text-[25px]">Filter</span>
+        <Modal title="Filters" show={show} onClose={() => setShow(false)}>
+            <div className="flex flex-col justify-start items-start gap-2 w-full">
+                <h3 className="text-white text-[18px] font-medium pl-3">Search By</h3>
+                <div className="flex justify-start items-center flex-wrap gap-2">
+                    <Badge
+                        id="title"
+                        onSelect={onSearchBySelect}
+                        text="Title"
+                        selected={searchBy === "title"}
+                        icon={TitleIcon}
+                    />
+                    <Badge
+                        id="type"
+                        onSelect={onSearchBySelect}
+                        text="Type"
+                        selected={searchBy === "type"}
+                        icon={PaletteIcon}
+                    />
+                    <Badge
+                        id="date"
+                        onSelect={onSearchBySelect}
+                        text="Year"
+                        selected={searchBy === "date"}
+                        icon={CalendarIcon}
+                    />
+                    <Badge
+                        id="technique"
+                        onSelect={onSearchBySelect}
+                        text="Technique"
+                        selected={searchBy === "technique"}
+                        icon={BrushIcon}
+                    />
+                    <Badge
+                        id="location"
+                        onSelect={onSearchBySelect}
+                        text="Location"
+                        selected={searchBy === "location"}
+                        icon={LocationIcon}
+                    />
+                    <Badge
+                        id="form"
+                        onSelect={onSearchBySelect}
+                        text="Form"
+                        selected={searchBy === "form"}
+                        icon={ShapesIcon}
+                    />
+                    <Badge
+                        id="school"
+                        onSelect={onSearchBySelect}
+                        text="School"
+                        selected={searchBy === "school"}
+                        icon={CapIcon}
+                    />
                 </div>
-                <div className="flex flex-col justify-start items-start gap-2 w-full">
-                    <h3 className="text-white text-[18px] font-medium pl-3">Search By</h3>
-                    <div className="flex justify-start items-center flex-wrap gap-2">
-                        <Badge
-                            id="title"
-                            onSelect={onSearchBySelect}
-                            text="Title"
-                            selected={searchBy === "title"}
-                            icon={TitleIcon}
-                        />
-                        <Badge
-                            id="type"
-                            onSelect={onSearchBySelect}
-                            text="Type"
-                            selected={searchBy === "type"}
-                            icon={PaletteIcon}
-                        />
-                        <Badge
-                            id="date"
-                            onSelect={onSearchBySelect}
-                            text="Year"
-                            selected={searchBy === "date"}
-                            icon={CalendarIcon}
-                        />
-                        <Badge
-                            id="technique"
-                            onSelect={onSearchBySelect}
-                            text="Technique"
-                            selected={searchBy === "technique"}
-                            icon={BrushIcon}
-                        />
-                        <Badge
-                            id="location"
-                            onSelect={onSearchBySelect}
-                            text="Location"
-                            selected={searchBy === "location"}
-                            icon={LocationIcon}
-                        />
-                        <Badge
-                            id="form"
-                            onSelect={onSearchBySelect}
-                            text="Form"
-                            selected={searchBy === "form"}
-                            icon={ShapesIcon}
-                        />
-                        <Badge
-                            id="school"
-                            onSelect={onSearchBySelect}
-                            text="School"
-                            selected={searchBy === "school"}
-                            icon={CapIcon}
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-col justify-start items-start gap-2 w-full">
-                    <h3 className="text-white text-[18px] font-medium pl-3">Order By</h3>
-                    <div className="flex justify-start items-center flex-wrap gap-2">
-                        <Badge
-                            id="asc"
-                            onSelect={onOrderBySelect}
-                            text="Ascending"
-                            selected={orderBy === "asc"}
-                            icon={AscIcon}
-                        />
-                        <Badge
-                            id="des"
-                            onSelect={onOrderBySelect}
-                            text="Descending"
-                            selected={orderBy === "des"}
-                            icon={DesIcon}
-                        />
-                    </div>
+            </div>
+            <div className="flex flex-col justify-start items-start gap-2 w-full">
+                <h3 className="text-white text-[18px] font-medium pl-3">Order By</h3>
+                <div className="flex justify-start items-center flex-wrap gap-2">
+                    <Badge
+                        id="asc"
+                        onSelect={onOrderBySelect}
+                        text="Ascending"
+                        selected={orderBy === "asc"}
+                        icon={AscIcon}
+                    />
+                    <Badge
+                        id="des"
+                        onSelect={onOrderBySelect}
+                        text="Descending"
+                        selected={orderBy === "des"}
+                        icon={DesIcon}
+                    />
                 </div>
             </div>
         </Modal>
