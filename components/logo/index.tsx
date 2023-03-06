@@ -1,11 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import LogoImage from "public/assets/img/logo.jpg";
 
 const Logo: React.FC = () => {
     return (
-        <div className="w-[40px]">
+        <Link href="/" className="w-[40px]">
             <Image src={LogoImage} alt="logo" />
-        </div>
+        </Link>
     );
 };
 export default Logo;
