@@ -12,7 +12,7 @@ const NotificationsButton: React.FC = () => {
 
     return (
         <Fragment>
-            <Notifications show={showNotifications} setShow={() => setShowNotifications(false)} />
+            <Notifications show={showNotifications} setShow={setShowNotifications} />
             <ActionButton action={openNotifications} icon={BellIcon} />
         </Fragment>
     );
