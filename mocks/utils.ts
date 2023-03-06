@@ -53,6 +53,7 @@ export const generateMockUser = (username?: string): IUser => {
         bio: faker.lorem.lines(),
         date_joined: faker.date.recent().toString(),
         first_name: faker.name.firstName(),
+        last_name: faker.name.lastName(),
         header_img: faker.internet.url(),
         link: faker.internet.url(),
         profile_img: faker.internet.url(),
