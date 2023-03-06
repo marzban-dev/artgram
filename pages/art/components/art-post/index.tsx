@@ -8,6 +8,7 @@ import { IArtPostProps } from "./art-post.types";
 import ArtDetail from "./components/art-detail";
 import ArtPicture from "./components/art-picture";
 import Bookmark from "./components/bookmark";
+import DownloadButton from "./components/download-button";
 import Header from "./components/header";
 import LikesCount from "./components/likes-count";
 
@@ -43,7 +44,7 @@ const ArtPost: React.FC<IArtPostProps> = ({
                 ["--art-lighter-color", imageColors.lighter],
             ]);
         }
-    }, [imageColors]);
+    }, [imageColors, id]);
 
     return (
         <section className="w-full flex justify-center items-center min-[520px]:mt-[30px] snap-none last:mb-[30px]">
@@ -88,7 +89,8 @@ const ArtPost: React.FC<IArtPostProps> = ({
                         </div>
                         <LikesCount id={id} initial={likes_count} />
                     </div>
-                    <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center gap-4">
+                        <DownloadButton name={title + ".jpg"} href={image.url} />
                         <Bookmark id={id} initial={user_repost} />
                     </div>
                 </div>
