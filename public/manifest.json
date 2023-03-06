@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "artgram",
-    "short_name": "artgram",
+    "name": "Artgram",
+    "short_name": "Artgram",
     "description": "the world of arts",
     "icons": [
         {
