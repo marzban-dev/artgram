@@ -3,7 +3,7 @@ import { AnimatePresence, motion, PanInfo, Variants } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 import { IModalProps } from "./modal.types";
 
-const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
+const Modal: React.FC<IModalProps> = ({ title, show, onClose, children }) => {
     const isMobile = useMediaQuery({ maxWidth: 520 });
 
     const overlayVariants: Variants = {
@@ -81,7 +81,16 @@ const Modal: React.FC<IModalProps> = ({ show, onClose, children }) => {
                             <div className="w-full hidden max-[520px]:flex justify-center items-center py-3 cursor-grab">
                                 <div className="w-[70px] h-[6px] rounded-[5px] bg-[rgb(40,40,40)] mr-[6px]" />
                             </div>
-                            {children}
+                            <div className="relative">
+                                <div className="bg-gradient-to-b from-[rgb(20,20,20)] to-transparent w-full h-[20px] absolute top-0 left-0 z-[100]" />
+                                <div className="pt-2 pb-5 min-[520px]:py-5 px-6 overflow-y-scroll max-h-[500px] scrollbar-custom">
+                                    <div className="flex justify-center items-center border-b-2 border-[rgb(40,40,40)] pb-2 mb-6">
+                                        <span className="text-white font-medium text-[25px]">{title}</span>
+                                    </div>
+                                    {children}
+                                </div>
+                                <div className="bg-gradient-to-t from-[rgb(20,20,20)] to-transparent w-full h-[20px] absolute bottom-0 left-0 z-[100]" />
+                            </div>
                         </motion.div>
                         <motion.div
                             variants={overlayVariants}
