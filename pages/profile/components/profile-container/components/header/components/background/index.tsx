@@ -28,7 +28,6 @@ const Background: React.FC<IBackgroundProps> = ({ username, background }) => {
                     style={{ objectFit: "cover" }}
                     onLoadingComplete={() => setIsLoaded(true)}
                     alt="background"
-                    quality={100}
                     fill
                 />
             </motion.div>
