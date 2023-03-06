@@ -23,14 +23,14 @@ const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, on
 
     useEffect(() => {
         if (isLikeError) {
-            setIsLiked(!isLiked);
+            setIsLiked((oldValue) => !oldValue);
             animationControl.start("bobble");
         }
         if (isUnlikeError) {
-            setIsLiked(isLiked);
+            setIsLiked((oldValue) => oldValue);
             animationControl.start("bobble");
         }
-    }, [isLikeError, isUnlikeError]);
+    }, [isLikeError, isUnlikeError, animationControl]);
 
     const alertUserToLogin = () => {
         toast.dismiss();
