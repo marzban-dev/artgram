@@ -35,14 +35,20 @@ const FloatNavbar: React.FC = () => {
 
         window.addEventListener("scroll", onWindowScroll);
         return () => window.removeEventListener("scroll", onWindowScroll);
-    }, [router.pathname]);
+    }, [shouldRenderAtFirst]);
 
     const navVariants: Variants = {
         hide: {
             opacity: 0,
+            transition: {
+                duration: 0.2,
+            },
         },
         show: {
             opacity: 1,
+            transition: {
+                duration: 0.2,
+            },
         },
     };
 
