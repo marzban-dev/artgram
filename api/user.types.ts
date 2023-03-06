@@ -6,6 +6,7 @@ import { IArt, IArtist, ISavedArt, ISimpleArtist } from "./arts.types";
 
 export interface IUser {
     first_name: string;
+    last_name: string;
     username: string;
     profile_img: string;
     header_img: string;
