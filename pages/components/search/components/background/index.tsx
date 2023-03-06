@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useScroll, useSpring, useTransform, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Test3Image from "public/assets/img/arts/12.jpg";
 import Test5Image from "public/assets/img/arts/16.jpg";
@@ -9,12 +9,6 @@ const Background: React.FC = () => {
     const [activeSlide, setActiveSlide] = useState(1);
     const activeSlideRef = useRef(1);
     const sliderInterval = useRef<NodeJS.Timer | null>(null);
-    // const { scrollY } = useScroll();
-    // const scrollYTransform = useTransform(scrollY, [0, 1000], [-50, 50]);
-    // const scrollYSpring = useSpring(scrollYTransform, {
-    //     stiffness : 200,
-    //     damping : 80
-    // });
 
     useEffect(() => {
         if (!sliderInterval.current) {
@@ -32,28 +26,19 @@ const Background: React.FC = () => {
 
     const sliderVariants: Variants = {
         init: {
-            scale: 1.3,
             opacity: 0,
         },
         show: {
-            scale: 1,
             opacity: 1,
             transition: {
-                scale: {
-                    duration: 0.3,
-                },
                 opacity: {
                     duration: 0.2,
                 },
             },
         },
         hide: {
-            scale: 0.9,
             opacity: 0,
             transition: {
-                scale: {
-                    duration: 0.2,
-                },
                 opacity: {
                     duration: 0.15,
                 },

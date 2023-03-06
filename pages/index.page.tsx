@@ -1,39 +1,29 @@
+import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
-import { GetServerSideProps, NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { checkServerSideAuth } from "utils/check-server-side-auth";
-import sleep from "utils/sleep";
+import { NextPage } from "next";
+import Head from "next/head";
+import Navbar from "./components/navbar";
+import Search from "./components/search";
+import ShowExplore from "./components/show-explore";
+import ShowSearch from "./components/show-search";
 
-const Home: NextPage = () => {
-    const { status } = useSession();
-
+const ExplorePage: NextPage = () => {
     return (
         <PageTransition>
-            <main className="flex justify-center items-center w-full bg-black h-screen">
-                <div className="text-white">{status}</div>
-                <Link href="/auth/signin" className="border-2 border-yellow-400 p-4 text-white">
-                    Go To Other Page
-                </Link>
-                <button
-                    onClick={() => signOut({ redirect: true })}
-                    className="text-white border-2 border-white p-2 m-2"
-                >
-                    Exit
-                </button>
+            <Head>
+                <title>Explore</title>
+                <meta name="description" content="Explore the world of arts and artists" />
+            </Head>
+            <main className="h-screen">
+                <Navbar />
+                <Search />
+                <PagePadding>
+                    <ShowExplore />
+                    <ShowSearch />
+                </PagePadding>
             </main>
         </PageTransition>
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const session = await checkServerSideAuth(context);
-    await sleep(500);
-    return {
-        props: {
-            session,
-        },
-    };
-};
-
-export default Home;
+export default ExplorePage;
