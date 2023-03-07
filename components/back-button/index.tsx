@@ -8,7 +8,7 @@ const BackButton: React.FC = () => {
 
     return (
         <button onClick={backToPrevRoute}>
-            <LeftIcon className="fill-white h-[20px]" />
+            <LeftIcon className="h-[20px] fill-white" />
         </button>
     );
 };
