@@ -34,16 +34,16 @@ const ArtPage: NextPage = () => {
                 <title>Art - {art!.title}</title>
                 <meta name="description" content={`Art ${art!.title} by ${art!.artist.name}`} />
             </Head>
-            <main className="w-full h-screen">
+            <main className="h-screen w-full">
                 <Background picture={art?.image.url} />
 
                 <Fullscreen />
 
                 {windowHeight !== 0 && (
-                    <div className="relative z-[40] bg-black min-[520px]:bg-transparent">
-                        <div className="fixed max-[520px]:top-0 max-[520px]:left-0 top-[20px] left-[20px] max-[520px]:w-full h-[50px] bg-[rgba(0,0,0,0.7)] backdrop-blur-lg min-[520px]:rounded-[30px] z-[900] flex justify-start items-center px-[20px] gap-4">
+                    <div className="relative z-[900] bg-black min-[520px]:bg-transparent">
+                        <div className="fixed top-[20px] left-[20px] z-[900] flex h-[50px] items-center justify-start gap-4 bg-black px-[20px] max-[520px]:top-0 max-[520px]:left-0 max-[520px]:w-full min-[520px]:rounded-[30px]">
                             <BackButton />
-                            <h2 className="text-white text-[18px]">Arts</h2>
+                            <h2 className="text-[18px] text-white">Arts</h2>
                         </div>
                         <Arts id={Number(query.id)} art={art!} containerHeight={windowHeight} />
                     </div>
