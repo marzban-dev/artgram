@@ -5,7 +5,7 @@ import ArtPost from "../art-post";
 import { IArtsProps } from "./arts.types";
 import { useArtsQuery } from "hooks/use-arts";
 import flatInfiniteQueryData from "utils/flat-infinite-query-data";
-import { IArt } from "api/arts.types";
+import { IArt } from "apis/arts.types";
 
 const Arts: React.FC<IArtsProps> = ({ id, art, containerHeight }) => {
     const { data: arts, fetchNextPage } = useArtsQuery(id);

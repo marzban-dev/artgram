@@ -1,4 +1,4 @@
-import { IUser } from "api/user.types";
+import { IUser } from "apis/user.types";
 import NextAuth, { DefaultSession } from "next-auth";
 
 declare module "next-auth" {

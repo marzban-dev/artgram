@@ -1,4 +1,4 @@
-import { ISimpleArtist } from "api/arts.types";
+import { ISimpleArtist } from "apis/arts.types";
 import User from "components/user";
 import UsersModal from "components/users-modal";
 import { useCountQuery } from "hooks/use-count";

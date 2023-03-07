@@ -1,4 +1,4 @@
-import { IArt } from "api/arts.types";
+import { IArt } from "apis/arts.types";
 import InfiniteArts from "components/infinite-arts";
 import Spinner from "components/spinner";
 import { useSearchQuery } from "hooks/use-search";

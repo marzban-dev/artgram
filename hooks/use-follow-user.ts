@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IArt, IArtist } from "api/arts.types";
-import { followUser } from "api/user.api";
+import { IArt, IArtist } from "apis/arts.types";
+import { followUser } from "apis/user.api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 

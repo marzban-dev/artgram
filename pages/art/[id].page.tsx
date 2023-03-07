@@ -1,5 +1,5 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { getArt } from "api/arts.api";
+import { getArt } from "apis/arts.api";
 import BackButton from "components/back-button";
 import { useArtQuery } from "hooks/use-art";
 import useHideOverflow from "hooks/use-hide-overflow";

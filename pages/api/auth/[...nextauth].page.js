@@ -1,4 +1,4 @@
-import { signin } from "api/auth.api";
+import { signin } from "apis/auth.api";
 import axios from "config/axios";
 import NextAuth from "next-auth";
 import CredentialsProviders from "next-auth/providers/credentials";

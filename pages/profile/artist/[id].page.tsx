@@ -1,5 +1,5 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { getArtistProfile } from "api/user.api";
+import { getArtistProfile } from "apis/user.api";
 import { useArtistQuery } from "hooks/use-artist";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";

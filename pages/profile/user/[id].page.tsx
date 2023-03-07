@@ -1,5 +1,5 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { getUserProfile } from "api/user.api";
+import { getUserProfile } from "apis/user.api";
 import { useUserQuery } from "hooks/use-user";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";

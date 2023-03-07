@@ -1,4 +1,4 @@
-import { IArt } from "api/arts.types";
+import { IArt } from "apis/arts.types";
 
 export interface IInfiniteArtsProps {
     arts: IArt[];

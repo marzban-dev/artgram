@@ -1,5 +1,5 @@
 import { InfiniteData } from "@tanstack/react-query";
-import { IArt } from "api/arts.types";
+import { IArt } from "apis/arts.types";
 
 export interface IArtsProps {
     id: number;

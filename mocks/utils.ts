@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { IArt, ISavedArt } from "api/arts.types";
-import { ISimpleUser, IUser } from "api/user.types";
+import { IArt, ISavedArt } from "apis/arts.types";
+import { ISimpleUser, IUser } from "apis/user.types";
 
 export const generateMockArt = (id?: number): IArt => {
     return {

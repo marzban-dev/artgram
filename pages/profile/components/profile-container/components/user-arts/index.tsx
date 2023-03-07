@@ -1,4 +1,4 @@
-import { ISavedArt } from "api/arts.types";
+import { ISavedArt } from "apis/arts.types";
 import InfiniteArts from "components/infinite-arts";
 import Spinner from "components/spinner";
 import { useSavedArtsQuery } from "hooks/use-saved-arts";

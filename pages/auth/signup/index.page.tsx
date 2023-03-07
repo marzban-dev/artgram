@@ -1,4 +1,4 @@
-import { signup } from "api/auth.api";
+import { signup } from "apis/auth.api";
 import { AxiosError } from "axios";
 import PageTransition from "layouts/page-transition";
 import { GetServerSideProps, NextPage } from "next";

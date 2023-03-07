@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getFollowing } from "api/user.api";
+import { getFollowing } from "apis/user.api";
 
 export const useFollowingQuery = (id: string, type: "user" | "artist", enabled: boolean) => {
     const pageParamDefaults = { id, type, limit: 15, page: 1 };

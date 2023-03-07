@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getSavedArts } from "api/arts.api";
+import { getSavedArts } from "apis/arts.api";
 
 export const useSavedArtsQuery = (id: string) => {
     const pageParamDefaults = { owner: id, limit: 8, page: 1 };

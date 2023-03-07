@@ -1,4 +1,4 @@
-import { INotification } from "api/user.types";
+import { INotification } from "apis/user.types";
 import Modal from "components/modal";
 import Notification from "components/notification";
 import Spinner from "components/spinner";

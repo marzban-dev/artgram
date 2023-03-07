@@ -1,4 +1,4 @@
-import { ISimpleArtist } from "api/arts.types";
+import { ISimpleArtist } from "apis/arts.types";
 
 export interface IHeaderProps {
     title: string;

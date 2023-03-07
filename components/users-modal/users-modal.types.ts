@@ -1,5 +1,5 @@
 import { InfiniteData } from "@tanstack/react-query";
-import { ISimpleUser } from "api/user.types";
+import { ISimpleUser } from "apis/user.types";
 
 export interface IUsersModalProps {
     show: boolean;

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { saveArt } from "api/arts.api";
+import { saveArt } from "apis/arts.api";
 
 export const useSaveArtMutation = () => {
     const queryClient = useQueryClient();

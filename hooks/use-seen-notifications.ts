@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { seenNotifications } from "api/user.api";
+import { seenNotifications } from "apis/user.api";
 
 export const useSeenNotificationsMutation = () => {
     return useMutation({

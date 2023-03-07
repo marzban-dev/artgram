@@ -1,4 +1,4 @@
-import { IArtLike } from "api/arts.types";
+import { IArtLike } from "apis/arts.types";
 import User from "components/user";
 import UsersModal from "components/users-modal";
 import { useArtLikesQuery } from "hooks/use-art-likes";

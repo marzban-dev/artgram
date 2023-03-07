@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { likeArt } from "api/arts.api";
+import { likeArt } from "apis/arts.api";
 
 export const useLikeArtMutation = (id: number) => {
     const queryClient = useQueryClient();

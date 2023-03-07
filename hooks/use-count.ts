@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getArtLikes } from "api/arts.api";
-import { getFollowers, getFollowing, getFollowingArtist, getNotifications } from "api/user.api";
+import { getArtLikes } from "apis/arts.api";
+import { getFollowers, getFollowing, getFollowingArtist, getNotifications } from "apis/user.api";
 
 type TRequestTypes = "following" | "following-artists" | "followers" | "notifications" | "art-likes";
 

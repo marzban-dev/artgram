@@ -1,4 +1,4 @@
-import { ISimpleUser } from "api/user.types";
+import { ISimpleUser } from "apis/user.types";
 import User from "components/user";
 import UsersModal from "components/users-modal";
 import { useCountQuery } from "hooks/use-count";

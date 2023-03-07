@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getArts } from "api/arts.api";
+import { getArts } from "apis/arts.api";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 
