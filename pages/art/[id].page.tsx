@@ -31,8 +31,8 @@ const ArtPage: NextPage = () => {
     return (
         <PageTransition>
             <Head>
-                <title>Art - {art!.title}</title>
-                <meta name="description" content={`Art ${art!.title} by ${art!.artist.name}`} />
+                <title>Art - {art?.title}</title>
+                <meta name="description" content={`Art ${art?.title} by ${art?.artist.name}`} />
             </Head>
             <main className="h-screen w-full">
                 <Background picture={art?.image.url} />
