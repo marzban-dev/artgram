@@ -26,7 +26,6 @@
         "axios": "^1.2.1",
         "classnames": "^2.3.2",
         "color": "^4.2.3",
-        "cookies": "^0.8.0",
         "eslint": "8.30.0",
         "eslint-config-next": "13.1.1",
         "fast-average-color": "^9.2.0",
