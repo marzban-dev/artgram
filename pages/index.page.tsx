@@ -3,7 +3,7 @@ import PageTransition from "layouts/page-transition";
 import { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "./components/navbar";
-import Search from "./components/search";
+import Header from "./components/header";
 import ShowExplore from "./components/show-explore";
 import ShowSearch from "./components/show-search";
 
@@ -16,7 +16,7 @@ const ExplorePage: NextPage = () => {
             </Head>
             <main className="h-screen">
                 <Navbar />
-                <Search />
+                <Header />
                 <PagePadding>
                     <ShowExplore />
                     <ShowSearch />
