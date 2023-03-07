@@ -43,7 +43,7 @@ const SigninPage: NextPage = () => {
             setTimeout(() => setFormState("idle"), 2500);
         } else {
             setFormState("success");
-            setTimeout(async () => await push("/explore"), 2500);
+            setTimeout(async () => await push("/"), 2500);
         }
 
         setSubmitting(false);
