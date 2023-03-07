@@ -40,7 +40,7 @@ const ArtPage: NextPage = () => {
                 <Fullscreen />
 
                 {windowHeight !== 0 && (
-                    <div className="relative z-[900] bg-black min-[520px]:bg-transparent">
+                    <div className="relative z-[40] bg-black min-[520px]:bg-transparent">
                         <div className="fixed top-[20px] left-[20px] z-[900] flex h-[50px] items-center justify-start gap-4 bg-black px-[20px] max-[520px]:top-0 max-[520px]:left-0 max-[520px]:w-full min-[520px]:rounded-[30px]">
                             <BackButton />
                             <h2 className="text-[18px] text-white">Arts</h2>
