@@ -2,7 +2,7 @@ import Background from "./components/background";
 import Description from "./components/description";
 import SearchInput from "./components/search-input";
 
-const Search: React.FC = () => {
+const Header: React.FC = () => {
     return (
         <div className="w-full h-[380px] min-[600px]:h-[450px] flex justify-center items-center flex-col overflow-hidden relative mb-8">
             <Background />
@@ -12,4 +12,4 @@ const Search: React.FC = () => {
     );
 };
 
-export default Search;
+export default Header;
