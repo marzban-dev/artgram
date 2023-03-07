@@ -17,7 +17,7 @@ const InfiniteArts: React.FC<IInfiniteArtsProps> = ({ arts, hasNextPage, callbac
                     dataLength={arts.length}
                     next={callback}
                     hasMore={hasNextPage}
-                    loader={<Spinner size={40} style={{ padding: "50px 0" }} />}
+                    loader={<Spinner size={40} style={{ padding: "50px 0 80px 0" }} />}
                     style={{ overflowY: "hidden" }}
                 >
                     <MasonryGrid>{renderArts}</MasonryGrid>
