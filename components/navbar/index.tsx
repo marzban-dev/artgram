@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
     return (
         <nav>
             <ul className="flex justify-start items-center gap-4 min-[550px]:gap-8">
-                <Link href="/explore" className="text-white text-[14px] min-[550px]:text-[16px]">
+                <Link href="/" className="text-white text-[14px] min-[550px]:text-[16px]">
                     Explore
                 </Link>
                 <Link href="/request" className="text-white text-[14px] min-[550px]:text-[16px]">
@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
                         <UserProfile />
                     </Link>
                 ) : (
-                    <Link href="/request" className="text-white text-[14px] min-[550px]:text-[16px]">
+                    <Link href="/auth/signin" className="text-white text-[14px] min-[550px]:text-[16px]">
                         Signin
                     </Link>
                 )}
