@@ -4,6 +4,7 @@ export type TSearchBy = "title" | "date" | "technique" | "form" | "school" | "ty
 export type TOrderBy = "asc" | "des";
 
 interface IInitialState {
+    allowExploreLoadMore: boolean;
     isSearching: boolean;
     search: string | null;
     searchBy: TSearchBy;
@@ -11,6 +12,7 @@ interface IInitialState {
 }
 
 const init: IInitialState = {
+    allowExploreLoadMore: false,
     isSearching: false,
     search: null,
     searchBy: "title",
@@ -21,6 +23,9 @@ export const exploreSlice = createSlice({
     name: "explore",
     initialState: init,
     reducers: {
+        setAllowExploreLoadMore(state, action: PayloadAction<boolean>) {
+            state.allowExploreLoadMore = action.payload;
+        },
         setIsSearching(state, action: PayloadAction<boolean>) {
             state.isSearching = action.payload;
         },
@@ -36,6 +41,6 @@ export const exploreSlice = createSlice({
     },
 });
 
-export const { setIsSearching, setSearchBy, setOrderBy, setSearch } = exploreSlice.actions;
+export const { setAllowExploreLoadMore, setIsSearching, setSearchBy, setOrderBy, setSearch } = exploreSlice.actions;
 
 export default exploreSlice.reducer;
