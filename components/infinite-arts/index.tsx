@@ -14,11 +14,12 @@ const InfiniteArts: React.FC<IInfiniteArtsProps> = ({ arts, hasNextPage, callbac
         <div className={className}>
             {arts && (
                 <InfiniteScroll
-                    dataLength={arts.length}
+                    dataLength={renderArts.length}
                     next={callback}
                     hasMore={hasNextPage}
                     loader={<Spinner size={40} style={{ padding: "50px 0 80px 0" }} />}
                     style={{ overflowY: "hidden" }}
+                    scrollThreshold={0.8}
                 >
                     <MasonryGrid>{renderArts}</MasonryGrid>
                 </InfiniteScroll>
