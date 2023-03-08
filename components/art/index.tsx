@@ -3,11 +3,11 @@ import { motion, useInView, Variants } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import Cookies from "universal-cookie";
 import { IArtProps } from "./art.types";
 import ActionOverlay from "./components/action-overlay";
 import Placeholder from "./components/placeholder";
-import { useMediaQuery } from "react-responsive";
-import Cookies from "universal-cookie";
 
 const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) => {
     const router = useRouter();
@@ -31,7 +31,7 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
 
         router.push(`/art/${id}`);
     };
-
+    
     const imageWrapperVariants: Variants = {
         hide: {
             opacity: 0,
@@ -51,23 +51,23 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
 
     return (
         <section
-            className="grid-item p-[6px] min-[550px]:p-2 min-[1020px]:p-3 cursor-pointer"
+            className="grid-item cursor-pointer p-[6px] min-[550px]:p-2 min-[1020px]:p-3"
             onClick={goToArtPage}
             onMouseEnter={() => setShowActions(true)}
             onMouseLeave={() => !isLiked && setShowActions(false)}
             ref={imageContainerRef}
             data-testid="container"
         >
-            <div className="origin-center [perspective:1000px] rounded-[10px] min-[750px]:rounded-[15px] min-[1020px]:rounded-[25px] overflow-hidden brightness-[0.85] duration-200">
+            <div className="origin-center brightness-[0.85] duration-200 [perspective:1000px]">
                 <motion.div
                     id={`art-${id}`}
                     initial="hide"
                     variants={imageWrapperVariants}
                     animate={isImageInView ? "show" : "hide"}
-                    className="origin-top relative"
+                    className="relative origin-top overflow-hidden rounded-[10px] min-[750px]:rounded-[15px] min-[1020px]:rounded-[25px]"
                 >
                     <Placeholder isLoaded={isLoaded} />
-                    <motion.div animate={{ opacity: isLoaded ? 1 : 0 }} className="relative w-full h-full">
+                    <motion.div animate={{ opacity: isLoaded ? 1 : 0 }} className="relative h-full w-full">
                         <ActionOverlay
                             id={id}
                             showActions={showActions}
