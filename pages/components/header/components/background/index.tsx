@@ -52,7 +52,7 @@ const Background: React.FC = () => {
                 return (
                     <motion.div
                         // style={{ y: scrollYSpring }}
-                        className="w-full h-[150%] relative"
+                        className="relative h-[150%] w-full"
                         variants={sliderVariants}
                         initial="init"
                         animate="show"
@@ -64,7 +64,6 @@ const Background: React.FC = () => {
                             alt="background"
                             className="brightness-[0.5]"
                             style={{ objectFit: "cover" }}
-                            quality={25}
                             priority
                             fill
                         />
@@ -75,8 +74,8 @@ const Background: React.FC = () => {
     };
 
     return (
-        <div className="w-full h-full absolute">
-            <div className="w-full h-full bg-explore-search-gradient absolute z-20" />
+        <div className="absolute h-full w-full">
+            <div className="absolute z-20 h-full w-full bg-explore-search-gradient" />
             <AnimatePresence mode="popLayout">{renderSlides()}</AnimatePresence>
         </div>
     );
