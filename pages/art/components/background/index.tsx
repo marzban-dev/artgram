@@ -8,15 +8,16 @@ const Background: React.FC<IBackgroundProps> = ({ picture }) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full">
-            <div className="bg-art-post-background-gradient fixed w-full h-full z-20" />
-            <motion.div animate={{ opacity: isLoaded ? 0 : 1 }} className="bg-zinc-700 fixed w-full h-full z-10" />
+        <div className="fixed top-0 left-0 h-full w-full">
+            <div className="fixed z-20 h-full w-full bg-art-post-background-gradient" />
+            <motion.div animate={{ opacity: isLoaded ? 0 : 1 }} className="fixed z-10 h-full w-full bg-zinc-700" />
 
             <Image
                 src={picture}
                 alt="background"
                 style={{ objectFit: "cover" }}
                 onLoadingComplete={() => setIsLoaded(true)}
+                priority
                 fill
             />
         </div>

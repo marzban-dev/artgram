@@ -34,21 +34,23 @@ const ArtPage: NextPage = () => {
                 <title>Art - {art?.title}</title>
                 <meta name="description" content={`Art ${art?.title} by ${art?.artist.name}`} />
             </Head>
-            <main className="h-screen w-full">
-                <Background picture={art?.image.url} />
+            {art && (
+                <main className="h-screen w-full">
+                    <Background picture={art.image.url} />
 
-                <Fullscreen />
+                    <Fullscreen />
 
-                {windowHeight !== 0 && (
-                    <div className="relative z-[40] bg-black min-[520px]:bg-transparent">
-                        <div className="fixed top-[20px] left-[20px] z-[900] flex h-[50px] items-center justify-start gap-4 bg-black px-[20px] max-[520px]:top-0 max-[520px]:left-0 max-[520px]:w-full min-[520px]:rounded-[30px]">
-                            <BackButton />
-                            <h2 className="text-[18px] text-white">Arts</h2>
+                    {windowHeight !== 0 && (
+                        <div className="relative z-[40] bg-black min-[520px]:bg-transparent">
+                            <div className="fixed top-[20px] left-[20px] z-[900] flex h-[50px] items-center justify-start gap-4 bg-black px-[20px] max-[520px]:top-0 max-[520px]:left-0 max-[520px]:w-full min-[520px]:rounded-[30px]">
+                                <BackButton />
+                                <h2 className="text-[18px] text-white">Arts</h2>
+                            </div>
+                            <Arts id={Number(query.id)} art={art} containerHeight={windowHeight} />
                         </div>
-                        <Arts id={Number(query.id)} art={art!} containerHeight={windowHeight} />
-                    </div>
-                )}
-            </main>
+                    )}
+                </main>
+            )}
         </PageTransition>
     );
 };
@@ -64,9 +66,13 @@ export const getServerSideProps: GetServerSideProps<any, TArtPageUrlParams> = as
 
     try {
         if (!cachedArt) {
+            console.clear();
+            console.log("fetch from server");
             const art = await getArt({ id: artId, token: session?.accessToken });
             await queryClient.prefetchQuery(["art", artId], () => art);
         } else {
+            console.clear();
+            console.log("read from cookie");
             await queryClient.prefetchQuery(["art", artId], () => cachedArt);
         }
 
