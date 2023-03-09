@@ -1,4 +1,4 @@
-import { signin } from "apis/auth.api";
+import { signin, refreshAccessToken } from "apis/auth.api";
 import axios from "config/axios";
 import NextAuth from "next-auth";
 import CredentialsProviders from "next-auth/providers/credentials";
@@ -46,6 +46,7 @@ export default NextAuth({
             if (user) {
                 const tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate() + 1);
+
                 token.accessToken = user.access;
                 token.refreshToken = user.refresh;
                 token.userInfo = user.info;
@@ -53,6 +54,7 @@ export default NextAuth({
             }
             // Return previous token if the access token has not expired yet
             if (Date.now() < token.tokenExpiry) return token;
+
             // // Access token has expired, try to update it
             // return refreshAccessToken(token);
         },
