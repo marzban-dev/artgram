@@ -4,8 +4,7 @@ import BackButton from "components/back-button";
 import { useArtQuery } from "hooks/use-art";
 import useHideOverflow from "hooks/use-hide-overflow";
 import PageTransition from "layouts/page-transition";
-import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/react";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -22,7 +21,11 @@ const ArtPage: NextPage = () => {
     useHideOverflow();
 
     useEffect(() => {
+        const cookies = new Cookies();
+        cookies.remove("is-art-prefetched", { path: "/" });
+
         const divElement = document.querySelector("#full-height-element") as HTMLDivElement;
+
         if (window.innerWidth < 520) {
             setWindowHeight(divElement.clientHeight - 50);
         } else setWindowHeight(divElement.clientHeight);
@@ -55,28 +58,24 @@ const ArtPage: NextPage = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<any, TArtPageUrlParams> = async (context) => {
-    const session = await getSession({ req: context.req });
+export const getStaticPaths: GetStaticPaths = async () => {
+    return {
+        fallback: "blocking",
+        paths: [],
+    };
+};
+
+export const getStaticProps: GetStaticProps<any, TArtPageUrlParams> = async (context) => {
     const queryClient = new QueryClient();
 
     const artId = Number(context.params!.id);
 
-    const cookies = new Cookies(context.req.headers.cookie);
-    const cachedArt = cookies.get(`art-${artId}`);
-
     try {
-        if (!cachedArt) {
-            console.clear();
-            console.log("fetch from server");
-            const art = await getArt({ id: artId, token: session?.accessToken });
-            await queryClient.prefetchQuery(["art", artId], () => art);
-        } else {
-            console.clear();
-            console.log("read from cookie");
-            await queryClient.prefetchQuery(["art", artId], () => cachedArt);
-        }
+        const art = await getArt({ id: artId });
+        await queryClient.prefetchQuery(["art", artId], () => art);
 
         return {
+            revalidate: 60,
             props: {
                 dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
             },
