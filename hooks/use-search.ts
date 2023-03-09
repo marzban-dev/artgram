@@ -17,7 +17,7 @@ export const useSearchQuery = () => {
         offset: 0,
     };
 
-    return useInfiniteQuery(["search"], ({ pageParam = pageParamDefaults }) => getArts({ pageParam }), {
+    return useInfiniteQuery(["search"], ({ pageParam = pageParamDefaults, signal }) => getArts({ pageParam, signal }), {
         enabled: !!search,
         getNextPageParam: (lastPage, pages) => {
             const page = pages.length + 1;
