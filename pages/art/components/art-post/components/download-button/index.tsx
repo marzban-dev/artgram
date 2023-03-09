@@ -4,14 +4,14 @@ import { MouseEvent } from "react";
 import downloadFile from "utils/download-file";
 import { IDownloadButtonProps } from "./download-props.types";
 
-const DownloadButton: React.FC<IDownloadButtonProps> = ({ name, href }) => {
+const DownloadButton: React.FC<IDownloadButtonProps> = ({ id, name }) => {
     const animationControl = useAnimation();
 
     const onDownload = async (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         animationControl.start("move");
-        console.log(href);
-        downloadFile(href, "x.jpg");
+        const imageEl = document.getElementById(`art-${id}`) as HTMLImageElement;
+        downloadFile(imageEl.src, name);
     };
 
     const iconVariants: Variants = {
@@ -28,7 +28,7 @@ const DownloadButton: React.FC<IDownloadButtonProps> = ({ name, href }) => {
     return (
         <button onClick={onDownload}>
             <motion.div variants={iconVariants} animate={animationControl}>
-                <DownloadIcon className="fill-white h-[26px]" />
+                <DownloadIcon className="h-[26px] fill-white" />
             </motion.div>
         </button>
     );
