@@ -10,17 +10,16 @@ const FilterButton: React.FC = () => {
     const isSearching = useSelector((state: RootState) => state.explore.isSearching);
 
     const iconClasses = classNames({
-        "h-[22px] fill-[rgb(180,180,180)] transition-colors": 1,
-        "fill-[rgb(100,100,100)]": isSearching,
-        "fill-[rgb(180,180,180)] group-hover:fill-[rgb(220,220,220)]": !isSearching,
+        "h-[22px] fill-[rgb(180,180,180)] transition-colors fill-[rgb(180,180,180)] group-hover:fill-[rgb(220,220,220)]": 1,
+        // "fill-[rgb(100,100,100)]": isSearching,
+        // "fill-[rgb(180,180,180)] group-hover:fill-[rgb(220,220,220)]": !isSearching,
     });
 
     return (
         <Fragment>
             <button
                 className="group flex justify-center items-center py-4"
-                onClick={!isSearching ? () => setShowFilters(true) : undefined}
-                disabled={isSearching}
+                onClick={() => setShowFilters(true)}
                 title="Open filters"
             >
                 <FilterIcon className={iconClasses} />
