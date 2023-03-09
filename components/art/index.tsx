@@ -10,8 +10,8 @@ import ActionOverlay from "./components/action-overlay";
 import Placeholder from "./components/placeholder";
 
 const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) => {
-    const router = useRouter();
     const queryClient = useQueryClient();
+    const router = useRouter();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(user_like);
     const [showActions, setShowActions] = useState(isLiked);
@@ -25,13 +25,8 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
     const imageContainerRef = useRef<HTMLElement | null>(null);
     const isImageInView = useInView(imageContainerRef, { once: true });
 
-    const goToArtPage = () => {
-        const cookies = new Cookies();
-        cookies.set(`art-${id}`, artObject, { path: "/" });
+    const goToArtPage = () => router.push(`/art/${id}`);
 
-        router.push(`/art/${id}`);
-    };
-    
     const imageWrapperVariants: Variants = {
         hide: {
             opacity: 0,
