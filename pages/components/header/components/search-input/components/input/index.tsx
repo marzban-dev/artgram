@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
 import { useSearchQuery } from "hooks/use-search";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { setIsSearching, setSearch } from "store/slice/explore.slice";
@@ -28,6 +28,7 @@ const Input: React.FC = () => {
                     dispatch(setIsSearching(false));
                 }, 500);
             } else {
+                queryClient.cancelQueries(["search"]);
                 queryClient.setQueryData(["search"], null);
                 dispatch(setSearch(null));
             }
@@ -38,6 +39,7 @@ const Input: React.FC = () => {
         setInputValue(e.target.value);
 
         if (timer.current) clearTimeout(timer.current);
+        queryClient.cancelQueries(["search"]);
 
         timer.current = setTimeout(() => {
             setNewSearchText(e.target.value);
@@ -45,20 +47,12 @@ const Input: React.FC = () => {
     };
 
     const inputClasses = classNames({
-        "outline-none bg-transparent border-none w-full h-full placeholder:text-[rgb(100,100,100)] transition-colors": 1,
-        "text-[rgb(100,100,100)]": isSearching,
-        "text-white": !isSearching,
+        "outline-none bg-transparent border-none w-full h-full placeholder:text-[rgb(100,100,100)] transition-colors text-white": 1,
+        // "text-[rgb(100,100,100)]": isSearching,
+        // "text-white": !isSearching,
     });
 
-    return (
-        <input
-            className={inputClasses}
-            placeholder="Search something"
-            onChange={!isSearching ? onChange : undefined}
-            disabled={isSearching}
-            value={inputValue}
-        />
-    );
+    return <input className={inputClasses} placeholder="Search something" onChange={onChange} value={inputValue} />;
 };
 
-export default Input;
+export default memo(Input);
