@@ -47,7 +47,7 @@ const Background: React.FC = () => {
     };
 
     const renderSlides = () => {
-        return [Test1Image, Test3Image, Test5Image].map((img, i) => {
+        return ["https://www.wga.hu/preview/l/leonardo/03/4lastsu1.jpg", Test3Image, Test5Image].map((img, i) => {
             if (i + 1 === activeSlide) {
                 return (
                     <motion.div
@@ -62,7 +62,7 @@ const Background: React.FC = () => {
                         <Image
                             src={img}
                             alt="background"
-                            className="brightness-[0.5]"
+                            className="brightness-[0.7]"
                             style={{ objectFit: "cover" }}
                             priority
                             fill
