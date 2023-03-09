@@ -67,7 +67,7 @@ const FloatNavbar: React.FC = () => {
     return (
         <nav className={navClasses}>
             <motion.ul variants={navVariants} animate={showFloatNavbar ? "show" : "hide"} className={ulClasses}>
-                <NavButton icon={MagnifyGlassIcon} route="/explore" />
+                <NavButton icon={MagnifyGlassIcon} route="/" />
                 <NavButton icon={PlusIcon} route="/request" />
                 {status === "authenticated" ? (
                     <NavButton route={`/profile/user/${data.user.username}`}>
