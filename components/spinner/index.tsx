@@ -4,19 +4,16 @@ import { ISpinnerProps } from "./spinner.types";
 
 const Spinner: React.FC<ISpinnerProps> = ({ size = 30, style }) => {
     return (
-        <motion.div className="flex justify-center items-center overflow-hidden p-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={style}>
-            <motion.div
-                data-testid="loading-icon"
-                animate={{ rotateZ: [0, 360] }}
-                transition={{
-                    ease: "linear",
-                    duration: 0.5,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                }}
-            >
+        <motion.div
+            className="flex items-center justify-center overflow-hidden p-[2px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={style}
+        >
+            <div className="animate-spin [animation-duration:0.5s]" data-testid="loading-icon">
                 <SpinnerIcon className="fill-white" style={{ width: size }} />
-            </motion.div>
+            </div>
         </motion.div>
     );
 };
