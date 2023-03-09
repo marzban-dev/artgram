@@ -1,5 +1,6 @@
 import Badge from "components/badge";
 import Modal from "components/modal";
+import SelectMenu from "components/select-menu";
 import { useSearchQuery } from "hooks/use-search";
 import AscIcon from "public/assets/icon/arrow-down-a-z.svg";
 import DesIcon from "public/assets/icon/arrow-up-z-a.svg";
@@ -42,9 +43,16 @@ const FilterModal: React.FC<IFilterModalProps> = ({ show, setShow }) => {
 
     return (
         <Modal title="Filters" show={show} onClose={() => setShow(false)}>
-            <div className="flex flex-col justify-start items-start gap-2 w-full">
-                <h3 className="text-white text-[18px] font-medium pl-3">Search By</h3>
-                <div className="flex justify-start items-center flex-wrap gap-2">
+            <div className="flex w-full flex-col items-start justify-start gap-2">
+                <SelectMenu
+                    items={[
+                        { text: "kir1", value: "kir1" },
+                        { text: "kir2", value: "kir2" },
+                        { text: "kir3", value: "kir3" },
+                    ]}
+                />
+                <h3 className="pl-3 text-[18px] font-medium text-white">Search By</h3>
+                <div className="flex flex-wrap items-center justify-start gap-2">
                     <Badge
                         id="title"
                         onSelect={onSearchBySelect}
@@ -96,9 +104,9 @@ const FilterModal: React.FC<IFilterModalProps> = ({ show, setShow }) => {
                     />
                 </div>
             </div>
-            <div className="flex flex-col justify-start items-start gap-2 w-full">
-                <h3 className="text-white text-[18px] font-medium pl-3">Order By</h3>
-                <div className="flex justify-start items-center flex-wrap gap-2">
+            <div className="flex w-full flex-col items-start justify-start gap-2">
+                <h3 className="pl-3 text-[18px] font-medium text-white">Order By</h3>
+                <div className="flex flex-wrap items-center justify-start gap-2">
                     <Badge
                         id="asc"
                         onSelect={onOrderBySelect}
