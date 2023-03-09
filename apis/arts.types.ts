@@ -94,6 +94,7 @@ export interface IGetArtsRequestParams {
         limit?: number;
         offset?: number;
     };
+    signal?: AbortSignal;
 }
 
 export interface IGetArtsResponse {

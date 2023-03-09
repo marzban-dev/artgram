@@ -11,7 +11,7 @@ import {
     ILikeArtRequestParams,
     ISaveArtRequestParams,
     IUnlikeArtRequestParams,
-    IUnsaveArtRequestParams
+    IUnsaveArtRequestParams,
 } from "./arts.types";
 
 export const getArt = async (params: IGetArtRequestParams) => {
@@ -25,6 +25,7 @@ export const getArt = async (params: IGetArtRequestParams) => {
 export const getArts = async (params: IGetArtsRequestParams) => {
     const response = await axios.get<IGetArtsResponse>("/", {
         params: { ...params.pageParam, token: undefined },
+        signal: params.signal,
     });
 
     return {
