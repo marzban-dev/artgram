@@ -1,16 +1,14 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { motion, useInView, Variants } from "framer-motion";
+import classNames from "classnames";
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import Cookies from "universal-cookie";
 import { IArtProps } from "./art.types";
 import ActionOverlay from "./components/action-overlay";
 import Placeholder from "./components/placeholder";
 
 const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) => {
-    const queryClient = useQueryClient();
     const router = useRouter();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(user_like);
@@ -27,22 +25,17 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
 
     const goToArtPage = () => router.push(`/art/${id}`);
 
-    const imageWrapperVariants: Variants = {
-        hide: {
-            opacity: 0,
-            rotateX: -40,
-        },
-        show: {
-            opacity: 1,
-            rotateX: 0,
-            transition: {
-                delay: 0.1,
-                type: "spring",
-                stiffness: 200,
-                damping: 40,
-            },
-        },
-    };
+    const imageWrapperClasses = classNames({
+        "relative origin-top overflow-hidden rounded-[10px] min-[750px]:rounded-[15px] min-[1020px]:rounded-[25px] transition-all duration-700 ease-out": 1,
+        "opacity-1 [transform:_rotateX(0deg)]": isImageInView,
+        "opacity-0 [transform:_rotateX(-40deg)]": !isImageInView,
+    });
+
+    const wrapperClasses = classNames({
+        "relative h-full w-full transition-opacity transition-opacity": 1,
+        "opacity-1": isLoaded,
+        "opacity-0": !isLoaded,
+    });
 
     return (
         <section
@@ -54,15 +47,9 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
             data-testid="container"
         >
             <div className="origin-center brightness-[0.85] duration-200 [perspective:1000px]">
-                <motion.div
-                    id={`art-${id}`}
-                    initial="hide"
-                    variants={imageWrapperVariants}
-                    animate={isImageInView ? "show" : "hide"}
-                    className="relative origin-top overflow-hidden rounded-[10px] min-[750px]:rounded-[15px] min-[1020px]:rounded-[25px]"
-                >
+                <motion.div id={`art-${id}`} className={imageWrapperClasses}>
                     <Placeholder isLoaded={isLoaded} />
-                    <motion.div animate={{ opacity: isLoaded ? 1 : 0 }} className="relative h-full w-full">
+                    <div className={wrapperClasses}>
                         <ActionOverlay
                             id={id}
                             showActions={showActions}
@@ -78,7 +65,7 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
                             width={image.width}
                             height={image.height}
                         />
-                    </motion.div>
+                    </div>
                 </motion.div>
             </div>
         </section>
