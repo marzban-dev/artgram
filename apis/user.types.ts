@@ -115,3 +115,13 @@ export interface IGetNotificationsResponse {
 export interface ISeenNotificationsRequestParams {
     id: number;
 }
+
+export interface IUpdateSettingsRequestParams {
+    first_name?: string;
+    last_name?: string;
+    profile_img?: string;
+    header_img?: string;
+    bio?: string;
+    link?: string;
+    location?: string;
+}

@@ -14,6 +14,7 @@ import {
     IGetUserProfileRequestParams,
     IGetUserProfileResponse,
     ISeenNotificationsRequestParams,
+    IUpdateSettingsRequestParams,
 } from "./user.types";
 
 export const getUserProfile = async (params: IGetUserProfileRequestParams) => {
@@ -100,4 +101,8 @@ export const checkNotifications = async () => {
 
 export const seenNotifications = async (params: ISeenNotificationsRequestParams) => {
     await axios.post(`/user/notification/${params.id}/`);
+};
+
+export const updateSettings = async (params: IUpdateSettingsRequestParams) => {
+    await axios.patch("/user/my/myinfo/", params);
 };
