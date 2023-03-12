@@ -1,16 +1,19 @@
 import Avatar from "components/avatar";
 import Input from "components/input";
 import Modal from "components/modal";
+import SelectMenu from "components/select-menu";
 import Textarea from "components/textarea";
 import LinkIcon from "public/assets/icon/link.svg";
 import LocationIcon from "public/assets/icon/location-dot.svg";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, memo, useEffect, useRef, useState } from "react";
 import validator from "validator";
 import Background from "./components/background";
+import { countries } from "constants/countries";
 import { ISettingsModalProps } from "./settings-modal.types";
 
-const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, settings, setSettings }) => {
-    const [inputValues, setInputValues] = useState({ ...settings });
+const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, userData, sendUpdateRequest }) => {
+    const [inputValues, setInputValues] = useState(userData);
+
     const [errors, setErrors] = useState<{ [x: string]: string }>({});
     const timer = useRef<NodeJS.Timeout | null>(null);
 
@@ -18,9 +21,7 @@ const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, settings,
         if (timer.current) clearTimeout(timer.current);
 
         timer.current = setTimeout(() => {
-            if (Object.keys(errors).length === 0) {
-                setSettings(inputValues);
-            }
+            if (Object.keys(errors).length === 0) sendUpdateRequest(inputValues);
         }, 1000);
     }, [inputValues, errors]);
 
@@ -36,7 +37,10 @@ const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, settings,
         });
     };
 
-    const changeUserData = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, property: string) => {
+    const changeUserData = (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+        property: string
+    ) => {
         const value = e.target.value;
         setInputValues((oldValues) => ({ ...oldValues, [property]: value }));
 
@@ -54,21 +58,18 @@ const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, settings,
                 case "link":
                     if (!validator.isURL(value)) return addError(property, "some error");
                     return removeError(property);
-                case "location":
-                    if (value.length < 3) return addError(property, "some error");
-                    return removeError(property);
             }
         } else removeError(property);
     };
-
+    
     return (
         <Modal title="Settings" show={show} onClose={() => setShow(false)}>
-            <div className="flex justify-start items-center flex-col gap-5 max-[520px]:pb-8">
-                <div className="relative w-full flex justify-center items-center mb-[45px]">
+            <div className="flex flex-col items-center justify-start gap-5 max-[520px]:pb-8">
+                <div className="relative mb-[45px] flex w-full items-center justify-center">
                     <Background background="https://artgram.iran.liara.run/media/header.jpg" />
                     <div className="absolute bottom-[-25%] z-[30]">
                         <Avatar
-                            className="w-[100px] h-[100px] shadow-xl shadow-[rgba(0,0,0,0.15)] overflow-hidden"
+                            className="h-[100px] w-[100px] overflow-hidden shadow-xl shadow-[rgba(0,0,0,0.15)]"
                             placeholderClassName="border border-[rgb(40,40,40)]"
                             picture="https://artgram.iran.liara.run/media/profile.jpg"
                             title="profile"
@@ -76,7 +77,7 @@ const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, settings,
                         />
                     </div>
                 </div>
-                <div className="flex justify-center items-center w-full gap-5">
+                <div className="flex w-full items-center justify-center gap-5">
                     <Input
                         onChange={(e) => changeUserData(e, "first_name")}
                         error={Object.hasOwn(errors, "first_name")}
@@ -94,13 +95,11 @@ const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, settings,
                         fullWidth
                     />
                 </div>
-                <Input
+                <SelectMenu
+                    items={Object.keys(countries).map((country) => ({ value: country, text: countries[country] }))}
                     onChange={(e) => changeUserData(e, "location")}
-                    error={Object.hasOwn(errors, "location")}
-                    errorMessage={errors.location}
-                    placeholder="Location"
-                    icon={LocationIcon}
                     value={inputValues.location}
+                    icon={LocationIcon}
                     fullWidth
                 />
                 <Textarea
@@ -124,4 +123,5 @@ const SettingsModal: React.FC<ISettingsModalProps> = ({ show, setShow, settings,
         </Modal>
     );
 };
-export default SettingsModal;
+
+export default memo(SettingsModal);

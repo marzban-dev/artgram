@@ -1,6 +1,12 @@
 export interface ISettingsModalProps {
     show: boolean;
     setShow: (show: boolean) => void;
-    settings: { [x: string]: string };
-    setSettings: (settings: { [x: string]: string }) => void;
+    userData: {
+        first_name: string;
+        last_name: string;
+        bio: string;
+        location: string;
+        link: string;
+    };
+    sendUpdateRequest: (newSettings: object) => void;
 }
