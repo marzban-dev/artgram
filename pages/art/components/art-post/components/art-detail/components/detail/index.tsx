@@ -2,21 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { IDetailProps } from "./detail.types";
 import { motion, Variants } from "framer-motion";
 import { toast } from "react-hot-toast";
+import TextOverflowAnimation from "components/text-overflow-animation";
 
 const Detail: React.FC<IDetailProps> = ({ icon: Icon, text, title }) => {
-    const textRef = useRef<HTMLDivElement>(null);
-
-    const [overflowAmount, setOverflowAmount] = useState(0);
-
-    useEffect(() => {
-        const textScrollWidth = textRef.current!.scrollWidth;
-        const textWidth = textRef.current!.clientWidth;
-
-        if (textWidth < textScrollWidth) {
-            setOverflowAmount(textScrollWidth - textWidth + 20);
-        }
-    }, []);
-
     const onTitleClicked = async () => {
         toast.dismiss();
         try {
@@ -35,39 +23,18 @@ const Detail: React.FC<IDetailProps> = ({ icon: Icon, text, title }) => {
         }
     };
 
-    const textVariants: Variants = {
-        scroll: {
-            x: [0, -overflowAmount],
-            transition: {
-                duration: 2,
-                repeat: Infinity,
-                repeatDelay: 2,
-                repeatType: "mirror",
-            },
-        },
-    };
-
     return (
-        <div className="flex justify-start items-center gap-2 rounded-[30px] pr-3 w-full">
+        <div className="flex w-full items-center justify-start gap-2 rounded-[30px] pr-3">
             <button
-                className="flex justify-center items-center gap-2 bg-[rgb(30,30,30)] rounded-[30px] px-2 min-[460px]:px-3 py-[2px] min-[460px]:py-1 whitespace-nowrap border-2 border-transparent hover:border-art-lighter transition-colors"
+                className="flex items-center justify-center gap-2 whitespace-nowrap rounded-[30px] border-2 border-transparent bg-[rgb(30,30,30)] px-2 py-[2px] transition-colors hover:border-art-lighter min-[460px]:px-3 min-[460px]:py-1"
                 onClick={onTitleClicked}
             >
                 <Icon className="h-[16px] fill-art-primary" />
-                <span className="text-[15px] min-[460px]:text-[16px] text-art-primary">{title}</span>
+                <span className="text-[15px] text-art-primary min-[460px]:text-[16px]">{title}</span>
             </button>
-            <div className="overflow-hidden relative">
-                <div className="bg-gradient-to-l from-[rgb(20,20,20)] to-transparent w-[10px] h-full absolute top-0 right-0 z-20" />
-                <motion.div
-                    variants={textVariants}
-                    animate="scroll"
-                    className="text-[rgba(200,200,200,1)] whitespace-nowrap px-2 text-[15px] min-[460px]:text-[16px]"
-                    ref={textRef}
-                >
-                    {text}
-                </motion.div>
-                <div className="bg-gradient-to-r from-[rgb(20,20,20)] to-transparent w-[10px] h-full absolute top-0 left-0 z-20" />
-            </div>
+            <TextOverflowAnimation className="px-2 text-[15px] text-[rgba(200,200,200,1)] min-[460px]:text-[16px]">
+                {text}
+            </TextOverflowAnimation>
         </div>
     );
 };
