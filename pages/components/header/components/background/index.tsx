@@ -1,8 +1,5 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Image from "next/image";
-import Test3Image from "public/assets/img/arts/12.jpg";
-import Test5Image from "public/assets/img/arts/16.jpg";
-import Test1Image from "public/assets/img/arts/21.jpg";
 import { useEffect, useRef, useState } from "react";
 
 const Background: React.FC = () => {
@@ -20,7 +17,7 @@ const Background: React.FC = () => {
                     activeSlideRef.current = activeSlideRef.current + 1;
                     setActiveSlide((prev) => prev + 1);
                 }
-            }, 10000);
+            }, 6000);
         }
     }, []);
 
@@ -47,36 +44,36 @@ const Background: React.FC = () => {
     };
 
     const renderSlides = () => {
-        return ["https://www.wga.hu/preview/l/leonardo/03/4lastsu1.jpg", Test3Image, Test5Image].map((img, i) => {
-            if (i + 1 === activeSlide) {
-                return (
-                    <motion.div
-                        // style={{ y: scrollYSpring }}
-                        className="relative h-[150%] w-full"
-                        variants={sliderVariants}
-                        initial="init"
-                        animate="show"
-                        exit="hide"
-                        key={i}
-                    >
-                        <Image
-                            src={img}
-                            alt="background"
-                            className="brightness-[0.7]"
-                            style={{ objectFit: "cover" }}
-                            priority
-                            fill
-                        />
-                    </motion.div>
-                );
-            }
+        return [
+            "https://www.wga.hu/art/l/leonardo/03/4lastsu1.jpg",
+            "https://www.wga.hu/art/g/gogh_van/09/arles41.jpg",
+            "https://www.wga.hu/art/m/michelan/3sistina/4ceilin2.jpg",
+        ].map((img, i) => {
+            return (
+                <motion.div
+                    className="absolute h-[150%] w-full"
+                    variants={sliderVariants}
+                    initial="init"
+                    animate={i + 1 === activeSlide ? "show" : "hide"}
+                    key={i}
+                >
+                    <Image
+                        src={img}
+                        alt="background"
+                        className="brightness-[0.7]"
+                        style={{ objectFit: "cover" }}
+                        priority
+                        fill
+                    />
+                </motion.div>
+            );
         });
     };
 
     return (
-        <div className="absolute h-full w-full">
+        <div className="absolute flex h-full w-full items-end justify-center">
             <div className="absolute z-20 h-full w-full bg-explore-search-gradient" />
-            <AnimatePresence mode="popLayout">{renderSlides()}</AnimatePresence>
+            {renderSlides()}
         </div>
     );
 };
