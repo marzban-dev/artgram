@@ -37,3 +37,9 @@ next-env.d.ts
 
 # webstorm
 .idea
+
+# next-pwa
+workbox-*.js
+sw.js
+sw.js.map
+fallback-*.js
