@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import Badge from "components/badge";
 import Modal from "components/modal";
 import SelectMenu from "components/select-menu";
@@ -17,6 +18,7 @@ import { setIsSearching, setOrderBy, setSearchBy, TOrderBy, TSearchBy } from "st
 import { IFilterModalProps } from "./filter-modal.types";
 
 const FilterModal: React.FC<IFilterModalProps> = ({ show, setShow }) => {
+    const queryClient = useQueryClient();
     const dispatch = useDispatch();
     const { refetch } = useSearchQuery();
     const search = useSelector((state: RootState) => state.explore.search);
@@ -24,6 +26,7 @@ const FilterModal: React.FC<IFilterModalProps> = ({ show, setShow }) => {
     const orderBy = useSelector((state: RootState) => state.explore.orderBy);
 
     const clearAndRefetch = () => {
+        queryClient.cancelQueries(["search"]);
         setTimeout(async () => {
             dispatch(setIsSearching(true));
             await refetch();
