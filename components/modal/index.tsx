@@ -67,7 +67,7 @@ const Modal: React.FC<IModalProps> = ({ title, show, onClose, children }) => {
                 {show && (
                     <div className="z-[900] fixed top-0 flex justify-center items-center w-full h-full [perspective:1000px]">
                         <motion.div
-                            className="z-[1000] min-h-[300px] max-h-[500px] w-full min-[520px]:w-[500px] rounded-t-[20px] rounded-b-none min-[520px]:rounded-[20px] bg-[rgb(20,20,20)] absolute max-[520px]:bottom-0 origin-bottom overflow-hidden no-flicker"
+                            className="z-[1000] min-h-[300px] max-h-[500px] w-full min-[520px]:w-[500px] rounded-t-[20px] rounded-b-none min-[520px]:rounded-[20px] bg-[rgb(20,20,20)] absolute max-[520px]:bottom-0 origin-bottom overflow-hidden no-flicker transform-gpu"
                             dragConstraints={{ bottom: 0, top: 0 }}
                             dragElastic={{ bottom: 0.4, top: 0.01 }}
                             dragTransition={{ bounceStiffness: 200, bounceDamping: 25 }}
