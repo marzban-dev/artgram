@@ -1,5 +1,6 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getUserProfile } from "apis/user.api";
+import { countries } from "constants/countries";
 import { useUserQuery } from "hooks/use-user";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
@@ -18,9 +19,9 @@ const UserPage: NextPage = () => {
     const profileInfo = useMemo(() => {
         if (userData) {
             return [
-                { icon: LocationIcon, text: userData.location },
+                { icon: LocationIcon, text: countries[userData.location] as string },
                 { icon: CalenderIcon, text: new Date(userData.date_joined).toDateString() },
-                { icon: LinkIcon, text: "https://pornhub.com" },
+                { icon: LinkIcon, text: userData.link },
             ];
         }
         return null;
