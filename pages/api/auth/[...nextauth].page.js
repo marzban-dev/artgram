@@ -3,7 +3,7 @@ import axios from "config/axios";
 import NextAuth from "next-auth";
 import CredentialsProviders from "next-auth/providers/credentials";
 
-export default NextAuth({
+const createOptions = (req) => ({
     secret: "SECRET",
     providers: [
         CredentialsProviders({
@@ -43,6 +43,8 @@ export default NextAuth({
     ],
     callbacks: {
         jwt: async ({ token, user }) => {
+
+            // Attach authorized user info to next-auth token
             if (user) {
                 const tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -52,11 +54,20 @@ export default NextAuth({
                 token.userInfo = user.info;
                 token.tokenExpiry = tomorrow.getTime();
             }
+
+            // Update userinfo inside token manually by calling /api/auth/session?update endpoint
+            if (req.url === "/api/auth/session?update") {
+                const response = await axios.get(`/user/get/${token.userInfo.username}/`);
+                const user = response.data;
+                token.userInfo = { ...token.userInfo, ...user };
+            }
+
             // Return previous token if the access token has not expired yet
             if (Date.now() < token.tokenExpiry) return token;
 
             // // Access token has expired, try to update it
             // return refreshAccessToken(token);
+            // }
         },
         session: async ({ session, token }) => {
             session.accessToken = token.accessToken;
@@ -70,3 +81,9 @@ export default NextAuth({
         signin: "/auth/signin",
     },
 });
+
+const nextAuthHandler = async (req, res) => {
+    return NextAuth(req, res, createOptions(req));
+};
+
+export default nextAuthHandler;
