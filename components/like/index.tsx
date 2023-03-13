@@ -1,5 +1,4 @@
-import classNames from "classnames";
-import { AnimatePresence, motion, useAnimation, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useLikeArtMutation } from "hooks/use-like-art";
 import { useUnlikeArtMutation } from "hooks/use-unlike-art";
 import { useSession } from "next-auth/react";
@@ -12,7 +11,6 @@ import { ILikeProps } from "./like.types";
 
 const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, onDislikeCallback }) => {
     const { status } = useSession();
-    const animationControl = useAnimation();
     const [isLiked, setIsLiked] = useState(initial);
     const { isLoading: isLikeLoading, isError: isLikeError, mutateAsync: likeArt } = useLikeArtMutation(id);
     const { isLoading: isUnlikeLoading, isError: isUnlikeError, mutateAsync: unlikeArt } = useUnlikeArtMutation(id);
@@ -22,15 +20,9 @@ const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, on
     }, [initial]);
 
     useEffect(() => {
-        if (isLikeError) {
-            setIsLiked((oldValue) => !oldValue);
-            animationControl.start("bobble");
-        }
-        if (isUnlikeError) {
-            setIsLiked((oldValue) => oldValue);
-            animationControl.start("bobble");
-        }
-    }, [isLikeError, isUnlikeError, animationControl]);
+        if (isLikeError) setIsLiked((oldValue) => !oldValue);
+        if (isUnlikeError) setIsLiked((oldValue) => oldValue);
+    }, [isLikeError, isUnlikeError]);
 
     const alertUserToLogin = () => {
         toast.dismiss();
@@ -40,7 +32,7 @@ const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, on
                 <Link
                     href="/auth/signin"
                     onClick={() => toast.dismiss()}
-                    className="text-blue-500 font-semibold pl-[6px]"
+                    className="pl-[6px] font-semibold text-blue-500"
                 >
                     signin
                 </Link>
@@ -53,7 +45,6 @@ const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, on
 
         if (status === "authenticated") {
             setIsLiked(!isLiked);
-            animationControl.start("bobble");
 
             if (isLiked) {
                 if (onDislikeCallback) onDislikeCallback();
@@ -64,12 +55,6 @@ const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, on
             }
         } else alertUserToLogin();
     };
-
-    const borderClasses = classNames({
-        "border-2 rounded-full absolute w-full h-full top-0 opacity-0 scale-0 z-20": 1,
-        "border-red-500": isLiked,
-        "border-[rgba(255,255,255,0.5)]": !isLiked,
-    });
 
     const iconVariants: Variants = {
         hide: {
@@ -104,21 +89,6 @@ const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, on
         },
     };
 
-    const borderVariants: Variants = {
-        bobble: {
-            opacity: [0.8, 0],
-            scale: [0, 4],
-            transition: {
-                opacity: {
-                    duration: 0.2,
-                },
-                scale: {
-                    duration: 0.3,
-                },
-            },
-        },
-    };
-
     return (
         <button onClick={onLike} className="relative">
             <AnimatePresence initial={false} mode="popLayout">
@@ -147,12 +117,6 @@ const Like: React.FC<ILikeProps> = ({ id, initial, size = 25, onLikeCallback, on
                     </motion.div>
                 )}
             </AnimatePresence>
-            <motion.div
-                variants={borderVariants}
-                className={borderClasses}
-                animate={animationControl}
-                onAnimationComplete={() => animationControl.set({ scale: 0 })}
-            />
         </button>
     );
 };
