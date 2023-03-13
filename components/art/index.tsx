@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
@@ -9,6 +10,7 @@ import ActionOverlay from "./components/action-overlay";
 import Placeholder from "./components/placeholder";
 
 const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) => {
+    const queryClient = useQueryClient();
     const router = useRouter();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLiked, setIsLiked] = useState(user_like);
@@ -23,7 +25,10 @@ const Art: React.FC<IArtProps> = ({ id, image, title, user_like, artObject }) =>
     const imageContainerRef = useRef<HTMLElement | null>(null);
     const isImageInView = useInView(imageContainerRef, { once: true });
 
-    const goToArtPage = () => router.push(`/art/${id}`);
+    const goToArtPage = () => {
+        queryClient.setQueryData(["art", id], () => artObject);
+        router.push(`/art/${id}`, undefined, { shallow: true });
+    };
 
     const imageWrapperClasses = classNames({
         "relative origin-top overflow-hidden rounded-[10px] min-[750px]:rounded-[15px] min-[1020px]:rounded-[25px] transition-all duration-700 ease-out": 1,
