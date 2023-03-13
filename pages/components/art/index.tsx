@@ -1,29 +1,21 @@
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { getArt } from "apis/arts.api";
 import BackButton from "components/back-button";
 import { useArtQuery } from "hooks/use-art";
 import useHideOverflow from "hooks/use-hide-overflow";
 import PageTransition from "layouts/page-transition";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Cookies from "universal-cookie";
-import { TArtPageUrlParams } from "./art.types";
+import { IArtProps } from "./art.types";
 import Arts from "./components/arts";
 import Background from "./components/background";
 import Fullscreen from "./components/fullscreen";
 
-const ArtPage: NextPage = () => {
-    const { query } = useRouter();
-    const { data: art } = useArtQuery(Number(query.id));
+const ArtPage: React.FC<IArtProps> = ({ id }) => {
+    const { data: art } = useArtQuery(id);
+    
     const [windowHeight, setWindowHeight] = useState(0);
     useHideOverflow();
 
     useEffect(() => {
-        const cookies = new Cookies();
-        cookies.remove("is-art-prefetched", { path: "/" });
-
         const divElement = document.querySelector("#full-height-element") as HTMLDivElement;
 
         if (window.innerWidth < 520) {
@@ -49,42 +41,13 @@ const ArtPage: NextPage = () => {
                                 <BackButton />
                                 <h2 className="text-[18px] text-white">Arts</h2>
                             </div>
-                            <Arts id={Number(query.id)} art={art} containerHeight={windowHeight} />
+                            <Arts id={id} art={art} containerHeight={windowHeight} />
                         </div>
                     )}
                 </main>
             )}
         </PageTransition>
     );
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-    return {
-        fallback: "blocking",
-        paths: [],
-    };
-};
-
-export const getStaticProps: GetStaticProps<any, TArtPageUrlParams> = async (context) => {
-    const queryClient = new QueryClient();
-
-    const artId = Number(context.params!.id);
-
-    try {
-        const art = await getArt({ id: artId });
-        await queryClient.prefetchQuery(["art", artId], () => art);
-
-        return {
-            revalidate: 60,
-            props: {
-                dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-            },
-        };
-    } catch (e) {
-        return {
-            notFound: true,
-        };
-    }
 };
 
 export default ArtPage;
