@@ -104,5 +104,5 @@ export const seenNotifications = async (params: ISeenNotificationsRequestParams)
 };
 
 export const updateSettings = async (params: IUpdateSettingsRequestParams) => {
-    await axios.patch("/user/my/myinfo/", params);
+    await axios.patch("/auth/users/me/", params);
 };

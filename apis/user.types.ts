@@ -8,8 +8,8 @@ export interface IUser {
     first_name: string;
     last_name: string;
     username: string;
-    profile_img: string;
-    header_img: string;
+    profile_img_url: string;
+    header_img_url: string;
     date_joined: string;
     bio: string;
     link: string;
@@ -24,7 +24,7 @@ export interface IUser {
 export interface ISimpleUser {
     username: string;
     first_name: string;
-    profile_img: string;
+    profile_img_url: string;
     following: boolean;
 }
 
