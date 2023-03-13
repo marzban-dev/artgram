@@ -10,23 +10,18 @@ const LikesCount: React.FC<ILikesCountProps> = ({ id, initial }) => {
     const isInView = useInView(containerRef);
     const { data: count } = useCountQuery(["art-likes", id], initial, { id }, isInView);
 
-    const containerStyle: React.CSSProperties = {
-        opacity: count !== 0 ? 1 : 0,
-    };
-
-    return (
+    return count !== 0 ? (
         <Fragment>
             <div
-                className="text-[16px] text-[rgb(150,150,150)] font-semibold cursor-pointer"
+                className="cursor-pointer text-[16px] font-semibold text-[rgb(150,150,150)]"
                 onClick={() => setShow(true)}
-                style={containerStyle}
                 ref={containerRef}
             >
                 <span className="mr-[6px] text-white">{count}</span>
                 <span>Likes</span>
             </div>
-            <Likes id={id} show={show} setShow={setShow} />
+            <Likes id={id} show={show} setShow={setShow} />{" "}
         </Fragment>
-    );
+    ) : null;
 };
 export default LikesCount;
