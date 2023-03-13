@@ -2,7 +2,7 @@ import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
 import { NextPage } from "next";
 import Head from "next/head";
-import Navbar from "./components/navbar";
+import Navbar from "components/navbar";
 
 const OfflinePage: NextPage = () => {
     return (
@@ -14,9 +14,7 @@ const OfflinePage: NextPage = () => {
             <main className="h-screen">
                 <Navbar />
                 <PagePadding>
-                   <div className="bg-red-500 text-white">
-                   You are in offline page
-                   </div>
+                    <div className="bg-red-500 text-white">You are in offline page</div>
                 </PagePadding>
             </main>
         </PageTransition>
