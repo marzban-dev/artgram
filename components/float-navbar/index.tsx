@@ -14,7 +14,7 @@ const FloatNavbar: React.FC = () => {
     const { status, data } = useSession();
     const [showFloatNavbar, setShowFloatNavbar] = useState(false);
 
-    const isArtPage = router.pathname.includes("/art/");
+    const isArtPage = router.query.slug;
 
     const shouldRenderAtFirst = useMemo(() => {
         // home page
