@@ -15,7 +15,7 @@ const Header: React.FC<IHeaderProps> = ({ title, artist, year }) => {
                 />
             </Link>
             <div className="flex max-w-[calc(100%_-_100px)] flex-col items-start justify-start">
-                <h2 className="w-full overflow-hidden text-ellipsis text-[16px] text-white min-[800px]:text-[20px]">
+                <h2 className="w-full whitespace-nowrap overflow-hidden text-ellipsis text-[16px] text-white min-[800px]:text-[20px]">
                     {title}
                 </h2>
                 <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-[12px] text-[rgb(150,150,150)] min-[800px]:text-[15px]">
