@@ -1,13 +1,12 @@
 import PagePadding from "layouts/page-padding";
 import PageTransition from "layouts/page-transition";
-import { NextPage } from "next";
 import Head from "next/head";
-import Navbar from "./components/navbar";
 import Header from "./components/header";
+import Navbar from "./components/navbar";
 import ShowExplore from "./components/show-explore";
 import ShowSearch from "./components/show-search";
 
-const ExplorePage: NextPage = () => {
+const Explore: React.FC = () => {
     return (
         <PageTransition>
             <Head>
@@ -26,4 +25,4 @@ const ExplorePage: NextPage = () => {
     );
 };
 
-export default ExplorePage;
+export default Explore;
