@@ -17,9 +17,13 @@ const FloatNavbar: React.FC = () => {
     const isArtPage = router.pathname.includes("/art/");
 
     const shouldRenderAtFirst = useMemo(() => {
-        const routes = ["/art", "/profile"];
-        return routes.some((route) => router.pathname.includes(route));
-    }, [router.pathname]);
+        // home page
+        if (router.pathname === "/[[...slug]]" && !router.query.slug) return false;
+        // art page
+        if (router.query.slug) return true;
+        // profile page
+        return router.pathname.includes("/profile");
+    }, [router.pathname, router.query]);
 
     useEffect(() => {
         if (shouldRenderAtFirst) setShowFloatNavbar(true);
