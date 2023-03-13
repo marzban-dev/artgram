@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 
-const createAuthHeader = async () => {
+const createAuthHeader = async (req?: any) => {
     const session = await getSession();
 
     if (session) {
