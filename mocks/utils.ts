@@ -54,9 +54,9 @@ export const generateMockUser = (username?: string): IUser => {
         date_joined: faker.date.recent().toString(),
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
-        header_img: faker.internet.url(),
+        header_img_url: faker.internet.url(),
         link: faker.internet.url(),
-        profile_img: faker.internet.url(),
+        profile_img_url: faker.internet.url(),
         location: faker.address.country(),
         artist_followings_count: faker.datatype.number({ min: 0, max: 500 }),
     };
@@ -66,7 +66,7 @@ export const generateMockFollower = (username?: string): ISimpleUser => {
     return {
         following: faker.datatype.boolean(),
         first_name: faker.name.firstName(),
-        profile_img: faker.internet.url(),
+        profile_img_url: faker.internet.url(),
         username: username ? username : faker.internet.userName(),
     };
 };
