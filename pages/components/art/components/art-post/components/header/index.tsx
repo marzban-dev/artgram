@@ -1,5 +1,4 @@
 import Avatar from "components/avatar";
-import TextOverflowAnimation from "components/text-overflow-animation";
 import Link from "next/link";
 import { IHeaderProps } from "./header.types";
 
@@ -17,12 +16,10 @@ const Header: React.FC<IHeaderProps> = ({ title, artist, year }) => {
             </Link>
             <div className="flex max-w-[calc(100%_-_100px)] flex-col items-start justify-start">
                 <h2 className="w-full overflow-hidden text-ellipsis text-[16px] text-white min-[800px]:text-[20px]">
-                    <TextOverflowAnimation className="px-2">{title}</TextOverflowAnimation>
+                    {title}
                 </h2>
                 <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-[12px] text-[rgb(150,150,150)] min-[800px]:text-[15px]">
-                    <TextOverflowAnimation className="px-2">
-                        <Link href={route}>{artist.name}</Link>- <span>{year}</span>
-                    </TextOverflowAnimation>
+                    <Link href={route}>{artist.name}</Link>- <span>{year}</span>
                 </div>
             </div>
         </div>
